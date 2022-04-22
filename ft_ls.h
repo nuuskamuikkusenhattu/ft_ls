@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/04/21 17:03:49 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/04/22 18:19:38 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 //for fatabase operations
 #include <sys/xattr.h>
 //for listxattr/getxattr
-
+#include "libft/libft.h"
 
 
 typedef struct s_flags

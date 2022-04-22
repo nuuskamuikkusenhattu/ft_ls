@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:26:53 by spuustin          #+#    #+#             */
-/*   Updated: 2022/04/21 16:53:56 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/04/22 18:19:46 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,23 @@ the operands by lexicographical order.
 
 #include "ft_ls.h"
 
-int	ft_ls()
+int	main(void)
 {
-	t_flags *flags;
+	// t_flags *flags;
 
-	flags = (t_flags *)malloc(sizeof(t_flags));
-	if (!flags)
-		exit(-1);
+	// flags = (t_flags *)malloc(sizeof(t_flags));
+	// if (!flags)
+	// 	exit(-1);
+	DIR *d;
+	struct dirent *dir;
+	d = opendir(".");
+	if (d)
+	{
+		while ((dir = readdir(d)) != NULL)
+		{
+			ft_printf("%s\n", dir->d_name);
+		}
+		closedir(d);
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:26:53 by spuustin          #+#    #+#             */
-/*   Updated: 2022/05/02 16:10:50 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/05/02 16:39:18 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,15 +119,20 @@ int		main(int argc, char **argv)
 	if (!build)
 		exit(-1);
 	set_build(build);
-	ls_parser(argv[1], build);
-	// d = opendir(".");
-	// if (d)
-	// {
-	// 	while ((dir = readdir(d)) != NULL)
-	// 	{
-	// 		ft_printf("%s\n", dir->d_name);
-	// 	}
-	// 	closedir(d);
-	// }
+	if (argc > 1)
+		ls_parser(argv[1], build);
+	else
+	{
+	d = opendir(".");
+	if (d)
+	{
+		while ((dir = readdir(d)) != NULL)
+		{
+			ft_printf("%d\n", dir->d_type); //returns 4 if folder, 8 if file
+			ft_printf("%s\n", dir->d_name);
+		}
+		closedir(d);
+	}
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/04/22 18:19:38 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/05/02 14:08:38 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 //for listxattr/getxattr
 #include "libft/libft.h"
 
+#define FLAGS = "lRrat"
 
 typedef struct s_flags
 {

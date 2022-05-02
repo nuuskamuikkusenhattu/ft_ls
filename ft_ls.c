@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:26:53 by spuustin          #+#    #+#             */
-/*   Updated: 2022/04/22 18:19:46 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/05/02 16:10:50 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,82 @@ the operands by lexicographical order.
 
 #include "ft_ls.h"
 
-int	main(void)
+int	is_valid_char(char c)
 {
-	// t_flags *flags;
+	char *valids;
 
-	// flags = (t_flags *)malloc(sizeof(t_flags));
-	// if (!flags)
-	// 	exit(-1);
+	valids = "laRrt";
+	while (*valids)
+	{
+		if (c == *valids)
+			return (1);
+		valids++;
+	}
+	return (0);
+}
+
+void	set_build(t_flags *b)
+{
+	b->a = 0;
+	b->l = 0;
+	b->R = 0;
+	b->r = 0;
+	b->t = 0;
+}
+
+// checks if flag is lRrat and sets its value to be 1
+static void	set_flag(char c, t_flags *b)
+{
+	ft_printf("im here to set the flag. %c\n", c);
+	if (c == 'l')
+		b->l = 1;
+	if (c == 'R')
+		b->R = 1;
+	if (c == 'r')
+		b->r = 1;
+	if (c == 'a')
+		b->a = 1;
+	if (c == 't')
+		b->t = 1;
+}
+static void	ls_parser(char *str, t_flags *b)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i++] == '-')
+		{
+			while (str[i] && is_valid_char(str[i]) == 1)
+			{
+				set_flag(str[i], b);
+				i++;
+			}
+		}
+		i++;
+	}
+}
+
+int		main(int argc, char **argv)
+{
+	t_flags *build;
 	DIR *d;
 	struct dirent *dir;
-	d = opendir(".");
-	if (d)
-	{
-		while ((dir = readdir(d)) != NULL)
-		{
-			ft_printf("%s\n", dir->d_name);
-		}
-		closedir(d);
-	}
+
+	build = (t_flags *)malloc(sizeof(t_flags));
+	if (!build)
+		exit(-1);
+	set_build(build);
+	ls_parser(argv[1], build);
+	// d = opendir(".");
+	// if (d)
+	// {
+	// 	while ((dir = readdir(d)) != NULL)
+	// 	{
+	// 		ft_printf("%s\n", dir->d_name);
+	// 	}
+	// 	closedir(d);
+	// }
 	return (0);
 }

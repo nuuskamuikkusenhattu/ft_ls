@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:26:53 by spuustin          #+#    #+#             */
-/*   Updated: 2022/05/02 16:39:18 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/05/05 15:45:43 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ the file sizes is output on a line before the long listing.
 -a = include directory entries whose names begin with a dot '.'
 -r = reverse the order of the sort to reverse lexicographical order or the 
 oldest entries first (or largest files last, if combined with sort by size)
--t = sort by time modifie (most recently modified first) before sorting
+-t = sort by time modified (most recently modified first) before sorting
 the operands by lexicographical order.
 */
 
@@ -73,6 +73,7 @@ void	set_build(t_flags *b)
 	b->R = 0;
 	b->r = 0;
 	b->t = 0;
+	b->file_count = 0;
 }
 
 // checks if flag is lRrat and sets its value to be 1
@@ -109,30 +110,32 @@ static void	ls_parser(char *str, t_flags *b)
 	}
 }
 
+int count_files(t_flags *b)
+{
+	struct 	dirent *dir;
+	DIR 	*d;
+	int		c;
+
+	d = opendir("."); //protect
+	while ((dir = readdir(d)) != NULL)
+		b->file_count++;
+	ft_printf("number of all files is: %d\n", b->file_count);
+	return (b->file_count);
+}
+
 int		main(int argc, char **argv)
 {
 	t_flags *build;
-	DIR *d;
-	struct dirent *dir;
 
 	build = (t_flags *)malloc(sizeof(t_flags));
 	if (!build)
 		exit(-1);
 	set_build(build);
-	if (argc > 1)
-		ls_parser(argv[1], build);
-	else
-	{
-	d = opendir(".");
-	if (d)
-	{
-		while ((dir = readdir(d)) != NULL)
-		{
-			ft_printf("%d\n", dir->d_type); //returns 4 if folder, 8 if file
-			ft_printf("%s\n", dir->d_name);
-		}
-		closedir(d);
-	}
-	}
+	count_files(build);
+	create_list(build);
+	print_list(build);
+	sort_alphabetically(build);
+	ft_printf("AAAAAAAAAA\n");
+	print_list(build);
 	return (0);
 }

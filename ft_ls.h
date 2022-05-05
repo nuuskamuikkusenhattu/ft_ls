@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/05/02 14:08:38 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/05/05 15:29:26 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,15 @@ typedef struct s_flags
 	int R;
 	int a;
 	int t;
+	int	file_count;
+	char **list;
 }	t_flags;
+
+//list
+void	print_list(t_flags *b);
+void	print_files(t_flags *b);
+void	create_list(t_flags *b);
+void	sort_alphabetically(t_flags *b);
+
 
 #endif

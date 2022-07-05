@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/21 13:26:53 by spuustin          #+#    #+#             */
-/*   Updated: 2022/05/05 15:45:43 by spuustin         ###   ########.fr       */
+/*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
+/*   Updated: 2022/07/05 18:23:59 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,90 +52,32 @@ the operands by lexicographical order.
 
 #include "ft_ls.h"
 
-int	is_valid_char(char c)
+static void set_build(t_ls *build)
 {
-	char *valids;
+	build->file_count = 0;
+	build->list = NULL;
+	build->a = 0;
+	build->l = 0;
+	build->t = 0;
+	build->r = 0;
+	build->R = 0;
+	build->flagsParsed = 0;
+}
 
-	valids = "laRrt";
-	while (*valids)
+// starts the program, creates a struct, sets all values to be 0
+// 
+
+int main(int argc, char **argv)
+{
+	t_ls *build;
+
+	if (argc > 1) // argc == 1 myos ok!! 
 	{
-		if (c == *valids)
-			return (1);
-		valids++;
-	}
-	return (0);
-}
-
-void	set_build(t_flags *b)
-{
-	b->a = 0;
-	b->l = 0;
-	b->R = 0;
-	b->r = 0;
-	b->t = 0;
-	b->file_count = 0;
-}
-
-// checks if flag is lRrat and sets its value to be 1
-static void	set_flag(char c, t_flags *b)
-{
-	ft_printf("im here to set the flag. %c\n", c);
-	if (c == 'l')
-		b->l = 1;
-	if (c == 'R')
-		b->R = 1;
-	if (c == 'r')
-		b->r = 1;
-	if (c == 'a')
-		b->a = 1;
-	if (c == 't')
-		b->t = 1;
-}
-static void	ls_parser(char *str, t_flags *b)
-{
-	int i;
-
-	i = 0;
-	while (str[i] != '\0')
-	{
-		if (str[i++] == '-')
-		{
-			while (str[i] && is_valid_char(str[i]) == 1)
-			{
-				set_flag(str[i], b);
-				i++;
-			}
-		}
-		i++;
-	}
-}
-
-int count_files(t_flags *b)
-{
-	struct 	dirent *dir;
-	DIR 	*d;
-	int		c;
-
-	d = opendir("."); //protect
-	while ((dir = readdir(d)) != NULL)
-		b->file_count++;
-	ft_printf("number of all files is: %d\n", b->file_count);
-	return (b->file_count);
-}
-
-int		main(int argc, char **argv)
-{
-	t_flags *build;
-
-	build = (t_flags *)malloc(sizeof(t_flags));
+	build = (t_ls *)malloc(sizeof(t_ls));
 	if (!build)
 		exit(-1);
 	set_build(build);
-	count_files(build);
-	create_list(build);
-	print_list(build);
-	sort_alphabetically(build);
-	ft_printf("AAAAAAAAAA\n");
-	print_list(build);
-	return (0);
+	parser(argc, argv, build);
+	}
+	return (0);	
 }

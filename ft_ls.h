@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/05/05 15:29:26 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/05 18:23:16 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@
 //for listxattr/getxattr
 #include "libft/libft.h"
 
-#define FLAGS = "lRrat"
+#define FLAGS "lRrat"
 
-typedef struct s_flags
+typedef struct s_ls
 {
 	int	l;
 	int r;
@@ -43,13 +43,17 @@ typedef struct s_flags
 	int t;
 	int	file_count;
 	char **list;
-}	t_flags;
+	int flagsParsed;
+}	t_ls;
+
+//parser
+void	parser(int argc, char **argv, t_ls *build);
 
 //list
-void	print_list(t_flags *b);
-void	print_files(t_flags *b);
-void	create_list(t_flags *b);
-void	sort_alphabetically(t_flags *b);
+void	print_list(t_ls *b);
+void	print_files(t_ls *b);
+void	create_list(t_ls *b);
+void	sort_alphabetically(t_ls *b);
 
 
 #endif

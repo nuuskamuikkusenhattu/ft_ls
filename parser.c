@@ -6,11 +6,25 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:34:08 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/05 15:32:35 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/05 18:25:55 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+static void	set_flag(t_ls *build, char c)
+{
+	if (c == 'l')
+		build->l = 1;
+	if (c == 'a')
+		build->a = 1;
+	if (c == 't')
+		build->t = 1;
+	if (c == 'r')
+		build->r = 1;
+	if (c == 'R')
+		build->R = 1;
+}
 
 static int	err_option(char *str)
 {
@@ -31,15 +45,24 @@ checks that a arguments-string contains only one dash (-),
 and only wanted chars
 returns 1 if all good, 0 if invalid argument
 */
-static int	validate_flags(char *str)
+static int	validate_flags(char *str, t_ls *build)
 {
 	int i;
 
 	i = 0;
-	if (!str || str[i] != '-' || !str[i + 1])
+	if ((str[i] != '-' || !str[i + 1]) && build->flagsParsed == 0)
 	{
+		//check if file or directory
+		//if not:
 		ft_printf("ls: %s: No such file or directory\n", str);
-		return (0);
+		//if yes:
+		//build->flagsParsed == 1
+		return (1);
+	}
+	else if (str[i] == '-' && str[i + 1] == '-' && !str[i + 2])
+	{
+		build->flagsParsed = 1;
+		return (1);
 	}
 	else
 	{
@@ -47,6 +70,7 @@ static int	validate_flags(char *str)
 		{
 			if (ft_strchr(FLAGS, str[i]) == NULL)
 				return (-1);
+			set_flag(build, str[i]);
 		}
 	}
 	return (1);
@@ -60,14 +84,13 @@ void	parser(int argc, char **argv, t_ls *build)
 
 	a = 1;
 	ret = 1;
-	while (a < argc && ret == 1)
+	while (a < argc && ret == 1 && build->flagsParsed == 0)
 	{
-		ret = validate_flags(argv[a]);
+		ret = validate_flags(argv[a], build);
 		if (ret == -1)
 		{
 			ft_printf("ls: illegal option -- %c\n", argv[a][err_option(argv[a])]);
-			ft_printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] \
-			[file ...]\n");
+			ft_printf("usage: ls [-altrR] [file ...]\n");
 		}
 		a++;
 	}

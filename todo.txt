@@ -1,0 +1,14 @@
+ls --
+
+ls author hi
+ls hi author
+<- tulostuvat samassa jarjestyksessa == lista filuista pitaa olla olemassa ennen
+mitaan tulostusta
+
+ls mom hi author
+ls hi mom author
+tulostuvat samassa jarjestyksessa
+-> argumenttien jarjestamine
+-> tarkistus loytyyko listalta
+-> ne jotka ei loydy printataan ensin, aakkosjarjestyksessa
+-> ne jotka loytyy printataan tokana, aakkoosjarjestyksessa

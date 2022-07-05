@@ -6,11 +6,25 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:34:08 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/05 15:08:25 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/05 15:32:35 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+static int	err_option(char *str)
+{
+	int		i;
+	
+	i = 1;
+	while (str[i])
+	{
+		if (ft_strchr(FLAGS, str[i]) == NULL)
+			return (i);
+		i++;
+	}
+	return (-1);
+}
 
 /*
 checks that a arguments-string contains only one dash (-),
@@ -22,18 +36,17 @@ static int	validate_flags(char *str)
 	int i;
 
 	i = 0;
-	if (str[i++] != '-')
+	if (!str || str[i] != '-' || !str[i + 1])
 	{
 		ft_printf("ls: %s: No such file or directory\n", str);
 		return (0);
 	}
 	else
 	{
-		while (str[i])
+		while (str[++i])
 		{
 			if (ft_strchr(FLAGS, str[i]) == NULL)
 				return (-1);
-			i++;
 		}
 	}
 	return (1);
@@ -46,17 +59,16 @@ void	parser(int argc, char **argv, t_ls *build)
 	int		ret;
 
 	a = 1;
-	printf("in parser\n");
-	while (a < argc)
+	ret = 1;
+	while (a < argc && ret == 1)
 	{
 		ret = validate_flags(argv[a]);
 		if (ret == -1)
 		{
-			ft_printf("ls: illegal option -- %c\n", argv[a][0]);
-			ft_printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] [file ...]\n");
+			ft_printf("ls: illegal option -- %c\n", argv[a][err_option(argv[a])]);
+			ft_printf("usage: ls [-ABCFGHLOPRSTUWabcdefghiklmnopqrstuwx1] \
+			[file ...]\n");
 		}
-		else if (ret == 1)
-			printf("all good everything");
 		a++;
 	}
 }

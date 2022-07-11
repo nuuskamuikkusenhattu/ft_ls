@@ -35,20 +35,44 @@ void	sort_alphabetically(t_ls *b)
 	}
 }
 
-void	create_lists(t_ls *b)
+void	create_lists(char **argv, t_ls *b)
 {
 	int		i;
-	struct dirent *dir;
+	int		exists;
 	struct stat path;
-	DIR		*d;
 
-	i = 0;
-	d = opendir("."); //probably send path as param
-	while((dir = readdir(d)) != NULL)
+	i = 1;
+	while(argv[i])
 	{
-		printf("%s\n", dir->d_name);
-		printf("type %d\n", stat(dir->d_name, &path));
+		exists = stat(argv[i], &path);
+		if (exists == -1)
+		{
+			b->non_exists[b->ne_count] = ft_strnew(ft_strlen(argv[i]));
+			if (!b->non_exists[b->ne_count])
+				exit(1);
+			b->non_exists[b->ne_count] = argv[i];
+			b->ne_count++;
+		}
+		if (S_ISREG(path.st_mode) == 1 && exists != -1)
+		{
+			b->file_list[b->file_count] = ft_strnew(ft_strlen(argv[i]));
+			if (!b->file_list[b->file_count])
+				exit(1);
+			b->file_list[b->file_count] = argv[i];
+			b->file_count++;
+		}
+		if (S_ISDIR(path.st_mode) == 1 && exists != -1)
+		{
+			b->dir_list[b->dir_count] = ft_strnew(ft_strlen(argv[i]));
+			if (!b->dir_list[b->dir_count])
+				exit(1);
+			b->dir_list[b->dir_count] = argv[i];
+			b->dir_count++;
+		}
+		i++;
 	}
-	closedir(d);
-	b = NULL;
+	b->non_exists[b->ne_count] = NULL;
+	test_print_list(b, 'n');
+	test_print_list(b, 'f');
+	test_print_list(b, 'd');
 }

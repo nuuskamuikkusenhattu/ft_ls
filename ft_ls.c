@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/11 16:26:49 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/11 17:11:48 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,22 @@ the operands by lexicographical order.
 
 #include "ft_ls.h"
 
+// sets all values of a struct to be 0 by default
+
 static void set_build(t_ls *build)
 {
+	build->file_list = (char **)malloc(sizeof(char *) * 32000);
+	if (!build->file_list)
+		exit(1);
 	build->file_count = 0;
-	build->file_list = NULL;
-	build->folder_list == NULL;
+	build->dir_list = (char **)malloc(sizeof(char *) * 32000);
+	if (!build->dir_list)
+		exit(1);
+	build->dir_count = 0;
+	build->non_exists = (char **)malloc(sizeof(char *) * 32000);
+	if (!build->non_exists)
+		exit(1);
+	build->ne_count = 0;
 	build->a = 0;
 	build->l = 0;
 	build->t = 0;
@@ -65,20 +76,17 @@ static void set_build(t_ls *build)
 	build->flagsParsed = 0;
 }
 
-// starts the program, creates a struct, sets all values to be 0
-// 
-
 int main(int argc, char **argv)
 {
 	t_ls *build;
 
-	if (argc > 0) // argc == 1 myos ok!! 
+	if (argc > 1) // argc == 1 myos ok!! 
 	{
 		build = (t_ls *)malloc(sizeof(t_ls));
 		if (!build)
 			exit(1);
 		set_build(build);
-		create_lists(build);
+		create_lists(argv, build);
 		//print_list(build);
 		//parser(argc, argv, build);
 	}

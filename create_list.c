@@ -12,24 +12,20 @@
 
 #include "ft_ls.h"
 
-void	sort_alphabetically(t_ls *b)
+void	sort_alphabetically(char **list)
 {
 	int		i;
 	char	*temp;
 
 	i = 0;
-	while (i < b->file_count - 1)
+	while (list[i] && list[i + 1])
 	{
-		if (b->file_list[i][0] != '.')
+		if (ft_strcmp(list[i], list[i + 1]) > 0)
 		{
-			//ft_printf("value between %s and %s is %d\n", b->file_list[i], b->file_list[i + 1], ft_strcmp(b->file_list[i], b->file_list[i + 1]));
-			if (ft_strcmp(b->file_list[i], b->file_list[i + 1]) > 0)
-			{
-				temp = b->file_list[i];
-				b->file_list[i] = b->file_list[i + 1];
-				b->file_list[i + 1] = temp;
-				i-= 2;
-			}
+			temp = list[i];
+			list[i] = list[i + 1];
+			list[i + 1] = temp;
+			i-= 2;
 		}
 		i++;
 	}
@@ -72,7 +68,7 @@ void	create_lists(char **argv, t_ls *b)
 		i++;
 	}
 	b->non_exists[b->ne_count] = NULL;
-	test_print_list(b, 'n');
-	test_print_list(b, 'f');
-	test_print_list(b, 'd');
+	// test_print_list(b, 'n'); //debug
+	// test_print_list(b, 'f'); //debug
+	// test_print_list(b, 'd'); //debug
 }

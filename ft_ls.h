@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/11 17:31:58 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/11 19:06:33 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,11 @@ typedef struct s_ls
 void	parser(int argc, char **argv, t_ls *build);
 
 //list
-void	print_list(t_ls *b);
-void	print_files(t_ls *b);
 void	create_lists(char **argv, t_ls *b);
-void	sort_alphabetically(t_ls *b);
+void	sort_alphabetically(char **list);
+
+//print
+void	print_all(t_ls *build);
 
 //testing
 void test_print_list(t_ls *b, char c);

@@ -6,44 +6,29 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/11 14:56:23 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/11 19:06:23 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	print_list(t_ls *b)
+static void	print_non_existings(t_ls *b)
 {
 	int		i;
 
-	ft_printf("size: %d\n", b->file_count);
 	i = 0;
-	while (i < b->file_count)
+	while (b->non_exists[i])
 	{
-		ft_printf("%s\n", b->file_list[i]);
+		ft_printf("ls: %s: No such file or directory\n", b->non_exists[i]);
 		i++;
 	}
 }
 
-static void	print_all(t_ls *b, char *path)
+void	print_all(t_ls *b)
 {
-	struct 	dirent *dir;
-	DIR 	*d;
-	int		c;
-
-	c = 0;
-	d = opendir(path);
-	while (c < b->file_count)
+	if (b->ne_count > 0)
 	{
-		dir = readdir(d);
-		printf("%s\n", dir->d_name);
-		c++;
+		sort_alphabetically(b->non_exists);
+		print_non_existings(b);
 	}
-}
-
-void	print_files(t_ls *b)
-{
-	b->a = 1;
-	if (b->a == 1)
-		print_all(b, ".");	
 }

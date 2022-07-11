@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/11 17:11:48 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/11 18:17:45 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,24 @@ int main(int argc, char **argv)
 {
 	t_ls *build;
 
-	if (argc > 1) // argc == 1 myos ok!! 
+	build = (t_ls *)malloc(sizeof(t_ls));
+	if (!build)
+		exit(1);
+	if (argc > 1)
 	{
-		build = (t_ls *)malloc(sizeof(t_ls));
-		if (!build)
-			exit(1);
 		set_build(build);
 		create_lists(argv, build);
 		//print_list(build);
 		//parser(argc, argv, build);
 	}
-	argv = NULL;
-	return (0);	
+	else if (argc == 1)
+	{
+		/*
+		call for a parser
+		create a list of all files in current dir
+		print
+		*/
+	}
+	print_all(build);
+	exit(0);
 }

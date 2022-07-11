@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/05 18:23:59 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/11 16:26:49 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ the operands by lexicographical order.
 static void set_build(t_ls *build)
 {
 	build->file_count = 0;
-	build->list = NULL;
+	build->file_list = NULL;
+	build->folder_list == NULL;
 	build->a = 0;
 	build->l = 0;
 	build->t = 0;
@@ -71,13 +72,16 @@ int main(int argc, char **argv)
 {
 	t_ls *build;
 
-	if (argc > 1) // argc == 1 myos ok!! 
+	if (argc > 0) // argc == 1 myos ok!! 
 	{
-	build = (t_ls *)malloc(sizeof(t_ls));
-	if (!build)
-		exit(-1);
-	set_build(build);
-	parser(argc, argv, build);
+		build = (t_ls *)malloc(sizeof(t_ls));
+		if (!build)
+			exit(1);
+		set_build(build);
+		create_lists(build);
+		//print_list(build);
+		//parser(argc, argv, build);
 	}
+	argv = NULL;
 	return (0);	
 }

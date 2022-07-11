@@ -12,7 +12,7 @@
 
 #include "ft_ls.h"
 
-void	sort_alphabetically(t_flags *b)
+void	sort_alphabetically(t_ls *b)
 {
 	int		i;
 	char	*temp;
@@ -20,14 +20,14 @@ void	sort_alphabetically(t_flags *b)
 	i = 0;
 	while (i < b->file_count - 1)
 	{
-		if (b->list[i][0] != '.')
+		if (b->file_list[i][0] != '.')
 		{
-			//ft_printf("value between %s and %s is %d\n", b->list[i], b->list[i + 1], ft_strcmp(b->list[i], b->list[i + 1]));
-			if (ft_strcmp(b->list[i], b->list[i + 1]) > 0)
+			//ft_printf("value between %s and %s is %d\n", b->file_list[i], b->file_list[i + 1], ft_strcmp(b->file_list[i], b->file_list[i + 1]));
+			if (ft_strcmp(b->file_list[i], b->file_list[i + 1]) > 0)
 			{
-				temp = b->list[i];
-				b->list[i] = b->list[i + 1];
-				b->list[i + 1] = temp;
+				temp = b->file_list[i];
+				b->file_list[i] = b->file_list[i + 1];
+				b->file_list[i + 1] = temp;
 				i-= 2;
 			}
 		}
@@ -35,19 +35,20 @@ void	sort_alphabetically(t_flags *b)
 	}
 }
 
-void	create_list(t_flags *b)
+void	create_lists(t_ls *b)
 {
 	int		i;
 	struct dirent *dir;
+	struct stat path;
 	DIR		*d;
+
 	i = 0;
 	d = opendir("."); //probably send path as param
-	while(i < b->file_count)
+	while((dir = readdir(d)) != NULL)
 	{
-		dir = readdir(d);
-		b->list[i] = dir->d_name;
-		i++;
+		printf("%s\n", dir->d_name);
+		printf("type %d\n", stat(dir->d_name, &path));
 	}
 	closedir(d);
-	b->list[i] = NULL;
+	b = NULL;
 }

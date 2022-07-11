@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/05 18:23:16 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/11 16:26:37 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ typedef struct s_ls
 	int a;
 	int t;
 	int	file_count;
-	char **list;
+	char **file_list;
+	char **folder_list;
 	int flagsParsed;
 }	t_ls;
 
@@ -52,7 +53,7 @@ void	parser(int argc, char **argv, t_ls *build);
 //list
 void	print_list(t_ls *b);
 void	print_files(t_ls *b);
-void	create_list(t_ls *b);
+void	create_lists(t_ls *b);
 void	sort_alphabetically(t_ls *b);
 
 

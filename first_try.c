@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   first_build.c                                      :+:      :+:    :+:   */
+/*   first_try.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:26:53 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/05 14:25:46 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/11 16:31:07 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	is_valid_char(char c)
 	return (0);
 }
 
-void	set_build(t_flags *b)
+void	set_build(t_ls *b)
 {
 	b->a = 0;
 	b->l = 0;
@@ -78,7 +78,7 @@ void	set_build(t_flags *b)
 }
 
 // checks if flag is lRrat and sets its value to be 1
-static void	set_flag(char c, t_flags *b)
+static void	set_flag(char c, t_ls *b)
 {
 	ft_printf("im here to set the flag. %c\n", c);
 	if (c == 'l')
@@ -92,7 +92,7 @@ static void	set_flag(char c, t_flags *b)
 	if (c == 't')
 		b->t = 1;
 }
-static void	ls_parser(char *str, t_flags *b)
+static void	ls_parser(char *str, t_ls *b)
 {
 	int i;
 
@@ -111,7 +111,7 @@ static void	ls_parser(char *str, t_flags *b)
 	}
 }
 
-static int	count_files(t_flags *b)
+static int	count_files(t_ls *b)
 {
 	struct 	dirent *dir;
 	DIR 	*d;
@@ -126,9 +126,9 @@ static int	count_files(t_flags *b)
 
 int		main(int argc, char **argv)
 {
-	t_flags *build;
+	t_ls *build;
 
-	build = (t_flags *)malloc(sizeof(t_flags));
+	build = (t_ls *)malloc(sizeof(t_ls));
 	if (!build)
 		exit(-1);
 	set_build(build);
@@ -138,4 +138,20 @@ int		main(int argc, char **argv)
 	sort_alphabetically(build);
 	print_list(build);
 	return (0);
+}
+
+void	create_lists(t_ls *b)
+{
+	int		i;
+	struct dirent *dir;
+	DIR		*d;
+
+	i = 0;
+	d = opendir("."); //probably send path as param
+	while((dir = readdir(d)) != NULL)
+	{
+		printf("%s\n", dir->d_name);
+	}
+	closedir(d);
+	b = NULL;
 }

@@ -31,6 +31,25 @@ void	sort_alphabetically(char **list)
 	}
 }
 
+void	reverse_sort(char **list)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	while (list[i] && list[i + 1])
+	{
+		if (ft_strcmp(list[i], list[i + 1]) < 0)
+		{
+			temp = list[i];
+			list[i] = list[i + 1];
+			list[i + 1] = temp;
+			i-= 2;
+		}
+		i++;
+	}
+}
+
 void	create_lists(char **argv, t_ls *b)
 {
 	int		i;

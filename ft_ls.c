@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/11 18:17:45 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/11 19:35:44 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static void set_build(t_ls *build)
 	build->r = 0;
 	build->R = 0;
 	build->flagsParsed = 0;
+	build->path = ".";
 }
 
 int main(int argc, char **argv)
@@ -87,6 +88,7 @@ int main(int argc, char **argv)
 	{
 		set_build(build);
 		create_lists(argv, build);
+		print_all(build);
 		//print_list(build);
 		//parser(argc, argv, build);
 	}
@@ -98,6 +100,5 @@ int main(int argc, char **argv)
 		print
 		*/
 	}
-	print_all(build);
 	exit(0);
 }

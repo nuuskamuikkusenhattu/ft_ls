@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/11 19:52:18 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/12 18:43:57 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_ls
 	char **non_exists;
 	int	ne_count;
 	int flagsParsed;
+	int flag_args;
 	char *path;
 }	t_ls;
 
@@ -58,11 +59,13 @@ void	parser(int argc, char **argv, t_ls *build);
 void	create_lists(char **argv, t_ls *b);
 void	sort_alphabetically(char **list);
 void	reverse_sort(char **list);
+void	list_all_in_current_dir(t_ls *b, char *path);
 
 //print
 void	print_all(t_ls *build);
 
 //testing
-void test_print_list(t_ls *b, char c);
+void	test_print_list(t_ls *b, char c);
+void	test_show_params(t_ls *b);
 
 #endif

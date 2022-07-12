@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:34:08 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/05 18:25:55 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/12 18:22:49 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,13 @@ static int	validate_flags(char *str, t_ls *build)
 	i = 0;
 	if ((str[i] != '-' || !str[i + 1]) && build->flagsParsed == 0)
 	{
-		//check if file or directory
-		//if not:
-		ft_printf("ls: %s: No such file or directory\n", str);
-		//if yes:
-		//build->flagsParsed == 1
-		return (1);
+		build->flagsParsed = 1;
+		return (0);
 	}
 	else if (str[i] == '-' && str[i + 1] == '-' && !str[i + 2])
 	{
 		build->flagsParsed = 1;
+		build->flag_args++;
 		return (1);
 	}
 	else
@@ -73,10 +70,14 @@ static int	validate_flags(char *str, t_ls *build)
 			set_flag(build, str[i]);
 		}
 	}
+	build->flag_args++;
 	return (1);
 }
 
-// parses and validates the arguments
+
+/*
+
+*/
 void	parser(int argc, char **argv, t_ls *build)
 {
 	int 	a;

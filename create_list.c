@@ -49,6 +49,31 @@ void	reverse_sort(char **list)
 		i++;
 	}
 }
+/*
+lists all files in a directory with a given path
+*/
+void	list_all_in_current_dir(t_ls *b, char *path)
+{
+	DIR *d;
+	struct dirent *dir;
+	d = opendir(path);
+
+	if (d)
+	{
+		while ((dir = readdir(d)) != NULL)
+		{
+			if (dir->d_name[0] != '.')
+			{
+				b->file_list[b->file_count] = ft_strnew(ft_strlen(dir->d_name));
+				if (!b->file_list[b->file_count])
+					exit(1);
+				b->file_list[b->file_count] = dir->d_name;
+				b->file_count++;
+			}
+		}
+		closedir(d);
+	}
+}
 
 void	create_lists(char **argv, t_ls *b)
 {
@@ -56,7 +81,7 @@ void	create_lists(char **argv, t_ls *b)
 	int		exists;
 	struct stat path;
 
-	i = 1;
+	i = 1 + b->flag_args;
 	while(argv[i])
 	{
 		exists = stat(argv[i], &path);

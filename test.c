@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 17:28:49 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/11 17:49:36 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/12 17:53:58 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,18 @@ void test_print_list(t_ls *b, char c)
 			i++;
 		}
 	}
+}
+
+void	test_show_params(t_ls *b)
+{
+	if (b->a == 1)
+		printf("a");
+	if (b->l == 1)
+		printf("l");
+	if (b->t == 1)
+		printf("t");
+	if (b->r == 1)
+		printf("r");
+	if (b->R == 1)
+		printf("R");
 }

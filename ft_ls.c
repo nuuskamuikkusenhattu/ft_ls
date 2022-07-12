@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/11 19:35:44 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/12 18:50:53 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static void set_build(t_ls *build)
 	build->r = 0;
 	build->R = 0;
 	build->flagsParsed = 0;
+	build->flag_args = 0;
 	build->path = ".";
 }
 
@@ -84,21 +85,20 @@ int main(int argc, char **argv)
 	build = (t_ls *)malloc(sizeof(t_ls));
 	if (!build)
 		exit(1);
+	set_build(build);
 	if (argc > 1)
 	{
-		set_build(build);
+		parser(argc, argv, build);
 		create_lists(argv, build);
+		//test_show_params(build); /debug
 		print_all(build);
 		//print_list(build);
-		//parser(argc, argv, build);
 	}
 	else if (argc == 1)
 	{
-		/*
-		call for a parser
-		create a list of all files in current dir
-		print
-		*/
+		list_all_in_current_dir(build, ".");
+		sort_alphabetically(build->file_list);
+		print_all(build);
 	}
 	exit(0);
 }

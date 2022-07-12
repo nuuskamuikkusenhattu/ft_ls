@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/12 18:43:57 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/12 19:01:35 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,12 @@ void	parser(int argc, char **argv, t_ls *build);
 
 //list
 void	create_lists(char **argv, t_ls *b);
+void	list_all_in_current_dir(t_ls *b, char *path);
+
+//sort
+void	sort(t_ls *b);
 void	sort_alphabetically(char **list);
 void	reverse_sort(char **list);
-void	list_all_in_current_dir(t_ls *b, char *path);
 
 //print
 void	print_all(t_ls *build);

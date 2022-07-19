@@ -1,0 +1,7 @@
+1907
+- supported '-a' flag
+-> separated files starting with a '.' and all files into different functions (create_list.c)
+
+- started working for -R
+-> created 'recursive-print() (ft_ls.c)
+-> am now able to print the first subfolder and its content. no recursion yet.

@@ -12,3 +12,6 @@ tulostuvat samassa jarjestyksessa
 -> tarkistus loytyyko listalta
 -> ne jotka ei loydy printataan ensin, aakkosjarjestyksessa
 -> ne jotka loytyy printataan tokana, aakkosjarjestyksessa
+
+jos -R niin ota talteen tiedostojen nimet, vaikka argumentteja ei ole
+(tai ehka joka tapauksessa)

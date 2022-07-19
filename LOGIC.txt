@@ -1,0 +1,22 @@
+HOW IT SHOULD WORK:
+
+
+- parse flags
+> if no arguments or only flags
+->> list files, print
+> if args
+->> 
+
+MAYBE
+
+
+HOW -R SHOULD WORK:
+> prints everything the same non -R does
+
+free lists
+> starts printing everything inside folders (change path)
+>> print everything (files, dirres)
+repeat
+
+ehka joku muuttuja structiin joka kertoo montako kansiota on kasitelty nykyisesta kansiosta
+dir_count + nykyinen_kansio (--nykyinen_kansio)

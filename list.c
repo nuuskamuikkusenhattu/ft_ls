@@ -39,6 +39,7 @@ void	list_non_hidden(t_ls *b, char *path)
 {
 	DIR *d;
 	struct dirent *dir;
+	printf("path that was sent to list_non_hidden is: %s\n", path);
 	d = opendir(path);
 
 	if (d)
@@ -54,6 +55,7 @@ void	list_non_hidden(t_ls *b, char *path)
 				b->file_count++;
 			}
 		}
+		b->file_list[b->file_count] = NULL;
 		closedir(d);
 	}
 }

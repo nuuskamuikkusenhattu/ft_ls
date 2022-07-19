@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/12 19:13:06 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/19 15:56:31 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ static void	print_non_existings(t_ls *b)
 		i++;
 	}
 }
-
-static void	print_files(t_ls *b)
+/*
+prints all files in a file-list. if -r is activated, the print is reversed.
+*/
+void	print_files_only(t_ls *b)
 {
 	int		i;
 
@@ -63,7 +65,7 @@ void	print_all(t_ls *b)
 {
 	sort(b);
 	print_non_existings(b);
-	print_files(b);
+	print_files_only(b);
 	ft_printf("\n");
 	print_dir(b);	
 }

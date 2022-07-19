@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/19 15:23:43 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/19 16:42:47 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,24 @@ static void set_build(t_ls *build)
 	build->path = ".";
 }
 
+void	recursive_print(t_ls *b, char *path)
+{
+	int		count;
+
+	count = 0; // this is a problem with recursionnnnnnn
+	while (count < b->dir_count)
+	{
+		ft_printf("%s: \n", b->dir_list[count]);
+		path = ft_strjoin(path, "/");
+		path = ft_strjoin(path, b->dir_list[count]);
+		//ft_printf("current path is %s\n", path); //debug
+		list_non_hidden(b, path);
+		print_files_only(b);
+		recursive_print(b, path);
+		count++;
+	}
+}
+
 int main(int argc, char **argv)
 {
 	t_ls *build;
@@ -86,19 +104,26 @@ int main(int argc, char **argv)
 	if (!build)
 		exit(1);
 	set_build(build);
-	if (argc > 1)
-	{
-		parser(argc, argv, build);
-		create_lists(argv, build);
-		test_show_params(build); //debug
-		print_all(build);
-		//print_list(build);
-	}
+	parser(argc, argv, build);
 	if (argc == 1 || (build->flag_args == argc - 1))
 	{
-		list_non_hidden(build, ".");
+		if (build->a == 1)
+			list_all_in_current_dir(build, ".");
+		else
+			list_non_hidden(build, ".");
 		sort(build);
 		print_all(build);
+	}
+	else
+	{
+		create_lists(argv, build);
+		//test_show_params(build); //debug
+		print_all(build);
+	}
+	if (build->R == 1)
+	{
+		//after listing everything "normally", we do the recursion
+		recursive_print(build, ".");
 	}
 	exit(0);
 }

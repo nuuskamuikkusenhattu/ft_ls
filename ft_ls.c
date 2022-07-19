@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/19 16:42:47 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/19 21:01:08 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,24 +75,22 @@ static void set_build(t_ls *build)
 	build->R = 0;
 	build->flagsParsed = 0;
 	build->flag_args = 0;
-	build->path = ".";
+	build->R_done = 0;
+	build->path = "./";
 }
 
-void	recursive_print(t_ls *b, char *path)
+void	recursive_print(t_ls *b)
 {
-	int		count;
-
-	count = 0; // this is a problem with recursionnnnnnn
-	while (count < b->dir_count)
+	//count = 0; // this is a problem with recursionnnnnnn
+	while (b->R_done < b->dir_count)
 	{
-		ft_printf("%s: \n", b->dir_list[count]);
-		path = ft_strjoin(path, "/");
-		path = ft_strjoin(path, b->dir_list[count]);
-		//ft_printf("current path is %s\n", path); //debug
-		list_non_hidden(b, path);
+		ft_printf("%s: \n", b->dir_list[b->R_done]);
+		b->path = (ft_strjoin_three(b->path, b->dir_list[b->R_done], "/"));
+		ft_printf("current path is %s\n", b->path); //debug
+		list_non_hidden(b, b->path);
 		print_files_only(b);
-		recursive_print(b, path);
-		count++;
+		b->R_done++;
+		recursive_print(b);
 	}
 }
 
@@ -123,7 +121,7 @@ int main(int argc, char **argv)
 	if (build->R == 1)
 	{
 		//after listing everything "normally", we do the recursion
-		recursive_print(build, ".");
+		recursive_print(build);
 	}
 	exit(0);
 }

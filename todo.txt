@@ -11,7 +11,4 @@ tulostuvat samassa jarjestyksessa
 -> argumenttien jarjestamine
 -> tarkistus loytyyko listalta
 -> ne jotka ei loydy printataan ensin, aakkosjarjestyksessa
--> ne jotka loytyy printataan tokana, aakkoosjarjestyksessa
-
-
-jos kaikki argumentit on flageja, listaa kaikki filut directoryssa
+-> ne jotka loytyy printataan tokana, aakkosjarjestyksessa

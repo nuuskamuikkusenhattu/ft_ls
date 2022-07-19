@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/12 19:01:15 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/19 15:23:43 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,13 @@ int main(int argc, char **argv)
 	{
 		parser(argc, argv, build);
 		create_lists(argv, build);
-		//test_show_params(build); /debug
+		test_show_params(build); //debug
 		print_all(build);
 		//print_list(build);
 	}
 	if (argc == 1 || (build->flag_args == argc - 1))
 	{
-		list_all_in_current_dir(build, ".");
+		list_non_hidden(build, ".");
 		sort(build);
 		print_all(build);
 	}

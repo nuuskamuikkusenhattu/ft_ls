@@ -25,6 +25,26 @@ void	list_all_in_current_dir(t_ls *b, char *path)
 	{
 		while ((dir = readdir(d)) != NULL)
 		{
+			b->file_list[b->file_count] = ft_strnew(ft_strlen(dir->d_name));
+			if (!b->file_list[b->file_count])
+				exit(1);
+			b->file_list[b->file_count] = dir->d_name;
+			b->file_count++;
+		}
+		closedir(d);
+	}
+}
+
+void	list_non_hidden(t_ls *b, char *path)
+{
+	DIR *d;
+	struct dirent *dir;
+	d = opendir(path);
+
+	if (d)
+	{
+		while ((dir = readdir(d)) != NULL)
+		{
 			if (dir->d_name[0] != '.')
 			{
 				b->file_list[b->file_count] = ft_strnew(ft_strlen(dir->d_name));
@@ -75,6 +95,8 @@ void	create_lists(char **argv, t_ls *b)
 		i++;
 	}
 	b->non_exists[b->ne_count] = NULL;
+	b->file_list[b->file_count] = NULL;
+	b->dir_list[b->dir_count] = NULL;
 	// test_print_list(b, 'n'); //debug
 	// test_print_list(b, 'f'); //debug
 	// test_print_list(b, 'd'); //debug

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/19 15:56:31 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:14:49 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	print_files_only(t_ls *b)
 {
 	int		i;
 
+	sort_alphabetically(b->file_list);
 	i = 0;
 	if (b->r == 0)
 	{
@@ -56,16 +57,24 @@ void	print_files_only(t_ls *b)
 	}
 }
 
-static void	print_dir(t_ls *b)
+void	print_dir_content(t_ls *b)
 {
-	b = NULL;
+	DIR *d;
+	struct dirent *dir;
+
+	d = opendir(b->path);
+	while ((dir = readdir(d)) != NULL)
+	{
+		if (dir->d_name[0] != '.')
+			ft_printf("%s\n", dir->d_name);
+	}
+	closedir(d);
 }
 
 void	print_all(t_ls *b)
 {
 	sort(b);
+	
 	print_non_existings(b);
 	print_files_only(b);
-	ft_printf("\n");
-	print_dir(b);	
 }

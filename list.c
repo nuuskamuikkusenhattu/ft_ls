@@ -19,13 +19,13 @@ void	list_all_in_current_dir(t_ls *b, char *path)
 {
 	DIR *d;
 	struct dirent *dir;
-	d = opendir(path);
 
+	d = opendir(path);
 	if (d)
 	{
 		while ((dir = readdir(d)) != NULL)
 		{
-			b->file_list[b->file_count] = ft_strnew(ft_strlen(dir->d_name));
+			b->file_list[b->file_count] = ft_strnew(dir->d_namlen);
 			if (!b->file_list[b->file_count])
 				exit(1);
 			b->file_list[b->file_count] = dir->d_name;
@@ -39,25 +39,22 @@ void	list_non_hidden(t_ls *b, char *path)
 {
 	DIR *d;
 	struct dirent *dir;
-	printf("path that was sent to list_non_hidden is: %s\n", path);
 	d = opendir(path);
-
 	if (d)
 	{
 		while ((dir = readdir(d)) != NULL)
 		{
 			if (dir->d_name[0] != '.')
 			{
-				b->file_list[b->file_count] = ft_strnew(ft_strlen(dir->d_name));
+				b->file_list[b->file_count] = ft_strdup(dir->d_name);
 				if (!b->file_list[b->file_count])
 					exit(1);
-				b->file_list[b->file_count] = dir->d_name;
 				b->file_count++;
 			}
 		}
 		b->file_list[b->file_count] = NULL;
-		closedir(d);
 	}
+	closedir(d);
 }
 
 void	list_directories_only(t_ls *b)
@@ -77,7 +74,7 @@ void	list_directories_only(t_ls *b)
 		}
 	}
 }
-
+// might be totally useless function in its entiry
 void	create_lists(char **argv, t_ls *b)
 {
 	int		i;
@@ -98,8 +95,8 @@ void	create_lists(char **argv, t_ls *b)
 		}
 		if (S_ISREG(path.st_mode) == 1 && exists != -1)
 		{
-			b->file_list[b->file_count] = ft_strnew(ft_strlen(argv[i]));
 			if (!b->file_list[b->file_count])
+			b->file_list[b->file_count] = ft_strnew(ft_strlen(argv[i]));
 				exit(1);
 			b->file_list[b->file_count] = argv[i];
 			b->file_count++;
@@ -118,6 +115,6 @@ void	create_lists(char **argv, t_ls *b)
 	b->file_list[b->file_count] = NULL;
 	b->dir_list[b->dir_count] = NULL;
 	// test_print_list(b, 'n'); //debug
-	// test_print_list(b, 'f'); //debug
+	//test_print_list(b, 'f'); //debug
 	// test_print_list(b, 'd'); //debug
 }

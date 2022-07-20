@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/20 13:51:05 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/20 19:34:31 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,16 @@ the operands by lexicographical order.
 
 static void set_build(t_ls *build)
 {
-	build->file_list = (char **)malloc(sizeof(char *) * 32000);
+	build->file_list = (char **)malloc(sizeof(char *) * 30000);
 	if (!build->file_list)
 		exit(1);
+	ft_bzero(build->file_list, 30000);
 	build->file_count = 0;
-	build->dir_list = (char **)malloc(sizeof(char *) * 32000);
+	build->dir_list = (char **)malloc(sizeof(char *) * 30000);
 	if (!build->dir_list)
 		exit(1);
 	build->dir_count = 0;
-	build->non_exists = (char **)malloc(sizeof(char *) * 32000);
+	build->non_exists = (char **)malloc(sizeof(char *) * 30000);
 	if (!build->non_exists)
 		exit(1);
 	build->ne_count = 0;
@@ -79,18 +80,33 @@ static void set_build(t_ls *build)
 	build->path = "./";
 }
 
+void	initialize_list(t_ls *b, char c)
+{
+	if (c == 'f') //files
+	{
+		while(b->file_count > 0)
+		{
+			free(b->file_list[b->file_count - 1]);
+			b->file_list[b->file_count - 1] = NULL;
+			b->file_count--;
+		}
+		printf("filecount on %d\n", b->file_count);
+	}
+}
+
 void	list_sub_directories(t_ls *b)
 {
 	while(b->R_done < b->dir_count)
 	{
 		b->path = ft_strjoin(b->dir_list[b->R_done], "/");
-		printf("current path is %s\n", b->path);
+		// printf("current path is %s\n", b->path);
 		list_directories_only(b);
 		b->R_done++;
 	}
 	b->dir_list[b->dir_count] = NULL;
-	printf("count of directories in list is: %d\n", b->dir_count);
-	test_print_list(b, 'd');
+	//printf("count of directories in list is: %d\n", b->dir_count);
+	sort_alphabetically(b->dir_list);
+	//test_print_list(b, 'd');
 }
 
 int main(int argc, char **argv)
@@ -113,16 +129,26 @@ int main(int argc, char **argv)
 	{
 		if (build->a == 1)
 			list_all_in_current_dir(build, ".");
-		else
-			list_non_hidden(build, ".");
-		sort(build);
-		print_all(build);
+	 	else
+		list_non_hidden(build, ".");
+		print_files_only(build);
+
 	}
 	else
 	{
 		create_lists(argv, build);
-		//test_show_params(build); //debug
-		print_all(build);
+		int i = 0;
+		while (build->dir_count > i)
+		{
+			printf("\n%s:\n", build->dir_list[i]);
+			build->path = ft_strjoin_three("./", build->dir_list[i], "/");
+			printf("current path is: %s\n", build->path);
+			list_non_hidden(build, build->path);
+			print_files_only(build);
+			initialize_list(build, 'f');
+			i++;
+		}
+		// test_show_params(build); //debug
 	}
 	}
 	exit(0);

@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_list_content.c                                :+:      :+:    :+:   */
+/*   long_format.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/20 13:10:53 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/20 13:11:42 by spuustin         ###   ########.fr       */
+/*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
+/*   Updated: 2022/07/20 14:41:06 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	free_list_content(char **list)
+void	print_long_format(t_ls *b)
 {
-	int		i;
-
-	i = 0;
-	while (list[i])
-	{
-		free(list[i]);
-		i++;
-	}
+	b = NULL;
 }

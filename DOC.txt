@@ -13,3 +13,5 @@
 -> i think i should list all dirs recursively on the first go, if -R present
 managed to list the directories and subdirectories (i think)
 > list_directories_only (list.c) AND list_sub_directories (ft_ls.c)
+
+- -R works, sort of

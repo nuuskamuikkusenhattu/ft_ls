@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/20 13:20:19 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/20 18:58:27 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 //for password database operations (getpwuid)
 #include <grp.h>
 #include <uuid/uuid.h>
-//for fatabase operations
+//for database operations
 #include <sys/xattr.h>
 //for listxattr/getxattr
 #include "libft/libft.h"
@@ -53,6 +53,9 @@ typedef struct s_ls
 	int	R_done;
 }	t_ls;
 
+//build
+void	initialize_list(t_ls *b, char c);
+
 //parser
 void	parser(int argc, char **argv, t_ls *build);
 
@@ -62,7 +65,6 @@ void	list_all_in_current_dir(t_ls *b, char *path);
 void	list_non_hidden(t_ls *b, char *path);
 void	list_files_only(t_ls *b);
 void	list_directories_only(t_ls *b);
-void	free_list_content(char **list);
 
 //sort
 void	sort(t_ls *b);
@@ -72,6 +74,7 @@ void	reverse_sort(char **list);
 //print
 void	print_all(t_ls *build);
 void	print_files_only(t_ls *b);
+void	print_dir_content(t_ls *b);
 
 //testing
 void	test_print_list(t_ls *b, char c);

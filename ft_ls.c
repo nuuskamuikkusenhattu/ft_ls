@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/19 21:01:08 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/20 13:51:05 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,19 +79,18 @@ static void set_build(t_ls *build)
 	build->path = "./";
 }
 
-void	recursive_print(t_ls *b)
+void	list_sub_directories(t_ls *b)
 {
-	//count = 0; // this is a problem with recursionnnnnnn
-	while (b->R_done < b->dir_count)
+	while(b->R_done < b->dir_count)
 	{
-		ft_printf("%s: \n", b->dir_list[b->R_done]);
-		b->path = (ft_strjoin_three(b->path, b->dir_list[b->R_done], "/"));
-		ft_printf("current path is %s\n", b->path); //debug
-		list_non_hidden(b, b->path);
-		print_files_only(b);
+		b->path = ft_strjoin(b->dir_list[b->R_done], "/");
+		printf("current path is %s\n", b->path);
+		list_directories_only(b);
 		b->R_done++;
-		recursive_print(b);
 	}
+	b->dir_list[b->dir_count] = NULL;
+	printf("count of directories in list is: %d\n", b->dir_count);
+	test_print_list(b, 'd');
 }
 
 int main(int argc, char **argv)
@@ -103,6 +102,13 @@ int main(int argc, char **argv)
 		exit(1);
 	set_build(build);
 	parser(argc, argv, build);
+	if (build->R == 1)
+	{
+		list_directories_only(build);
+		list_sub_directories(build);
+	}
+	else
+	{
 	if (argc == 1 || (build->flag_args == argc - 1))
 	{
 		if (build->a == 1)
@@ -118,10 +124,6 @@ int main(int argc, char **argv)
 		//test_show_params(build); //debug
 		print_all(build);
 	}
-	if (build->R == 1)
-	{
-		//after listing everything "normally", we do the recursion
-		recursive_print(build);
 	}
 	exit(0);
 }

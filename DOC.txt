@@ -5,3 +5,11 @@
 - started working for -R
 -> created 'recursive-print() (ft_ls.c)
 -> am now able to print the first subfolder and its content. no recursion yet.
+
+- created ft_strjoin_three (libft)
+
+2007
+- erased my recursive_print
+-> i think i should list all dirs recursively on the first go, if -R present
+managed to list the directories and subdirectories (i think)
+> list_directories_only (list.c) AND list_sub_directories (ft_ls.c)

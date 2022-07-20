@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/19 20:53:15 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/20 13:20:19 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void	create_lists(char **argv, t_ls *b);
 void	list_all_in_current_dir(t_ls *b, char *path);
 void	list_non_hidden(t_ls *b, char *path);
 void	list_files_only(t_ls *b);
-
+void	list_directories_only(t_ls *b);
+void	free_list_content(char **list);
 
 //sort
 void	sort(t_ls *b);

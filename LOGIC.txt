@@ -20,3 +20,5 @@ repeat
 
 ehka joku muuttuja structiin joka kertoo montako kansiota on kasitelty nykyisesta kansiosta
 dir_count + nykyinen_kansio (--nykyinen_kansio)
+
+ehka joku R_subfolder = 1 

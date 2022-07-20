@@ -60,6 +60,24 @@ void	list_non_hidden(t_ls *b, char *path)
 	}
 }
 
+void	list_directories_only(t_ls *b)
+{
+	DIR *d;
+	struct dirent *dir;
+
+	d = opendir(b->path);
+	while ((dir = readdir(d)) != NULL)
+	{
+		if (dir->d_type == 4 && dir->d_name[0] != '.')
+		{
+			b->dir_list[b->dir_count] = ft_strjoin(b->path, dir->d_name);
+			if (!b->dir_list[b->dir_count])
+				exit(1);
+			b->dir_count++;
+		}
+	}
+}
+
 void	create_lists(char **argv, t_ls *b)
 {
 	int		i;

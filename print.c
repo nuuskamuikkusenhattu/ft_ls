@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/20 19:14:49 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/20 20:16:35 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ sorts lists accordingly.
 non-existing files aren't ever reversed	
 */
 
-static void	print_non_existings(t_ls *b)
+void	print_non_existings(t_ls *b)
 {
 	int		i;
 

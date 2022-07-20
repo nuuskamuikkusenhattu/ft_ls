@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/20 19:34:31 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/20 20:16:56 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,15 +137,18 @@ int main(int argc, char **argv)
 	else
 	{
 		create_lists(argv, build);
+		print_non_existings(build);
+		print_files_only(build);
 		int i = 0;
 		while (build->dir_count > i)
 		{
-			printf("\n%s:\n", build->dir_list[i]);
 			build->path = ft_strjoin_three("./", build->dir_list[i], "/");
 			printf("current path is: %s\n", build->path);
+			ft_printf("%s:\n", build->dir_list[i]);
 			list_non_hidden(build, build->path);
 			print_files_only(build);
 			initialize_list(build, 'f');
+			ft_printf("\n");
 			i++;
 		}
 		// test_show_params(build); //debug

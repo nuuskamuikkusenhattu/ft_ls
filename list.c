@@ -87,7 +87,7 @@ void	create_lists(char **argv, t_ls *b)
 		exists = stat(argv[i], &path);
 		if (exists == -1)
 		{
-			b->non_exists[b->ne_count] = ft_strnew(ft_strlen(argv[i]));
+			b->non_exists[b->ne_count] = ft_strdup(argv[i]);
 			if (!b->non_exists[b->ne_count])
 				exit(1);
 			b->non_exists[b->ne_count] = argv[i];
@@ -95,15 +95,14 @@ void	create_lists(char **argv, t_ls *b)
 		}
 		if (S_ISREG(path.st_mode) == 1 && exists != -1)
 		{
+			b->file_list[b->file_count] = ft_strdup(argv[i]);
 			if (!b->file_list[b->file_count])
-			b->file_list[b->file_count] = ft_strnew(ft_strlen(argv[i]));
 				exit(1);
-			b->file_list[b->file_count] = argv[i];
 			b->file_count++;
 		}
 		if (S_ISDIR(path.st_mode) == 1 && exists != -1)
 		{
-			b->dir_list[b->dir_count] = ft_strnew(ft_strlen(argv[i]));
+			b->dir_list[b->dir_count] = ft_strdup(argv[i]);
 			if (!b->dir_list[b->dir_count])
 				exit(1);
 			b->dir_list[b->dir_count] = argv[i];
@@ -115,6 +114,6 @@ void	create_lists(char **argv, t_ls *b)
 	b->file_list[b->file_count] = NULL;
 	b->dir_list[b->dir_count] = NULL;
 	// test_print_list(b, 'n'); //debug
-	//test_print_list(b, 'f'); //debug
+	// test_print_list(b, 'f'); //debug
 	// test_print_list(b, 'd'); //debug
 }

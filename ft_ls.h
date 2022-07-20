@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/20 18:58:27 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/20 20:16:44 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	reverse_sort(char **list);
 void	print_all(t_ls *build);
 void	print_files_only(t_ls *b);
 void	print_dir_content(t_ls *b);
+void	print_non_existings(t_ls *b);
 
 //testing
 void	test_print_list(t_ls *b, char c);

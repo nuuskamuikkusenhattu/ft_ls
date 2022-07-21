@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/21 13:22:46 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/21 13:40:26 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ about the resulting file.
 
 static void	print_permissions(struct stat f_status)
 {
-
 	int	rights[] = {S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH};
 	int i = 0;
 
@@ -49,14 +48,15 @@ void	print_long_format(t_ls *b)
 	struct stat	f_status;
 	int		i = 0;
 	int exists = 0;
-	printf("reached the function, fc is %d\n", b->file_count); //debug
+	//printf("reached the function, fc is %d\n", b->file_count); //debug
 	while (b->file_list[i])
 	{
-		if (stat(b->file_list[i], &f_status) < 0)
-			printf("doesnt exist");
+		if (stat(b->file_list[i], &f_status) > -1)
+		{
 		print_permissions(f_status);
-		ft_printf("%s", b->file_list[i]);
-		ft_printf(", size is: %d\n", f_status.st_size);
+		ft_printf("%d %d ", f_status.st_nlink, f_status.st_size);
+		ft_printf("%s\n", b->file_list[i]);
+		}
 		i++;
 	}
 }

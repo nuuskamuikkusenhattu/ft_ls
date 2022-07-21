@@ -12,6 +12,11 @@
       -rw-r--r--  1 spuustin  2020   478 Jul 19 16:13 TODO.txt
       -rw-r--r--  1 spuustin  2020  3050 Jul 20 20:13 list.c
 
+      STAT allows to print: st_* atimespec, birthtimespec, blksize, blocks, ctimespec, dev, flags, gen,
+      gid, ino, lspare, mode, mtimespec, nlink, qspare, rdev, size, uid
+
+      st_mode & (S_IRUSR, S_IWUSR, S_IXUSR, IRGRP/IWGRP/IXGRP, IROTH/IWOTH/IXOTH)
+
      If the modification time of the file is more than 6 months in the past or future, then the year of the last
      modification is displayed in place of the hour and minute fields.
 

@@ -15,3 +15,6 @@ managed to list the directories and subdirectories (i think)
 > list_directories_only (list.c) AND list_sub_directories (ft_ls.c)
 
 - -R works, sort of
+
+2107
+- am able to print file-size for -l now (long_format.c)

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/21 12:24:17 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/21 13:17:00 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,10 @@ int main(int argc, char **argv)
 	parser(argc, argv, build);
 	if (build->l == 1)
 	{
-		list_all_in_current_dir(build, ".");
+		if (argc == 2)
+			list_all_in_current_dir(build, ".");
+		else
+			create_lists(argv, build);
 		print_long_format(build);
 	}
 	else if (build->R == 1)

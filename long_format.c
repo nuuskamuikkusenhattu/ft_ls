@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/21 16:16:42 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/21 16:28:09 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,11 @@ static void	print_permissions(struct stat f_status)
 	ft_printf("  ");
 }
 
+static void	parse_time(char *str)
+{
+	ft_printf(str);
+}
+
 void	print_long_format(t_ls *b)
 {
 	struct stat	f_status;
@@ -60,9 +65,9 @@ void	print_long_format(t_ls *b)
 		gp = getgrgid(f_status.st_gid);
 		ft_printf("%d %s  %s %d %d ", f_status.st_nlink, pw->pw_name, \
 		gp->gr_name, f_status.st_nlink, f_status.st_size);
-		ft_printf("%s", b->file_list[i]);
+		ft_printf("%s ", b->file_list[i]);
 		//trying to get the date to print right
-		ft_printf("%s", ctime(&f_status.st_mtime));
+		parse_time(ctime(&f_status.st_mtime));
 		}
 		i++;
 	}

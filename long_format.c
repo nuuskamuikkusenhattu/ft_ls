@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/21 16:28:09 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/21 17:09:04 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,19 @@ static void	print_permissions(struct stat f_status)
 	ft_printf("  ");
 }
 
+/*
+splits time-str into array
+[0] = day (never needed), [1] = month, [2] = day, [3] = hh:mm:ss, [4] = year
+depending how old the file is, either year or hhmmss is printed
+*/
 static void	parse_time(char *str)
 {
-	ft_printf(str);
+	char	**time;
+	char	*parsed;
+	time = ft_strsplit(str, ' ');
+	parsed = ft_strnew(5);
+	ft_strncpy(parsed, time[3], 5);
+	ft_printf("%s %s %s\n", time[1], time[2], parsed);
 }
 
 void	print_long_format(t_ls *b)

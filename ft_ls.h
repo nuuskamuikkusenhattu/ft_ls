@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/21 12:09:08 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/21 16:09:51 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include <sys/stat.h>
 //for file status (stat, lstat)
 #include <sys/types.h>
+#include <pwd.h>
 //for password database operations (getpwuid)
 #include <grp.h>
 #include <uuid/uuid.h>
@@ -31,6 +32,8 @@
 #include <sys/xattr.h>
 //for listxattr/getxattr
 #include "libft/libft.h"
+//for ctime
+#include <time.h>
 
 #define FLAGS "lRrat"
 

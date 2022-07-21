@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/21 13:40:26 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/21 16:16:42 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ static void	print_permissions(struct stat f_status)
 void	print_long_format(t_ls *b)
 {
 	struct stat	f_status;
+	struct passwd *pw;
+	struct group *gp;
 	int		i = 0;
 	int exists = 0;
 	//printf("reached the function, fc is %d\n", b->file_count); //debug
@@ -54,8 +56,13 @@ void	print_long_format(t_ls *b)
 		if (stat(b->file_list[i], &f_status) > -1)
 		{
 		print_permissions(f_status);
-		ft_printf("%d %d ", f_status.st_nlink, f_status.st_size);
-		ft_printf("%s\n", b->file_list[i]);
+		pw = getpwuid(f_status.st_uid);
+		gp = getgrgid(f_status.st_gid);
+		ft_printf("%d %s  %s %d %d ", f_status.st_nlink, pw->pw_name, \
+		gp->gr_name, f_status.st_nlink, f_status.st_size);
+		ft_printf("%s", b->file_list[i]);
+		//trying to get the date to print right
+		ft_printf("%s", ctime(&f_status.st_mtime));
 		}
 		i++;
 	}

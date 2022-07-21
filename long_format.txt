@@ -1,9 +1,19 @@
 
    The Long Format
-     If the -l option is given, the following information is displayed for each file: file mode, number of
-     links, owner name, group name, number of bytes in the file, abbreviated month, day-of-month file was last
-     modified, hour file last modified, minute file last modified, and the pathname.  In addition, for each
-     directory whose contents are displayed, the total number of 512-byte blocks used by the files in the direc-
+     If the -l option is given, the following information is displayed for each file: 
+     file mode, 
+     number of links,
+     owner name, 
+     group name, 
+     number of bytes in the file, 
+     abbreviated month, 
+     day-of-month file was last modified, 
+     hour file last modified, 
+     minute file last modified, 
+     and the pathname.  
+     
+     In addition, for each
+      directory whose contents are displayed, the total number of 512-byte blocks used by the files in the direc-
      tory is displayed on a line by itself, immediately before the information for the files in the directory.
      If the file or directory has extended attributes, the permissions field printed by the -l option is fol-
      lowed by a '@' character.  Otherwise, if the file or directory has extended security information (such as

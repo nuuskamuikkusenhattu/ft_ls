@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/21 12:00:47 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/21 15:35:20 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,11 @@ void	sort_ascii(char **list)
 			temp = list[i];
 			list[i] = list[i + 1];
 			list[i + 1] = temp;
-			i-= 2;
+			i-=2;
 		}
 		i++;
+		if (i < 0)
+			i = 0;
 	}
 }
 

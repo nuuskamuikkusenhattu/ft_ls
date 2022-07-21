@@ -6,13 +6,13 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/12 19:07:32 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/21 12:00:47 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	sort_alphabetically(char **list)
+void	sort_ascii(char **list)
 {
 	int		i;
 	char	*temp;
@@ -33,7 +33,7 @@ void	sort_alphabetically(char **list)
 
 void	sort(t_ls *b)
 {
-	sort_alphabetically(b->non_exists);
-	sort_alphabetically(b->file_list);
-	sort_alphabetically(b->dir_list);
+	sort_ascii(b->non_exists);
+	sort_ascii(b->file_list);
+	sort_ascii(b->dir_list);
 }

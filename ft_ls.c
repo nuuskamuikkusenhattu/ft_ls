@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/20 20:16:56 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/21 12:24:17 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	list_sub_directories(t_ls *b)
 	}
 	b->dir_list[b->dir_count] = NULL;
 	//printf("count of directories in list is: %d\n", b->dir_count);
-	sort_alphabetically(b->dir_list);
+	sort_ascii(b->dir_list);
 	//test_print_list(b, 'd');
 }
 
@@ -118,7 +118,12 @@ int main(int argc, char **argv)
 		exit(1);
 	set_build(build);
 	parser(argc, argv, build);
-	if (build->R == 1)
+	if (build->l == 1)
+	{
+		list_all_in_current_dir(build, ".");
+		print_long_format(build);
+	}
+	else if (build->R == 1)
 	{
 		list_directories_only(build);
 		list_sub_directories(build);

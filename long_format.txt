@@ -9,6 +9,9 @@
      lowed by a '@' character.  Otherwise, if the file or directory has extended security information (such as
      an access control list), the permissions field printed by the -l option is followed by a '+' character.
 
+      -rw-r--r--  1 spuustin  2020   478 Jul 19 16:13 TODO.txt
+      -rw-r--r--  1 spuustin  2020  3050 Jul 20 20:13 list.c
+
      If the modification time of the file is more than 6 months in the past or future, then the year of the last
      modification is displayed in place of the hour and minute fields.
 

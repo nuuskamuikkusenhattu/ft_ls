@@ -25,10 +25,9 @@ void	list_all_in_current_dir(t_ls *b, char *path)
 	{
 		while ((dir = readdir(d)) != NULL)
 		{
-			b->file_list[b->file_count] = ft_strnew(dir->d_namlen);
+			b->file_list[b->file_count] = ft_strdup(dir->d_name);
 			if (!b->file_list[b->file_count])
 				exit(1);
-			b->file_list[b->file_count] = dir->d_name;
 			b->file_count++;
 		}
 		closedir(d);

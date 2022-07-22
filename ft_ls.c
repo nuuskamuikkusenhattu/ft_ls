@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/21 15:08:30 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/22 14:39:34 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int main(int argc, char **argv)
 			list_all_in_current_dir(build, ".");
 		else
 			create_lists(argv, build);
-		printf("count: %d", build->file_count);
+		//printf("count: %d", build->file_count);
 		sort_ascii(build->file_list);
 		print_long_format(build);
 	}

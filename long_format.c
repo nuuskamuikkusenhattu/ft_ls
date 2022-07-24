@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/22 14:44:02 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/24 14:48:04 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,22 +48,16 @@ splits time-str into array
 [0] = day (never needed), [1] = month, [2] = day, [3] = hh:mm:ss, [4] = year
 depending how old the file is, either year or hhmmss is printed
 */
-static void	parse_time(char *str)
+static void	parse_time(struct stat f_status, char *str)
 {
 	char	**this_time;
-	char	**current_time;
 	char	*parsed;
 	time_t	now;
 
-	time(&now);
 	this_time = ft_strsplit(str, ' ');
-	current_time = ft_strsplit(ctime(&now), ' ');
 	parsed = ft_strnew(5);
 	ft_strncpy(parsed, this_time[3], 5);
-	//tamahan nyt katsoo vaa et onko samana vuonna, ei 6kk ero niinku pitaisi :))
-	// printf("\n\nCURRENT month: %s, day: %s, day: %s, hhmmss %s, year %s\n", current_time[0], current_time[1], current_time[2], current_time[3], current_time[4]);
-	// printf("\n\nTHIS FILE month: %s, day: %s, day: %s, hhmmss %s, year %s, parsed %s\n", this_time[0], this_time[1], this_time[2], this_time[3], this_time[4], parsed);
-	if (ft_strcmp(this_time[4], current_time[4]) == 0)
+	if (time(&now) - f_status.st_mtime < 15768000)
 		ft_printf("%s %s %s ", this_time[1], this_time[2], parsed);
 	else
 		ft_printf("%s %s %s ", this_time[1], this_time[2], ft_strtrim(this_time[4]));
@@ -86,7 +80,7 @@ void	print_long_format(t_ls *b)
 		gp = getgrgid(f_status.st_gid);
 		ft_printf("%d %s  %s %d %d ", f_status.st_nlink, pw->pw_name, \
 		gp->gr_name, f_status.st_nlink, f_status.st_size);
-		parse_time(ctime(&f_status.st_mtime));
+		parse_time(f_status, ctime(&f_status.st_mtime));
 		ft_printf("%s\n", b->file_list[i]);
 		}
 		i++;

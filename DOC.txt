@@ -18,3 +18,6 @@ managed to list the directories and subdirectories (i think)
 
 2107
 - am able to print file-size for -l now (long_format.c)
+
+2207
+- modified time-format printing for long-format (long_format.c) (doesnt support 6MM difference yet)

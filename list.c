@@ -73,8 +73,8 @@ void	list_directories_only(t_ls *b)
 		}
 	}
 }
-// might be totally useless function in its entiry
-void	create_lists(char **argv, t_ls *b)
+
+void	list_from_argv(char **argv, t_ls *b)
 {
 	int		i;
 	int		exists;
@@ -112,7 +112,19 @@ void	create_lists(char **argv, t_ls *b)
 	b->non_exists[b->ne_count] = NULL;
 	b->file_list[b->file_count] = NULL;
 	b->dir_list[b->dir_count] = NULL;
-	// test_print_list(b, 'n'); //debug
-	// test_print_list(b, 'f'); //debug
-	// test_print_list(b, 'd'); //debug
+}
+// might be totally useless function in its entiry
+void	create_lists(char **argv, int argc, t_ls *b)
+{
+	if (argc == 1 || b->flag_args == argc - 1)
+	{
+		if (b->R == 1)
+			list_directories_only(b);
+	}
+	else
+		list_from_argv(argv, b);
+	if (b->R == 1)
+	{
+		print_R(b);
+	}
 }

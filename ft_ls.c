@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/22 14:39:34 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/24 17:56:34 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ the operands by lexicographical order.
 #include "ft_ls.h"
 
 // sets all values of a struct to be 0 by default
+/*
+	right now the sizes of lists are hardcoded. options for future:
+	- count number of files from any given path (really slow with -R from root)
+	- linked list / dynamic array of some sort
+
+	maximum length of command line arg is 8192 (depends on OS, usually less)
+	, thats why the non-existing -list is as it is
+*/
 
 static void set_build(t_ls *build)
 {
@@ -65,7 +73,7 @@ static void set_build(t_ls *build)
 	if (!build->dir_list)
 		exit(1);
 	build->dir_count = 0;
-	build->non_exists = (char **)malloc(sizeof(char *) * 30000);
+	build->non_exists = (char **)malloc(sizeof(char *) * 8192);
 	if (!build->non_exists)
 		exit(1);
 	build->ne_count = 0;
@@ -109,6 +117,15 @@ void	list_sub_directories(t_ls *b)
 	//test_print_list(b, 'd');
 }
 
+/*
+i want the main to be such as:
+- set build
+- parse
+- create lists (-a, -R)
+- sort (-t, -r)
+- print (print_long_format)
+*/
+
 int main(int argc, char **argv)
 {
 	t_ls *build;
@@ -118,51 +135,51 @@ int main(int argc, char **argv)
 		exit(1);
 	set_build(build);
 	parser(argc, argv, build);
-	if (build->l == 1)
-	{
-		if (argc == 2)
-			list_all_in_current_dir(build, ".");
-		else
-			create_lists(argv, build);
-		//printf("count: %d", build->file_count);
-		sort_ascii(build->file_list);
-		print_long_format(build);
-	}
-	else if (build->R == 1)
-	{
-		list_directories_only(build);
-		list_sub_directories(build);
-	}
-	else
-	{
-	if (argc == 1 || (build->flag_args == argc - 1))
-	{
-		if (build->a == 1)
-			list_all_in_current_dir(build, ".");
-	 	else
-		list_non_hidden(build, ".");
-		print_files_only(build);
+	// if (build->l == 1)
+	// {
+	// 	if (argc == 2)
+	// 		list_all_in_current_dir(build, ".");
+	// 	else
+	// 		create_lists(argv, argc, build);
+	// 	//printf("count: %d", build->file_count);
+	// 	sort_ascii(build->file_list);
+	// 	print_long_format(build);
+	// }
+	// else if (build->R == 1)
+	// {
+	// 	list_directories_only(build);
+	// 	list_sub_directories(build);
+	// }
+	// else
+	// {
+	// if (argc == 1 || (build->flag_args == argc - 1))
+	// {
+	// 	if (build->a == 1)
+	// 		list_all_in_current_dir(build, ".");
+	//  	else
+	// 	list_non_hidden(build, ".");
+	// 	print_files_only(build);
 
-	}
-	else
-	{
-		create_lists(argv, build);
-		print_non_existings(build);
-		print_files_only(build);
-		int i = 0;
-		while (build->dir_count > i)
-		{
-			build->path = ft_strjoin_three("./", build->dir_list[i], "/");
-			printf("current path is: %s\n", build->path);
-			ft_printf("%s:\n", build->dir_list[i]);
-			list_non_hidden(build, build->path);
-			print_files_only(build);
-			initialize_list(build, 'f');
-			ft_printf("\n");
-			i++;
-		}
-		// test_show_params(build); //debug
-	}
-	}
+	// }
+	// else
+	// {
+	// 	create_lists(argv, argc, build);
+	// 	print_non_existings(build);
+	// 	print_files_only(build);
+	// 	int i = 0;
+	// 	while (build->dir_count > i)
+	// 	{
+	// 		build->path = ft_strjoin_three("./", build->dir_list[i], "/");
+	// 		printf("current path is: %s\n", build->path);
+	// 		ft_printf("%s:\n", build->dir_list[i]);
+	// 		list_non_hidden(build, build->path);
+	// 		print_files_only(build);
+	// 		initialize_list(build, 'f');
+	// 		ft_printf("\n");
+	// 		i++;
+	// 	}
+	// }
+	// }
+	create_lists(argv, argc, build);
 	exit(0);
 }

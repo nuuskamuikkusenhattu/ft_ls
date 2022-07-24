@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/24 15:04:45 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/24 18:17:02 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,21 @@ void	print_dir_content(t_ls *b)
 			ft_printf("%s\n", dir->d_name);
 	}
 	closedir(d);
+}
+
+void	print_R(t_ls *b)
+{
+	int	i = 0;
+
+	list_sub_directories(b);
+	while (b->dir_list[i])
+	{
+		if (i != 0)
+			ft_printf("\n%s:\n", b->dir_list[i]);
+		b->path = ft_strdup(b->dir_list[i]);
+		print_dir_content(b);
+		i++;
+	}
 }
 
 void	print_all(t_ls *b)

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/24 15:04:57 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/24 17:55:46 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,12 @@ void	initialize_list(t_ls *b, char c);
 void	parser(int argc, char **argv, t_ls *build);
 
 //list
-void	create_lists(char **argv, t_ls *b);
+void	create_lists(char **argv, int argc, t_ls *b);
 void	list_all_in_current_dir(t_ls *b, char *path);
 void	list_non_hidden(t_ls *b, char *path);
 void	list_files_only(t_ls *b);
 void	list_directories_only(t_ls *b);
+void	list_sub_directories(t_ls *b);
 
 //sort
 void	sort(t_ls *b);
@@ -80,6 +81,7 @@ void	print_all(t_ls *build);
 void	print_files_only(t_ls *b);
 void	print_dir_content(t_ls *b);
 void	print_non_existings(t_ls *b);
+void	print_R(t_ls *b);
 
 //testing
 void	test_print_list(t_ls *b, char c);

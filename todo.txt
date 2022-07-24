@@ -15,3 +15,8 @@ tulostuvat samassa jarjestyksessa
 
 jos -R niin ota talteen tiedostojen nimet, vaikka argumentteja ei ole
 (tai ehka joka tapauksessa)
+
+jonkunakone check patheille tarpeen:
+./a.out -R ../init/ ei tulostu aivan oikein, vaikka toimiikin
+
+./a.out -R sort.c dirre EI TOIMI OIKEIN eli joo logiikan pohdintaan

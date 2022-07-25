@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/24 16:17:51 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/25 16:29:33 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,17 @@ void	print_long_format(t_ls *b)
 	struct group *gp;
 	int		i = 0;
 	int exists = 0;
-	//printf("reached the function, fc is %d\n", b->file_count); //debug
 	while (b->file_list[i])
 	{
-		if (stat(b->file_list[i], &f_status) > -1)
+		if (stat(b->path, &f_status) > -1)
 		{
-		print_permissions(f_status);
-		pw = getpwuid(f_status.st_uid);
-		gp = getgrgid(f_status.st_gid);
-		ft_printf("%d %s  %s %d %d ", f_status.st_nlink, pw->pw_name, \
-		gp->gr_name, f_status.st_nlink, f_status.st_size);
-		parse_time(f_status, ctime(&f_status.st_mtime));
-		ft_printf("%s\n", b->file_list[i]);
+			print_permissions(f_status);
+			pw = getpwuid(f_status.st_uid);
+			gp = getgrgid(f_status.st_gid);
+			ft_printf("%d %s  %s %d %d ", f_status.st_nlink, pw->pw_name, \
+			gp->gr_name, f_status.st_nlink, f_status.st_size);
+			parse_time(f_status, ctime(&f_status.st_mtime));
+			ft_printf("%s\n", b->file_list[i]);
 		}
 		i++;
 	}

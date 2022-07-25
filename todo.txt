@@ -19,3 +19,6 @@ jos -R niin ota talteen tiedostojen nimet, vaikka argumentteja ei ole
 ./a.out -R sort.c dirre EI TOIMI OIKEIN eli joo logiikan pohdintaan
 
 ./a.out -R (ja -Rt) aivan rikki XD
+
+mikahan toi total on ku ls -l dirre 
+

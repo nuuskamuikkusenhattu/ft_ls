@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/24 17:56:34 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/25 13:11:25 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ the operands by lexicographical order.
 	, thats why the non-existing -list is as it is
 */
 
-static void set_build(t_ls *build)
+static void set_build(t_ls *build, int ac)
 {
 	build->file_list = (char **)malloc(sizeof(char *) * 30000);
 	if (!build->file_list)
@@ -85,12 +85,17 @@ static void set_build(t_ls *build)
 	build->flagsParsed = 0;
 	build->flag_args = 0;
 	build->R_done = 0;
+	build->argc = ac;
 	build->path = "./";
 }
 
+/*
+	frees list from its content, but doesnt touch the outer array.
+	'f' == file_list
+*/
 void	initialize_list(t_ls *b, char c)
 {
-	if (c == 'f') //files
+	if (c == 'f')
 	{
 		while(b->file_count > 0)
 		{
@@ -98,7 +103,6 @@ void	initialize_list(t_ls *b, char c)
 			b->file_list[b->file_count - 1] = NULL;
 			b->file_count--;
 		}
-		printf("filecount on %d\n", b->file_count);
 	}
 }
 
@@ -106,7 +110,7 @@ void	list_sub_directories(t_ls *b)
 {
 	while(b->R_done < b->dir_count)
 	{
-		b->path = ft_strjoin(b->dir_list[b->R_done], "/");
+		b->path = ft_strjoin(b->dir_list[b->R_done], "/"); //this may need a condition
 		// printf("current path is %s\n", b->path);
 		list_directories_only(b);
 		b->R_done++;
@@ -133,8 +137,11 @@ int main(int argc, char **argv)
 	build = (t_ls *)malloc(sizeof(t_ls));
 	if (!build)
 		exit(1);
-	set_build(build);
+	set_build(build, argc);
 	parser(argc, argv, build);
+	create_lists(argv, argc, build);
+	sort(build);
+	print(build);
 	// if (build->l == 1)
 	// {
 	// 	if (argc == 2)
@@ -180,6 +187,5 @@ int main(int argc, char **argv)
 	// 	}
 	// }
 	// }
-	create_lists(argv, argc, build);
 	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/24 17:55:46 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/25 13:16:40 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_ls
 	int flag_args;
 	char *path;
 	int	R_done;
+	int argc;
 }	t_ls;
 
 //build
@@ -64,8 +65,7 @@ void	parser(int argc, char **argv, t_ls *build);
 
 //list
 void	create_lists(char **argv, int argc, t_ls *b);
-void	list_all_in_current_dir(t_ls *b, char *path);
-void	list_non_hidden(t_ls *b, char *path);
+void	list_files_in_dir(t_ls *b, char *path);
 void	list_files_only(t_ls *b);
 void	list_directories_only(t_ls *b);
 void	list_sub_directories(t_ls *b);
@@ -77,6 +77,7 @@ void	sort_time(char **list);
 void	reverse_sort(char **list);
 
 //print
+void	print(t_ls *b);
 void	print_all(t_ls *build);
 void	print_files_only(t_ls *b);
 void	print_dir_content(t_ls *b);

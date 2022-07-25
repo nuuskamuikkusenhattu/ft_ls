@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/24 15:06:01 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/25 12:31:09 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,15 @@ void	sort_time(char **list)
 	}
 }
 
-void	sort(t_ls *b)
+void	sort(t_ls *b,char **array)
 {
-	sort_ascii(b->non_exists);
-	sort_ascii(b->file_list);
-	sort_ascii(b->dir_list);
+	if (b->t == 1)
+		sort_time(array);
+	else if (b->r == 1)
+		reverse_sort(array);
+	else
+		sort_ascii(array);
+	// sort_ascii(b->non_exists);
+	// sort_ascii(b->file_list);
+	// sort_ascii(b->dir_list);
 }

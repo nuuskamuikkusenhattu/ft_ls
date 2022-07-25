@@ -37,29 +37,6 @@ void	list_files_in_dir(t_ls *b, char *path)
 		closedir(d);
 	}
 }
-// the one above and this can be combined into one by having a condition on if b.a = 1 AND OR something !
-// then the same function can always be called regardless of the flag
-// void	list_non_hidden(t_ls *b, char *path)
-// {
-// 	DIR *d;
-// 	struct dirent *dir;
-// 	d = opendir(path);
-// 	if (d)
-// 	{
-// 		while ((dir = readdir(d)) != NULL)
-// 		{
-// 			if (dir->d_name[0] != '.')
-// 			{
-// 				b->file_list[b->file_count] = ft_strdup(dir->d_name);
-// 				if (!b->file_list[b->file_count])
-// 					exit(1);
-// 				b->file_count++;
-// 			}
-// 		}
-// 		b->file_list[b->file_count] = NULL;
-// 	}
-// 	closedir(d);
-// }
 
 void	list_directories_only(t_ls *b)
 {
@@ -71,12 +48,14 @@ void	list_directories_only(t_ls *b)
 	{
 		if (dir->d_type == 4 && dir->d_name[0] != '.')
 		{
-			b->dir_list[b->dir_count] = ft_strjoin(b->path, dir->d_name); //may need a condition on if d_name ends with '/'
+			b->dir_list[b->dir_count] = ft_strjoin(b->path, dir->d_name);
 			if (!b->dir_list[b->dir_count])
 				exit(1);
 			b->dir_count++;
 		}
 	}
+	closedir(d);
+	b->dir_list[b->dir_count] = NULL;
 }
 
 void	list_from_argv(char **argv, t_ls *b)

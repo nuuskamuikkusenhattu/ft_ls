@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/25 13:11:34 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/25 15:56:55 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	print_dir_content(t_ls *b)
 	d = opendir(b->path);
 	while ((dir = readdir(d)) != NULL)
 	{
-		if (dir->d_name[0] != '.')
+		if (dir->d_name[0] != '.') //needs better condition
 			ft_printf("%s\n", dir->d_name);
 	}
 	closedir(d);
@@ -80,23 +80,37 @@ void	print_R(t_ls *b)
 
 	while (b->dir_list[i])
 	{
-		if (i != 0)
-			ft_printf("\n%s:\n", b->dir_list[i]);
+		if (b->file_count != 0)
+			write(1, "\n", 1);
+		if (b->dir_count != 1 || (b->dir_count == 1 && b->file_count > 0))
+			ft_printf("%s:\n", b->dir_list[i]);
 		b->path = ft_strdup(b->dir_list[i]);
-		print_dir_content(b);
+		list_files_in_dir(b, b->path);
+		sort(b);
+		print_files_only(b);
+		initialize_list(b, 'f');
 		i++;
+		if (i < b->dir_count)
+			write(1, "\n", 1);
+			
 	}
 }
 
 void	print_all(t_ls *b)
 {
 	print_non_existings(b);
-	print_files_only(b);
+	if (b->file_count > 0)
+		print_files_only(b);
+	if (b->dir_count > 0)
+		print_R(b);
 }
 
 void	print(t_ls *b)
 {
-	print_all(b);
+	if (b->l)
+		print_long_format(b);
+	else
+		print_all(b);
 	if (b->R == 1)
 	{
 		print_R(b);

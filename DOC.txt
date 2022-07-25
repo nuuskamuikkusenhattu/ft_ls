@@ -26,3 +26,8 @@ managed to list the directories and subdirectories (i think)
 - long-format supports the 6month difference now
 - created sort_time (sort.c), that sorts files in an array given modification time for -t
 - started working on my main.c-logic (cleaner version)
+
+2507
+- working on my list-building + sorting + printing logic
+(apparently ls looks dirty with ls -R ../init/)
+- changed the way how printing from paths works

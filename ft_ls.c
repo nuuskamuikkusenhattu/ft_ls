@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/25 13:11:25 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/25 15:46:14 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,7 @@ int main(int argc, char **argv)
 	parser(argc, argv, build);
 	create_lists(argv, argc, build);
 	sort(build);
+	printf("dircount %d filecount %d\n", build->dir_count, build->file_count);
 	print(build);
 	// if (build->l == 1)
 	// {

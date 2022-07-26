@@ -33,3 +33,8 @@ managed to list the directories and subdirectories (i think)
 - changed the way how printing from paths works
 - fixed stat-function params in long_format.c
 - can do -l from directory now
+
+2607
+- got -R to work (i guess) (print.c)
+- changed sort_list (sort.c)
+- added char sortc to build (set to 't', 'r' if no t, '0' if no r)

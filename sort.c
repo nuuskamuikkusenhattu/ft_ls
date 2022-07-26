@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/26 14:58:50 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/26 17:16:43 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,21 +85,15 @@ void	sort_time(char **list)
 	}
 }
 
-void	sort(t_ls *b)
+// sorts a given list with given conversion/flag
+// t == time (-t), r == reverse (-r)
+
+void	sort_list(char **list, char c)
 {
-	if (b->t)
-	{
-		sort_time(b->dir_list); //emt pitaako paikkansa vai onko aina normi sort
-		sort_time(b->file_list);
-	}
-	else if (b->r)
-	{
-		sort_ascii(b->dir_list);
-		reverse_sort(b->file_list);
-	}
+	if (c == 't')
+		sort_time(list);
+	else if (c == 'r')
+		reverse_sort(list);
 	else
-	{
-		sort_ascii(b->non_exists);
-		sort_ascii(b->file_list);
-	}
+		sort_ascii(list);
 }

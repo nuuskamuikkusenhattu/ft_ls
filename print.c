@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/26 17:18:05 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/26 17:28:50 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	print(t_ls *b)
 		b->path = ft_strdup(b->dir_list[i]);
 		list_files_in_dir(b, b->path);
 		//sort_ascii(b->file_list); //ei oo aina ascii, pitaa korjata sort()
-		sort_list(b->file_list, '0');
+		sort_list(b->file_list, b->sortc);
 		print_files_only(b);
 		initialize_list(b, 'f');
 		i++;

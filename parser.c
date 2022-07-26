@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:34:08 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/26 16:37:17 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/26 17:28:34 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,8 @@ void	parser(int argc, char **argv, t_ls *build)
 		}
 		a++;
 	}
+	if (build->t)
+		build->sortc = 't';
+	if (build->r && !build->t)
+		build->sortc = 'r';
 }

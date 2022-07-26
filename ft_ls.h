@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/26 16:37:21 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/26 17:21:43 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_ls
 	int R;
 	int a;
 	int t;
+	char sortc;
 	char **file_list;
 	int	file_count;
 	char **dir_list;
@@ -71,7 +72,7 @@ void	list_directories_only(t_ls *b);
 void	list_sub_directories(t_ls *b);
 
 //sort
-void	sort(t_ls *b);
+void	sort_list(char **list, char c);
 void	sort_ascii(char **list);
 void	sort_time(char **list);
 void	reverse_sort(char **list);

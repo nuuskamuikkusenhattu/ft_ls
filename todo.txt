@@ -30,3 +30,6 @@ RIKKINAISET IMPLEMENTAATIOT:
 
 TYPERAT ELAMAN VALINNAT:
 list_files_in_dir args!!
+
+ls -l /dev/
+ls -l /dev/fd 

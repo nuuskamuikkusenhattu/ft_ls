@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/26 15:15:42 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/26 17:00:59 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,12 +114,18 @@ void	print(t_ls *b)
 {
 	if (b->R)
 	{
-		print_files_only(b);
+		if (b->argc - b->flag_args == 1)
+			list_files_in_dir(b, ".");
+		if (b->file_count > 0)
+		{
+			print_files_only(b);
+			write(1, "\n", 1);
+		}
 		initialize_list(b, 'f');
-	//list sub-directories
 		list_sub_directories(b);
-		// test_print_list(b, 'd');
-		// printf("------DEBUG ENDS\n");
+		if (b->argc - b->flag_args == 1)
+			sort_ascii(b->dir_list);
+
 	int i = 0;
 	while (i < b->dir_count)
 	{
@@ -134,6 +140,24 @@ void	print(t_ls *b)
 		if (i != b->dir_count)
 			write(1, "\n", 1);
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
 	//... most recent logic
 		// if (b->file_count == 0)
 		// 	list_files_in_dir(b, ".");

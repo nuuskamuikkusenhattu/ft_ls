@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/25 16:30:02 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/26 15:15:42 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	print_dir_content(t_ls *b)
 	closedir(d);
 }
 
+// this aint good rn
 void	print_R(t_ls *b)
 {
 	int	i = 0;
@@ -82,12 +83,12 @@ void	print_R(t_ls *b)
 	{
 		if (b->file_count != 0)
 			write(1, "\n", 1);
-		if (b->dir_count != 1 || (b->dir_count == 1 && b->file_count > 0))
+		if (b->dir_count != 1 || (b->dir_count == 1 && b->file_count > 1))
 			ft_printf("%s:\n", b->dir_list[i]);
 		b->path = ft_strdup(b->dir_list[i]);
 		list_files_in_dir(b, b->path);
 		//printf("dircount %d filecount %d\n", b->dir_count, b->file_count); //debug
-		sort(b);
+		sort_ascii(b->file_list);
 		if (b->l)
 			print_long_format(b);
 		else
@@ -108,19 +109,65 @@ void	print_all(t_ls *b)
 	if (b->dir_count > 0)
 		print_R(b);
 }
-//ei voi toimia oikein viel -Rl jne XD siis ei vain ei
+
 void	print(t_ls *b)
 {
-	if (b->l)
+	if (b->R)
+	{
+		print_files_only(b);
+		initialize_list(b, 'f');
+	//list sub-directories
+		list_sub_directories(b);
+		// test_print_list(b, 'd');
+		// printf("------DEBUG ENDS\n");
+	int i = 0;
+	while (i < b->dir_count)
+	{
+		if (!(i == 0 && b->argc - b->flag_args == 2))
+			ft_printf("%s:\n", b->dir_list[i]);
+		b->path = ft_strdup(b->dir_list[i]);
+		list_files_in_dir(b, b->path);
+		sort_ascii(b->file_list); //ei oo aina ascii, pitaa korjata sort()
+		print_files_only(b);
+		initialize_list(b, 'f');
+		i++;
+		if (i != b->dir_count)
+			write(1, "\n", 1);
+	}
+	//... most recent logic
+		// if (b->file_count == 0)
+		// 	list_files_in_dir(b, ".");
+		// print_files_only(b);
+		// if (b->file_count > 0 && b->dir_count > 0)
+		// 	write(1, "\n", 1);
+		// initialize_list(b, 'f');
+		// print_R(b);
+
+
+	//...... logic that worked (i guess) at some point
+		// else if (build->R == 1)
+	// {
+	// 	list_directories_only(build);
+	// 	list_sub_directories(build);
+	// }
+	// else
+	// {
+	// if (argc == 1 || (build->flag_args == argc - 1))
+	// {
+	// 	if (build->a == 1)
+	// 		list_all_in_current_dir(build, ".");
+	//  	else
+	// 	list_non_hidden(build, ".");
+	// 	print_files_only(build);
+	}
+	else if (b->l)
 	{
 		if (b->file_count == 0)
 			print_R(b);
 		print_long_format(b);
 	}
 	else
-		print_all(b);
-	if (b->R == 1)
 	{
-		print_R(b);
+		print_all(b);
 	}
 }

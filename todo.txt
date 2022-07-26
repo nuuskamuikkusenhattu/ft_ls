@@ -22,3 +22,11 @@ jos -R niin ota talteen tiedostojen nimet, vaikka argumentteja ei ole
 
 mikahan toi total on ku ls -l dirre 
 
+RIKKINAISET COMMANDIT:
+./a.out -R dirre dirre (kasittelee molemmat argit kerralla kun pitaisi yksitellen)
+
+RIKKINAISET IMPLEMENTAATIOT:
+-l tulostaa vaaran daten
+
+TYPERAT ELAMAN VALINNAT:
+list_files_in_dir args!!

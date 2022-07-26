@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/25 12:57:24 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:58:50 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,18 +89,17 @@ void	sort(t_ls *b)
 {
 	if (b->t)
 	{
-		sort_time(b->dir_list);
+		sort_time(b->dir_list); //emt pitaako paikkansa vai onko aina normi sort
 		sort_time(b->file_list);
 	}
 	else if (b->r)
 	{
-		reverse_sort(b->dir_list);
+		sort_ascii(b->dir_list);
 		reverse_sort(b->file_list);
 	}
 	else
 	{
 		sort_ascii(b->non_exists);
-		sort_ascii(b->dir_list);	
 		sort_ascii(b->file_list);
 	}
 }

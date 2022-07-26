@@ -31,3 +31,5 @@ managed to list the directories and subdirectories (i think)
 - working on my list-building + sorting + printing logic
 (apparently ls looks dirty with ls -R ../init/)
 - changed the way how printing from paths works
+- fixed stat-function params in long_format.c
+- can do -l from directory now

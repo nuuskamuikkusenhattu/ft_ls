@@ -11,14 +11,14 @@ MAYBE
 
 
 HOW -R SHOULD WORK:
-> prints everything the same non -R does
 
-free lists
-> starts printing everything inside folders (change path)
->> print everything (files, dirres)
-repeat
+IF args contain files
+>> print them first
+then print dir + subdirs (if in args)
 
-ehka joku muuttuja structiin joka kertoo montako kansiota on kasitelty nykyisesta kansiosta
-dir_count + nykyinen_kansio (--nykyinen_kansio)
+IF args dont contain files
+>> print dir + subdir. if only 1 dir arg, dont print dir name
 
-ehka joku R_subfolder = 1 
+>>>> SO 
+> print files (0-n)
+> print dir name, the files inside it 

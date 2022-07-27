@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/25 16:29:33 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:49:59 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static void	print_permissions(struct stat f_status)
 
 	if (S_ISDIR(f_status.st_mode))
 		ft_printf("d");
+	else if (S_ISLNK(f_status.st_mode))
+		ft_printf("l");
 	else
 		ft_printf("-");
 	while (i < 9)
@@ -74,7 +76,7 @@ void	print_long_format(t_ls *b)
 	int exists = 0;
 	while (b->file_list[i])
 	{
-		if (stat(b->path, &f_status) > -1)
+		if (stat(b->file_list[i], &f_status) > -1)
 		{
 			print_permissions(f_status);
 			pw = getpwuid(f_status.st_uid);

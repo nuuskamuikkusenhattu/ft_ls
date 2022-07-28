@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/26 17:28:24 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/28 14:05:19 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,20 +116,6 @@ void	initialize_list(t_ls *b, char c)
 	}
 }
 
-void	list_sub_directories(t_ls *b)
-{
-	while(b->R_done < b->dir_count)
-	{
-		b->path = ft_strjoin(b->dir_list[b->R_done], "/"); //this may need a condition
-		// printf("current path is %s\n", b->path);
-		list_directories_only(b);
-		b->R_done++;
-	}
-	b->dir_list[b->dir_count] = NULL;
-	//printf("count of directories in list is: %d\n", b->dir_count);
-	//test_print_list(b, 'd');
-}
-
 /*
 i want the main to be such as:
 - set build
@@ -150,50 +136,5 @@ int main(int argc, char **argv)
 	parser(argc, argv, build);
 	create_lists(argv, argc, build);
 	print(build);
-	// if (build->l == 1)
-	// {
-	// 	if (argc == 2)
-	// 		list_all_in_current_dir(build, ".");
-	// 	else
-	// 		create_lists(argv, argc, build);
-	// 	//printf("count: %d", build->file_count);
-	// 	sort_ascii(build->file_list);
-	// 	print_long_format(build);
-	// }
-	// else if (build->R == 1)
-	// {
-	// 	list_directories_only(build);
-	// 	list_sub_directories(build);
-	// }
-	// else
-	// {
-	// if (argc == 1 || (build->flag_args == argc - 1))
-	// {
-	// 	if (build->a == 1)
-	// 		list_all_in_current_dir(build, ".");
-	//  	else
-	// 	list_non_hidden(build, ".");
-	// 	print_files_only(build);
-
-	// }
-	// else
-	// {
-	// 	create_lists(argv, argc, build);
-	// 	print_non_existings(build);
-	// 	print_files_only(build);
-	// 	int i = 0;
-	// 	while (build->dir_count > i)
-	// 	{
-	// 		build->path = ft_strjoin_three("./", build->dir_list[i], "/");
-	// 		printf("current path is: %s\n", build->path);
-	// 		ft_printf("%s:\n", build->dir_list[i]);
-	// 		list_non_hidden(build, build->path);
-	// 		print_files_only(build);
-	// 		initialize_list(build, 'f');
-	// 		ft_printf("\n");
-	// 		i++;
-	// 	}
-	// }
-	// }
 	exit(0);
 }

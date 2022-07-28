@@ -15,6 +15,19 @@
 /*
 lists all files in a directory with a given path
 */
+
+void	list_sub_directories(t_ls *b)
+{
+	while(b->R_done < b->dir_count)
+	{
+		b->path = ft_strjoin(b->dir_list[b->R_done], "/"); //this may need a condition
+		// printf("current path is %s\n", b->path);
+		list_directories_only(b);
+		b->R_done++;
+	}
+	b->dir_list[b->dir_count] = NULL;
+}
+
 void	list_files_in_dir(t_ls *b, char *path)
 {
 	DIR *d;

@@ -1,0 +1,24 @@
+HOW IT SHOULD WORK:
+
+
+- parse flags
+> if no arguments or only flags
+->> list files, print
+> if args
+->> 
+
+MAYBE
+
+
+HOW -R SHOULD WORK:
+
+IF args contain files
+>> print them first
+then print dir + subdirs (if in args)
+
+IF args dont contain files
+>> print dir + subdir. if only 1 dir arg, dont print dir name
+
+>>>> SO 
+> print files (0-n)
+> print dir name, the files inside it 

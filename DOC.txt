@@ -41,3 +41,7 @@ managed to list the directories and subdirectories (i think)
 
 2707
 - changed path to file-name for stat-calls in long_format.calls
+
+2807
+- moved testfiles, created script in ls_test_files
+- cleaned up code, overwrote print_R (print.c) with something that seems to work

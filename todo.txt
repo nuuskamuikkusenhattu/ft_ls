@@ -35,3 +35,6 @@ ls -l /dev/
 ls -l /dev/fd 
 
 linkit (lstat statin sijaan linkkien osalta, ilmeisesti (miksei sit lstat aina, onkohan eroa?))
+
+./a.out noperm segfaulttaa
+

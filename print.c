@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/26 17:28:50 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/28 16:25:51 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,27 +77,33 @@ void	print_dir_content(t_ls *b)
 // this aint good rn
 void	print_R(t_ls *b)
 {
-	int	i = 0;
+	int		i;
 
-	while (b->dir_list[i])
-	{
-		if (b->file_count != 0)
+	i = 0;
+	if (b->argc - b->flag_args == 1)
+			list_files_in_dir(b, ".");
+		if (b->file_count > 0)
+		{
+			print_files_only(b);
 			write(1, "\n", 1);
-		if (b->dir_count != 1 || (b->dir_count == 1 && b->file_count > 1))
+		}
+		initialize_list(b, 'f');
+		list_sub_directories(b);
+		if (b->argc - b->flag_args == 1)
+			sort_ascii(b->dir_list);
+	while (i < b->dir_count)
+	{
+		if (!(i == 0 && b->argc - b->flag_args == 2))
 			ft_printf("%s:\n", b->dir_list[i]);
 		b->path = ft_strdup(b->dir_list[i]);
 		list_files_in_dir(b, b->path);
-		//printf("dircount %d filecount %d\n", b->dir_count, b->file_count); //debug
-		sort_ascii(b->file_list);
-		if (b->l)
-			print_long_format(b);
-		else
-			print_files_only(b);
+		//sort_ascii(b->file_list); //ei oo aina ascii, pitaa korjata sort()
+		sort_list(b->file_list, b->sortc);
+		print_files_only(b);
 		initialize_list(b, 'f');
 		i++;
-		if (i < b->dir_count)
+		if (i != b->dir_count)
 			write(1, "\n", 1);
-			
 	}
 }
 
@@ -114,76 +120,7 @@ void	print(t_ls *b)
 {
 	if (b->R)
 	{
-		if (b->argc - b->flag_args == 1)
-			list_files_in_dir(b, ".");
-		if (b->file_count > 0)
-		{
-			print_files_only(b);
-			write(1, "\n", 1);
-		}
-		initialize_list(b, 'f');
-		list_sub_directories(b);
-		if (b->argc - b->flag_args == 1)
-			sort_ascii(b->dir_list);
-
-	int i = 0;
-	while (i < b->dir_count)
-	{
-		if (!(i == 0 && b->argc - b->flag_args == 2))
-			ft_printf("%s:\n", b->dir_list[i]);
-		b->path = ft_strdup(b->dir_list[i]);
-		list_files_in_dir(b, b->path);
-		//sort_ascii(b->file_list); //ei oo aina ascii, pitaa korjata sort()
-		sort_list(b->file_list, b->sortc);
-		print_files_only(b);
-		initialize_list(b, 'f');
-		i++;
-		if (i != b->dir_count)
-			write(1, "\n", 1);
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	//... most recent logic
-		// if (b->file_count == 0)
-		// 	list_files_in_dir(b, ".");
-		// print_files_only(b);
-		// if (b->file_count > 0 && b->dir_count > 0)
-		// 	write(1, "\n", 1);
-		// initialize_list(b, 'f');
-		// print_R(b);
-
-
-	//...... logic that worked (i guess) at some point
-		// else if (build->R == 1)
-	// {
-	// 	list_directories_only(build);
-	// 	list_sub_directories(build);
-	// }
-	// else
-	// {
-	// if (argc == 1 || (build->flag_args == argc - 1))
-	// {
-	// 	if (build->a == 1)
-	// 		list_all_in_current_dir(build, ".");
-	//  	else
-	// 	list_non_hidden(build, ".");
-	// 	print_files_only(build);
+		print_R(b);
 	}
 	else if (b->l)
 	{

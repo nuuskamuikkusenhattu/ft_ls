@@ -1,5 +1,8 @@
 #!/bin/bash
-cd .. && make test
-cd ./ls_test_files/
+cd ~/hivet/ft_ls/ && make test
+{
+cd -
 cp ../a.out .
+} &> /dev/null
+
 

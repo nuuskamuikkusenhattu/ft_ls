@@ -24,6 +24,9 @@ mikahan toi total on ku ls -l dirre
 
 RIKKINAISET COMMANDIT:
 sort.c print.c dirre (lol)
+ls -l /dev/
+ls -l /dev/fd 
+./a.out noperm segfaulttaa
 
 RIKKINAISET IMPLEMENTAATIOT:
 -l tulostaa vaaran daten
@@ -31,10 +34,6 @@ RIKKINAISET IMPLEMENTAATIOT:
 TYPERAT ELAMAN VALINNAT:
 list_files_in_dir args!!
 
-ls -l /dev/
-ls -l /dev/fd 
+
 
 linkit (lstat statin sijaan linkkien osalta, ilmeisesti (miksei sit lstat aina, onkohan eroa?))
-
-./a.out noperm segfaulttaa
-

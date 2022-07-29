@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/28 16:25:51 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/29 13:59:31 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,30 @@ void	print_files_only(t_ls *b)
 		sort_time(b->file_list);
 	else
 		sort_ascii(b->file_list);
-	i = 0;
-	if (b->r == 0)
+	if (b->l)
 	{
-		while (b->file_list[i])
-		{
-			ft_printf("%s\n", b->file_list[i]);
-			i++;
-		}
+		printf("here i am, FC: %d\n", b->file_count);
+		print_long_format(b);
 	}
 	else
 	{
-		i = b->file_count;
-		while(i > 0)
+		i = 0;
+		if (b->r == 0)
 		{
-			ft_printf("%s\n", b->file_list[i - 1]);
-			i--;
+			while (b->file_list[i])
+			{
+				ft_printf("%s\n", b->file_list[i]);
+				i++;
+			}
+		}
+		else
+		{
+			i = b->file_count;
+			while(i > 0)
+			{
+				ft_printf("%s\n", b->file_list[i - 1]);
+				i--;
+			}
 		}
 	}
 }
@@ -74,7 +82,6 @@ void	print_dir_content(t_ls *b)
 	closedir(d);
 }
 
-// this aint good rn
 void	print_R(t_ls *b)
 {
 	int		i;
@@ -107,13 +114,28 @@ void	print_R(t_ls *b)
 	}
 }
 
-void	print_all(t_ls *b)
+void	print_all_lists(t_ls *b)
 {
+	int	i = 0;
+
 	print_non_existings(b);
 	if (b->file_count > 0)
+	{
 		print_files_only(b);
-	if (b->dir_count > 0)
-		print_R(b);
+		
+	}
+	while (b->dir_list[i])
+	{
+		b->path = ft_strjoin_three("",b->dir_list[i], "/");
+		if (!b->path)
+			exit(1);
+		if (b->dirfileargc > 1)
+			ft_printf("\n%s:\n", b->dir_list[i]);
+		initialize_list(b, 'f');
+		list_files_in_dir(b, b->dir_list[i]);
+		print_files_only(b);
+		i++;
+	}
 }
 
 void	print(t_ls *b)
@@ -122,14 +144,8 @@ void	print(t_ls *b)
 	{
 		print_R(b);
 	}
-	else if (b->l)
-	{
-		if (b->file_count == 0)
-			print_R(b);
-		print_long_format(b);
-	}
 	else
 	{
-		print_all(b);
+		print_all_lists(b);
 	}
 }

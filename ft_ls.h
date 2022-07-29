@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/26 17:21:43 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/29 13:28:01 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 #include <time.h>
 
 #define FLAGS "lRrat"
+#define MAX_PATH 1024
 
 typedef struct s_ls
 {
@@ -56,6 +57,7 @@ typedef struct s_ls
 	char *path;
 	int	R_done;
 	int argc;
+	int	dirfileargc;
 }	t_ls;
 
 //build
@@ -79,7 +81,7 @@ void	reverse_sort(char **list);
 
 //print
 void	print(t_ls *b);
-void	print_all(t_ls *build);
+void	print_all_lists(t_ls *build);
 void	print_files_only(t_ls *b);
 void	print_dir_content(t_ls *b);
 void	print_non_existings(t_ls *b);

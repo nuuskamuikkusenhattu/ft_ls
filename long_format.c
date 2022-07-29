@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/29 13:05:36 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/29 14:01:30 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,10 @@ static int	print_permissions(struct stat f_status)
 
 static void	print_link(char *name)
 {
-	char buf[1024];
+	char buf[MAX_PATH];
 	ssize_t len;
 
-	len = readlink(name, buf, 1024);
+	len = readlink(name, buf, MAX_PATH);
 	if (len != -1)
 		ft_printf(" -> %s", buf);
 }
@@ -91,9 +91,11 @@ void	print_long_format(t_ls *b)
 	int		i = 0;
 	int exists = 0;
 	int islink = 0;
+	char *file_path;
 	while (b->file_list[i])
 	{
-		if (lstat(b->file_list[i], &f_status) > -1)
+		file_path = ft_strjoin(b->path, b->file_list[i]);
+		if (lstat(file_path, &f_status) > -1)
 		{
 			islink = print_permissions(f_status);
 			pw = getpwuid(f_status.st_uid);

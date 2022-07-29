@@ -41,3 +41,5 @@ managed to list the directories and subdirectories (i think)
 
 2707
 - changed path to file-name for stat-calls in long_format.calls
+- changed print.c logic to be more linear
+- fixed printing directories with -l 

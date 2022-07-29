@@ -102,8 +102,8 @@ void	list_from_argv(char **argv, t_ls *b)
 			if (!b->dir_list[b->dir_count])
 				exit(1);
 			b->dir_list[b->dir_count] = argv[i];
-			if (b->R)
 			b->dir_count++;
+			if (b->R)
 				list_sub_directories(b);
 		}
 		i++;

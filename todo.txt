@@ -1,39 +1,29 @@
-ls --
 
-ls author hi
-ls hi author
-<- tulostuvat samassa jarjestyksessa == lista filuista pitaa olla olemassa ennen
-mitaan tulostusta
-
-ls mom hi author
-ls hi mom author
-tulostuvat samassa jarjestyksessa
--> argumenttien jarjestamine
--> tarkistus loytyyko listalta
--> ne jotka ei loydy printataan ensin, aakkosjarjestyksessa
--> ne jotka loytyy printataan tokana, aakkosjarjestyksessa
-
-jos -R niin ota talteen tiedostojen nimet, vaikka argumentteja ei ole
-(tai ehka joka tapauksessa)
-
-./a.out -R sort.c dirre EI TOIMI OIKEIN eli joo logiikan pohdintaan
-
-./a.out -R (ja -Rt) aivan rikki XD
-
-mikahan toi total on ku ls -l dirre 
+TODO
+total -l commandilla
 
 RIKKINAISET COMMANDIT:
-sort.c print.c dirre (lol)
 ls -l /dev/
 ls -l /dev/fd 
 ./a.out noperm segfaulttaa
 
+./a.out -Rr kansiot eivat ole oikeassa jarjestyksessa
+
+
 RIKKINAISET IMPLEMENTAATIOT:
--l tulostaa vaaran daten
+
 
 TYPERAT ELAMAN VALINNAT:
 list_files_in_dir args!!
 
 
 
-linkit (lstat statin sijaan linkkien osalta, ilmeisesti (miksei sit lstat aina, onkohan eroa?))
+-R (tai -Rr) pohdintaa
+listaa kansiot (path)
+sorttaa kansiot (sortc)
+while i < dirc:
+listaa kaikki tiedostot (sortc)
+printtaa tiedostot
+kay tiedostot lapi, jos se on kansio, tulosta sen nimi, listaa sen sisalto (temp?), tulosta sen sisalto 
+
+ei saatanan saatana :(

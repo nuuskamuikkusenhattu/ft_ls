@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/29 13:59:31 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/29 15:22:33 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ void	print_files_only(t_ls *b)
 	else
 		sort_ascii(b->file_list);
 	if (b->l)
-	{
-		printf("here i am, FC: %d\n", b->file_count);
 		print_long_format(b);
-	}
 	else
 	{
 		i = 0;
@@ -95,9 +92,9 @@ void	print_R(t_ls *b)
 			write(1, "\n", 1);
 		}
 		initialize_list(b, 'f');
-		list_sub_directories(b);
-		if (b->argc - b->flag_args == 1)
-			sort_ascii(b->dir_list);
+		//list_sub_directories(b);
+		if (b->argc - b->flag_args == 1) //why this condition
+			sort_list(b->dir_list, b->sortc);
 	while (i < b->dir_count)
 	{
 		if (!(i == 0 && b->argc - b->flag_args == 2))

@@ -119,7 +119,10 @@ void	create_lists(char **argv, int argc, t_ls *b)
 	{
 		if (b->R == 1)
 		{
+			printf("oon tas, ");
 			list_directories_only(b);
+			printf("DC:%d\n", b->dir_count);
+			sort_list(b->dir_list, b->sortc);
 			list_sub_directories(b);
 		}
 		list_files_in_dir(b, b->path);
@@ -134,5 +137,4 @@ void	create_lists(char **argv, int argc, t_ls *b)
 		else
 			list_from_argv(argv, b);
 	}
-
 }

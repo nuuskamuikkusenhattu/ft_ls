@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/27 17:51:40 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/29 13:05:36 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,19 @@ a symbolic link, stat() resolves the symbolic link. It also returns information
 about the resulting file.
 */
 
-static void	print_permissions(struct stat f_status)
+static int	print_permissions(struct stat f_status)
 {
 	int	rights[] = {S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH};
 	int i = 0;
+	int	ret = 0;
 
 	if (S_ISDIR(f_status.st_mode))
 		ft_printf("d");
 	else if (S_ISLNK(f_status.st_mode))
+	{
 		ft_printf("l");
+		ret = 1;
+	}
 	else
 		ft_printf("-");
 	while (i < 9)
@@ -43,6 +47,18 @@ static void	print_permissions(struct stat f_status)
 		i++;
 	}
 	ft_printf("  ");
+	return (ret);
+}
+// prints path of link
+
+static void	print_link(char *name)
+{
+	char buf[1024];
+	ssize_t len;
+
+	len = readlink(name, buf, 1024);
+	if (len != -1)
+		ft_printf(" -> %s", buf);
 }
 
 /*
@@ -74,17 +90,21 @@ void	print_long_format(t_ls *b)
 	struct group *gp;
 	int		i = 0;
 	int exists = 0;
+	int islink = 0;
 	while (b->file_list[i])
 	{
 		if (lstat(b->file_list[i], &f_status) > -1)
 		{
-			print_permissions(f_status);
+			islink = print_permissions(f_status);
 			pw = getpwuid(f_status.st_uid);
 			gp = getgrgid(f_status.st_gid);
 			ft_printf("%d %s  %s %d %d ", f_status.st_nlink, pw->pw_name, \
 			gp->gr_name, f_status.st_nlink, f_status.st_size);
 			parse_time(f_status, ctime(&f_status.st_mtime));
-			ft_printf("%s\n", b->file_list[i]);
+			ft_printf("%s", b->file_list[i]);
+			if (islink == 1)
+				print_link(b->file_list[i]);
+			write(1, "\n", 1);
 		}
 		i++;
 	}

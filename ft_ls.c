@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/29 13:24:19 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/29 19:50:13 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static void set_build(t_ls *build, int ac)
 	build->dir_list = (char **)malloc(sizeof(char *) * 30000);
 	if (!build->dir_list)
 		exit(1);
+	ft_bzero(build->dir_list, 30000);
 	build->dir_count = 0;
 	build->non_exists = (char **)malloc(sizeof(char *) * 8192);
 	if (!build->non_exists)
@@ -110,7 +111,7 @@ void	initialize_list(t_ls *b, char c)
 	{
 		while (b->dir_count > 0)
 		{
-			free(b->dir_list[b->dir_count] - 1);
+			free(b->dir_list[b->dir_count - 1]);
 			b->dir_list[b->dir_count - 1] = NULL;
 			b->dir_count--;	
 		}

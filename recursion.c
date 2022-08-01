@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:29:18 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/01 13:58:33 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/01 14:06:22 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	print_for_R(t_ls *b)
 		list_files_in_dir(b, b->path);
 		print_files_only(b);
 		i++;
-		write(1, "\n", 1);
+		write(1, "\n", 1); //condition
 	}
 }
 

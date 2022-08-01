@@ -1,5 +1,3 @@
 {
-	"files.associations": {
-		"algorithm": "c"
-	}
+	"C_Cpp.errorSquiggles": "Disabled"
 }

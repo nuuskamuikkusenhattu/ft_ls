@@ -48,3 +48,7 @@ managed to list the directories and subdirectories (i think)
 
 2907
 - added print_link into long_format.c 
+== found errors with -Rr dirre dirre/, etc. tried again with -R, theyre in ../yri2 
+
+0108
+- redid -R (recursion.c)

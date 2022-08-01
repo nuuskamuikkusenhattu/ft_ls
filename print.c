@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/29 15:22:33 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/07/29 20:19:32 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,32 @@ void	print_dir_content(t_ls *b)
 	closedir(d);
 }
 
+void	print_dirlist(t_ls *b)
+{
+	int i = 0;
+	while (b->dir_list[i])
+	{
+		b->path = ft_strdup(b->dir_list[i]);
+		list_files_in_dir(b, b->path);
+		sort_list(b->file_list, b->sortc);
+		ft_printf("%s:\n", b->dir_list[i]);
+		print_files_only(b);
+		if (i < b->dir_count - 1)
+			write(1, "\n", 1);
+		initialize_list(b, 'f');
+		i++;
+	}
+}
+
 void	print_R(t_ls *b)
 {
 	int		i;
+	int c = 0;
+	char **temp;
 
+	temp = (char **)malloc(sizeof(char *) * b->dir_count);
+	if (!temp)
+		exit(1);
 	i = 0;
 	if (b->argc - b->flag_args == 1)
 			list_files_in_dir(b, ".");
@@ -95,18 +117,30 @@ void	print_R(t_ls *b)
 		//list_sub_directories(b);
 		if (b->argc - b->flag_args == 1) //why this condition
 			sort_list(b->dir_list, b->sortc);
-	while (i < b->dir_count)
+	while (b->dir_list[i])
 	{
-		if (!(i == 0 && b->argc - b->flag_args == 2))
-			ft_printf("%s:\n", b->dir_list[i]);
-		b->path = ft_strdup(b->dir_list[i]);
-		list_files_in_dir(b, b->path);
-		//sort_ascii(b->file_list); //ei oo aina ascii, pitaa korjata sort()
-		sort_list(b->file_list, b->sortc);
-		print_files_only(b);
-		initialize_list(b, 'f');
+		temp[i] = ft_strdup(b->dir_list[i]);
+		if(!temp[i])
+			exit(1);
 		i++;
-		if (i != b->dir_count)
+	}
+	temp[i] = NULL;
+	c = b->dir_count;
+	i = 0;
+	while (i < c)
+	{
+		initialize_list(b, 'd');
+		b->dir_list[0] = ft_strdup(temp[i]);
+		b->dir_count = 1;
+		//protect
+		//printf("first on the list is %s\n", b->dir_list[0]); //debug
+		list_sub_directories(b);
+		// if (!(i == 0 && b->argc - b->flag_args == 2)) //joku ehto tassa taytyy olla kylla
+		// 	ft_printf("%s:\n", b->dir_list[i]);
+		sort_list(b->dir_list, b->sortc);
+		print_dirlist(b);
+		i++;
+		if (i != c)
 			write(1, "\n", 1);
 	}
 }

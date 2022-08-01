@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/29 13:28:01 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/01 13:30:30 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,4 +94,9 @@ void	test_show_params(t_ls *b);
 //long format
 void	print_long_format(t_ls *b);
 
+
+//messing up
+void	R_start(t_ls *b);
+
 #endif
+

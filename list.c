@@ -18,12 +18,13 @@ lists all files in a directory with a given path
 
 void	list_sub_directories(t_ls *b)
 {
-	while(b->R_done < b->dir_count)
+	int i = 0;
+	while(i < b->dir_count)
 	{
-		b->path = ft_strjoin(b->dir_list[b->R_done], "/"); //this may need a condition
-		// printf("current path is %s\n", b->path);
+		b->path = ft_strjoin(b->dir_list[i], "/"); //this may need a condition
+		//printf("current path is %s\n", b->path);
 		list_directories_only(b);
-		b->R_done++;
+		i++;
 	}
 	b->dir_list[b->dir_count] = NULL;
 }
@@ -86,7 +87,6 @@ void	list_from_argv(char **argv, t_ls *b)
 			b->non_exists[b->ne_count] = ft_strdup(argv[i]);
 			if (!b->non_exists[b->ne_count])
 				exit(1);
-			b->non_exists[b->ne_count] = argv[i];
 			b->ne_count++;
 		}
 		if (S_ISREG(path.st_mode) == 1 && exists != -1)
@@ -101,10 +101,9 @@ void	list_from_argv(char **argv, t_ls *b)
 			b->dir_list[b->dir_count] = ft_strdup(argv[i]);
 			if (!b->dir_list[b->dir_count])
 				exit(1);
-			b->dir_list[b->dir_count] = argv[i];
 			b->dir_count++;
-			if (b->R)
-				list_sub_directories(b);
+			// if (b->R)
+			// 	list_sub_directories(b);
 		}
 		i++;
 	}
@@ -119,9 +118,7 @@ void	create_lists(char **argv, int argc, t_ls *b)
 	{
 		if (b->R == 1)
 		{
-			printf("oon tas, ");
 			list_directories_only(b);
-			printf("DC:%d\n", b->dir_count);
 			sort_list(b->dir_list, b->sortc);
 			list_sub_directories(b);
 		}
@@ -132,7 +129,7 @@ void	create_lists(char **argv, int argc, t_ls *b)
 		if (b->R == 1)
 		{
 			list_from_argv(argv, b);
-			list_sub_directories(b);
+			R_start(b);
 		}
 		else
 			list_from_argv(argv, b);

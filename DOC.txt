@@ -51,4 +51,5 @@ managed to list the directories and subdirectories (i think)
 == found errors with -Rr dirre dirre/, etc. tried again with -R, theyre in ../yri2 
 
 0108
-- redid -R (recursion.c)
+- redid -R (recursion.c), works with -Rr now
+

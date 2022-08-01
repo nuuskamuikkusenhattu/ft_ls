@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/01 15:20:58 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/01 15:56:57 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,34 @@ void	sort_R_dirlist(t_ls *b)
 		is_subdir_substr(b->dir_list[i], b->dir_list[i + 1], ft_strlen(b->dir_list[i])) == 0)
 		{
 			temp = b->dir_list[i];
+			b->dir_list[i] = b->dir_list[i + 1];
+			b->dir_list[i + 1] = temp;
+			i-=2;
+		}
+		i++;
+		if (i < 0)
+			i = 0;
+	}
+	}
+	if (b->t)
+	{
+		int		i;
+	char	*temp;
+	struct stat f_status;
+	long long	this_time;
+	long long	next_time;
+
+	i = 0;
+	while (b->dir_list[i] && b->dir_list[i + 1])
+	{
+		stat(b->dir_list[i], &f_status);
+		this_time = f_status.st_mtime;
+		stat(b->dir_list[i + 1], &f_status);
+		next_time = f_status.st_mtime;
+		if (this_time < next_time && \
+		is_subdir_substr(b->dir_list[i], b->dir_list[i + 1], ft_strlen(b->dir_list[i])) == 0)
+		{
+			temp =b->dir_list[i];
 			b->dir_list[i] = b->dir_list[i + 1];
 			b->dir_list[i + 1] = temp;
 			i-=2;

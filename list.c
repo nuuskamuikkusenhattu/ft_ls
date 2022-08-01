@@ -42,8 +42,17 @@ void	list_files_in_dir(t_ls *b, char *path)
 			if (b->a == 1 || (b->a == 0 && dir->d_name[0] != '.'))
 			{
 				b->file_list[b->file_count] = ft_strdup(dir->d_name);
+				if (b->R && dir->d_type == 4)
+				{
+					b->dir_list[b->dir_count] = ft_strdup(dir->d_name);
+					//protect
+					b->dir_count++;
+				}
 				if (!b->file_list[b->file_count])
+				{
+					printf("exiting, bye\n");
 					exit(1);
+				}
 				b->file_count++;
 			}
 		}
@@ -102,8 +111,6 @@ void	list_from_argv(char **argv, t_ls *b)
 			if (!b->dir_list[b->dir_count])
 				exit(1);
 			b->dir_count++;
-			// if (b->R)
-			// 	list_sub_directories(b);
 		}
 		i++;
 	}
@@ -114,25 +121,10 @@ void	list_from_argv(char **argv, t_ls *b)
 
 void	create_lists(char **argv, int argc, t_ls *b)
 {
-	if (argc == 1 || b->flag_args == argc - 1)
-	{
-		if (b->R == 1)
-		{
-			list_directories_only(b);
-			sort_list(b->dir_list, b->sortc);
-			list_sub_directories(b);
-		}
+	if (b->dirfileargc == 0)
 		list_files_in_dir(b, b->path);
-	}
 	else
-	{
-		if (b->R == 1)
-		{
-			list_from_argv(argv, b);
-			sort_list(b->dir_list, b->sortc);
-			R_start(b);
-		}
-		else
-			list_from_argv(argv, b);
-	}
+		list_from_argv(argv, b);
+	if (b->R)
+		R_start(b);
 }

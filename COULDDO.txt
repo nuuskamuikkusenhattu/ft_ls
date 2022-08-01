@@ -1,0 +1,14 @@
+koko ohjelma vois ehka toimia nain:
+
+listaa filut (ja epafilut jos df_argc)
+sorttaa filut
+printtaa filut
+
+jos -R 
+while(filucount)
+jos ISDIR
+path = filut[b.i]
+b.i++
+-> kutsu itseasi
+
+(../kokeilu)

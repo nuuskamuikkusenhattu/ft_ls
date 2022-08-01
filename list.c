@@ -129,6 +129,7 @@ void	create_lists(char **argv, int argc, t_ls *b)
 		if (b->R == 1)
 		{
 			list_from_argv(argv, b);
+			sort_list(b->dir_list, b->sortc);
 			R_start(b);
 		}
 		else

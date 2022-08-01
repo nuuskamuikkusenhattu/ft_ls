@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/01 13:30:30 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/01 15:21:49 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,10 @@ void	test_show_params(t_ls *b);
 void	print_long_format(t_ls *b);
 
 
-//messing up
+//being playful
 void	R_start(t_ls *b);
+int		is_subdir_substr(char *str1, char *str2, int len1);
+void	sort_R_dirlist(t_ls *b);
 
 #endif
 

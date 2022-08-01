@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/26 17:16:43 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/01 15:20:58 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,30 @@ void	sort_time(char **list)
 	}
 }
 
+void	sort_R_dirlist(t_ls *b)
+{
+	if (b->r)
+	{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	while (b->dir_list[i] && b->dir_list[i + 1])
+	{
+		if (ft_strcmp(b->dir_list[i], b->dir_list[i + 1]) < 0 && \
+		is_subdir_substr(b->dir_list[i], b->dir_list[i + 1], ft_strlen(b->dir_list[i])) == 0)
+		{
+			temp = b->dir_list[i];
+			b->dir_list[i] = b->dir_list[i + 1];
+			b->dir_list[i + 1] = temp;
+			i-=2;
+		}
+		i++;
+		if (i < 0)
+			i = 0;
+	}
+	}
+}
 // sorts a given list with given conversion/flag
 // t == time (-t), r == reverse (-r)
 

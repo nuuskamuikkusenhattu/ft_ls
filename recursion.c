@@ -6,11 +6,21 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:29:18 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/01 14:06:22 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/01 15:22:11 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+// checks if str1 is a substring of str2 (subdirectory)
+
+int		is_subdir_substr(char *str1, char *str2, int len1)
+{
+	if (strncmp(str1, str2, len1) == 0 && str2[len1] == '/')
+		return (1);
+	else
+		return (0);
+}
 
 void	print_for_R(t_ls *b)
 {
@@ -60,7 +70,7 @@ void	R_start(t_ls *b)
 		//protect
 		//printf("%s\n", b->dir_list[0]);
 		list_sub_directories(b);
-		sort_list(b->dir_list, b->sortc);
+		sort_R_dirlist(b);
 		//test_print_list(b, 'd');
 		print_for_R(b);
 		i++;

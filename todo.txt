@@ -16,14 +16,12 @@ RIKKINAISET IMPLEMENTAATIOT:
 TYPERAT ELAMAN VALINNAT:
 list_files_in_dir args!!
 
+ls -Rr ja ls -Rt ei ookaa niiku aattelin
+tutkitaas niita ruokiksen jalkee:
 
+ls -R -> ascii
+ls -Rr -> reverse, paitsi tasoittain
+>> jos path('/'-paatteinen) on toisen substring,
+ala jarjesta
 
--R (tai -Rr) pohdintaa
-listaa kansiot (path)
-sorttaa kansiot (sortc)
-while i < dirc:
-listaa kaikki tiedostot (sortc)
-printtaa tiedostot
-kay tiedostot lapi, jos se on kansio, tulosta sen nimi, listaa sen sisalto (temp?), tulosta sen sisalto 
-
-ei saatanan saatana :(
+./a.out -Rr segfaulttaa

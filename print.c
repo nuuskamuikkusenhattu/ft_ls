@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/01 18:18:42 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/01 18:33:42 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,8 @@ void	print(t_ls *b)
 {
 	if (b->R)
 	{
+		print_non_existings(b);
+		print_files_only(b);
 		R_start(b);
 	}
 	else

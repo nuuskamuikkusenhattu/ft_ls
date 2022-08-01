@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/01 15:56:57 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/01 18:30:37 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	sort_R_dirlist(t_ls *b)
 			i = 0;
 	}
 	}
-	if (b->t)
+	else if (b->t)
 	{
 		int		i;
 	char	*temp;
@@ -136,6 +136,8 @@ void	sort_R_dirlist(t_ls *b)
 			i = 0;
 	}
 	}
+	else
+		sort_ascii(b->dir_list);
 }
 // sorts a given list with given conversion/flag
 // t == time (-t), r == reverse (-r)

@@ -42,7 +42,7 @@ void	list_files_in_dir(t_ls *b, char *path)
 			if (b->a == 1 || (b->a == 0 && dir->d_name[0] != '.'))
 			{
 				b->file_list[b->file_count] = ft_strdup(dir->d_name);
-				if (b->R && dir->d_type == 4)
+				if (b->R && dir->d_type == 4 && b->ne_count != -1)
 				{
 					b->dir_list[b->dir_count] = ft_strdup(dir->d_name);
 					//protect
@@ -125,6 +125,4 @@ void	create_lists(char **argv, int argc, t_ls *b)
 		list_files_in_dir(b, b->path);
 	else
 		list_from_argv(argv, b);
-	if (b->R)
-		R_start(b);
 }

@@ -23,6 +23,4 @@ ls -Rr -> reverse, paitsi tasoittain
 >> jos path('/'-paatteinen) on toisen substring,
 ala jarjesta
 
--t  toimii ihan vaarin, kaikkialla
-
 -R (ja ehka muutki nayttaa pathin vaarin)

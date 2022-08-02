@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/01 18:55:18 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:52:31 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	sort_time(char **list)
 	long long	this_time;
 	long long	next_time;
 
+	sort_ascii(list);
+
 	i = 0;
 	while (list[i] && list[i + 1])
 	{
@@ -115,6 +117,7 @@ void	sort_R_dirlist(t_ls *b)
 	struct stat f_status;
 	long long	this_time;
 	long long	next_time;
+	sort_ascii(b->dir_list);
 
 	i = 0;
 	while (b->dir_list[i] && b->dir_list[i + 1])

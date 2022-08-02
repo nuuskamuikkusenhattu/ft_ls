@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/02 13:00:27 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/02 16:02:58 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ about the resulting file.
 
 static int	print_permissions(struct stat f_status)
 {
-	int	rights[] = {S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH};
+	int	rights[] = {S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH, S_ISVTX};
 	int i = 0;
 	int	ret = 0;
 
@@ -34,7 +34,7 @@ static int	print_permissions(struct stat f_status)
 	}
 	else
 		ft_printf("-");
-	while (i < 9)
+	while (i < 8)
 	{
 		if ((f_status.st_mode & rights[i]) && i % 3 == 0)
 			ft_printf("r");
@@ -46,6 +46,12 @@ static int	print_permissions(struct stat f_status)
 			ft_printf("-");
 		i++;
 	}
+	if (f_status.st_mode & rights[9])
+		ft_printf("t");
+	else if (f_status.st_mode & rights[8])
+		ft_printf("x");
+	else
+		ft_printf("-");
 	ft_printf("  ");
 	return (ret);
 }

@@ -53,3 +53,7 @@ managed to list the directories and subdirectories (i think)
 0108
 - redid -R (recursion.c), works with -Rr now
 
+0208
+- fixed -t by adding sort_ascii -call before it (sort.c)
+- added output for no_permission
+- added support for stickybits (long_format.c)

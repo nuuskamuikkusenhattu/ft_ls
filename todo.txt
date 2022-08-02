@@ -14,6 +14,7 @@ RIKKINAISET IMPLEMENTAATIOT:
 
 TYPERAT ELAMAN VALINNAT:
 list_files_in_dir args!!
+long_format hommissa vois kayttaa writee, ainaki joskus
 
 ls -Rr ja ls -Rt ei ookaa niiku aattelin
 tutkitaas niita ruokiksen jalkee:
@@ -22,3 +23,21 @@ ls -R -> ascii
 ls -Rr -> reverse, paitsi tasoittain
 >> jos path('/'-paatteinen) on toisen substring,
 ala jarjesta
+
+
+
+eval form issues:
+-t ei toimi noperm dirrejen / filejen kaa oikein
+
+./a.out -R ilman argeja segfaulttaa jos nopermeja mukana
+aina ku argc>1 ja filet + dirret puuttuu vali 
+
+./a.out -r res_my.txt dec21.txt dirre empty zzz sorttaus
+./a.out -t res_my.txt dec21.txt dirre empty zzz sorttaus
+setuid setgid stickybit
+
+
+hangkalat:
+
+ls -l /dev/ monia asioita
+

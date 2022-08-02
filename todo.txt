@@ -22,5 +22,3 @@ ls -R -> ascii
 ls -Rr -> reverse, paitsi tasoittain
 >> jos path('/'-paatteinen) on toisen substring,
 ala jarjesta
-
--R (ja ehka muutki nayttaa pathin vaarin)

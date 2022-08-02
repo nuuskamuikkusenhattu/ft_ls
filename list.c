@@ -59,6 +59,8 @@ void	list_files_in_dir(t_ls *b, char *path)
 		b->file_list[b->file_count] = NULL;
 		closedir(d);
 	}
+	else
+		ft_printf("ls: %s: Permission denied\n", path);
 }
 
 void	list_directories_only(t_ls *b)
@@ -117,6 +119,7 @@ void	list_from_argv(char **argv, t_ls *b)
 	b->non_exists[b->ne_count] = NULL;
 	b->file_list[b->file_count] = NULL;
 	b->dir_list[b->dir_count] = NULL;
+	sort_ascii(b->dir_list);
 }
 
 void	create_lists(char **argv, int argc, t_ls *b)

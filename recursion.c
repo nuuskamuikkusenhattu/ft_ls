@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:29:18 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/01 18:38:59 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/02 12:33:50 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_for_R(t_ls *b)
 		print_files_only(b);
 		i++;
 		if (i != b->dir_count)
-			write(1, "\n", 1); //condition
+			write(1, "\n", 1);
 	}
 }
 
@@ -47,9 +47,9 @@ void	R_start(t_ls *b)
 	int i = 0;
 	dirs = (char **)malloc(sizeof (char *) * b->dir_count + 1);
 	//protect
-	//printf("dircount when we start: %d\n", b->dir_count);
 	if (b->file_count > 0)
 		write(1, "\n", 1);
+	sort_list(b->dir_list, b->sortc);
 	while (b->dir_list[i])
 	{
 		dirs[i] = ft_strdup(b->dir_list[i]);
@@ -57,13 +57,6 @@ void	R_start(t_ls *b)
 		i++;
 	}
 	dirs[i] = NULL;
-	//printf("%d %d\n", b->dir_count, i);
-	// i = 0;
-	// while (dirs[i])
-	// {
-	// 	printf("%s\n", dirs[i]);
-	// 	i++;
-	// }
 	i = 0;
 	while (dirs[i])
 	{
@@ -71,10 +64,8 @@ void	R_start(t_ls *b)
 		b->dir_list[0] = ft_strdup(dirs[i]);
 		b->dir_count = 1;
 		//protect
-		//printf("%s\n", b->dir_list[0]);
 		list_sub_directories(b);
 		sort_R_dirlist(b);
-		//test_print_list(b, 'd');
 		print_for_R(b);
 		i++;
 		if (dirs[i])

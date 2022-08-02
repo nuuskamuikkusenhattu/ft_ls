@@ -44,7 +44,7 @@ void	list_files_in_dir(t_ls *b, char *path)
 				b->file_list[b->file_count] = ft_strdup(dir->d_name);
 				if (b->R && dir->d_type == 4 && b->ne_count != -1)
 				{
-					b->dir_list[b->dir_count] = ft_strdup(dir->d_name);
+					b->dir_list[b->dir_count] = ft_strjoin("./", dir->d_name);
 					//protect
 					b->dir_count++;
 				}

@@ -23,6 +23,6 @@ ls -Rr -> reverse, paitsi tasoittain
 >> jos path('/'-paatteinen) on toisen substring,
 ala jarjesta
 
-./a.out -Rr segfaulttaa
+-t  toimii ihan vaarin, kaikkialla
 
--t  toimii ihan vaarin
+-R (ja ehka muutki nayttaa pathin vaarin)

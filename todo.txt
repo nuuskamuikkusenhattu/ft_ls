@@ -30,11 +30,14 @@ eval form issues:
 -t ei toimi noperm dirrejen / filejen kaa oikein
 
 ./a.out -R ilman argeja segfaulttaa jos nopermeja mukana
-aina ku argc>1 ja filet + dirret puuttuu vali 
 
-./a.out -r res_my.txt dec21.txt dirre empty zzz sorttaus
-./a.out -t res_my.txt dec21.txt dirre empty zzz sorttaus
-setuid setgid stickybit
+./a.out -R noperm segfaulttaa yha
+
+JOS -rt niin kansiot jarjestetaan:
+- ensin -t (mutta subdir)
+- josta reverse, mutta subdir
+
+./a.out -Rrt empty empt dirre dirre_nro2 zzz on joku pieni bugi viel
 
 
 hangkalat:

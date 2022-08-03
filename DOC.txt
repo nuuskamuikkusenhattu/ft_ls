@@ -57,3 +57,7 @@ managed to list the directories and subdirectories (i think)
 - fixed -t by adding sort_ascii -call before it (sort.c)
 - added output for no_permission
 - added support for stickybits (long_format.c)
+
+0308
+- added sort_rt (sort.c), doesnt QUITE work tho
+

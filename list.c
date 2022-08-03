@@ -69,6 +69,8 @@ void	list_directories_only(t_ls *b)
 	struct dirent *dir;
 
 	d = opendir(b->path);
+	if (d)
+	{
 	while ((dir = readdir(d)) != NULL)
 	{
 		if (dir->d_type == 4 && dir->d_name[0] != '.')
@@ -80,6 +82,7 @@ void	list_directories_only(t_ls *b)
 		}
 	}
 	closedir(d);
+	}
 	b->dir_list[b->dir_count] = NULL;
 }
 

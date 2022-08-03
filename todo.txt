@@ -44,3 +44,5 @@ hangkalat:
 
 ls -l /dev/ monia asioita
 
+-t ei toimi jos kyseessa on linkki, 
+menee jostain syysta kohteen eika linkin mukana

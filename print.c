@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/01 18:33:42 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:17:28 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,10 +151,13 @@ void	print_all_lists(t_ls *b)
 
 	print_non_existings(b);
 	if (b->file_count > 0)
-	{
 		print_files_only(b);
-		
-	}
+	if (b->file_count > 0 && b->dir_list[i])
+		write(1, "\n", 1);
+	if (b->r && b->t)
+		sort_rt(b);
+	else
+		sort_list(b->dir_list, b->sortc);
 	while (b->dir_list[i])
 	{
 		b->path = ft_strjoin_three("",b->dir_list[i], "/");

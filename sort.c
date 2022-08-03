@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/03 12:15:43 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/03 14:16:30 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,19 @@ void	sort_time(char **list)
 	long long	next_time;
 
 	sort_ascii(list);
-
 	i = 0;
 	while (list[i] && list[i + 1])
 	{
-		stat(list[i], &f_status);
+		lstat(list[i], &f_status);
 		this_time = f_status.st_mtime;
-		stat(list[i + 1], &f_status);
+		lstat(list[i + 1], &f_status);
 		next_time = f_status.st_mtime;
 		if (this_time < next_time)
 		{
 			temp = list[i];
 			list[i] = list[i + 1];
 			list[i + 1] = temp;
-			i-=2;
+			i-=3;
 		}
 		i++;
 		if (i < 0)

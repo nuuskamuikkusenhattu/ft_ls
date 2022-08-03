@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/01 15:21:49 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/03 12:13:40 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	sort_list(char **list, char c);
 void	sort_ascii(char **list);
 void	sort_time(char **list);
 void	reverse_sort(char **list);
+void	sort_rt(t_ls *b);
 
 //print
 void	print(t_ls *b);

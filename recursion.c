@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:29:18 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/02 12:33:50 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/03 13:06:26 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ void	print_for_R(t_ls *b)
 	b->ne_count = -1;
 	while (b->dir_list[i])
 	{
-		ft_printf("%s:\n", b->dir_list[i]);
+		if (b->dirfileargc != 1)
+			ft_printf("%s:\n", b->dir_list[i]);
+		b->dirfileargc = 42;
 		initialize_list(b, 'f');
 		b->path = ft_strdup(b->dir_list[i]);
 		//protect
@@ -47,7 +49,7 @@ void	R_start(t_ls *b)
 	int i = 0;
 	dirs = (char **)malloc(sizeof (char *) * b->dir_count + 1);
 	//protect
-	if (b->file_count > 0)
+	if (b->file_count > 0 && b->dir_count > 0)
 		write(1, "\n", 1);
 	sort_list(b->dir_list, b->sortc);
 	while (b->dir_list[i])

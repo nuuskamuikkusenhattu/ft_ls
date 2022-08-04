@@ -1,13 +1,6 @@
 TODO
-total -l commandilla
 
 RIKKINAISET COMMANDIT:
-ls -l /dev/
-ls -l /dev/fd 
-./a.out noperm segfaulttaa
-
-./a.out -Rr kansiot eivat ole oikeassa jarjestyksessa
-
 
 RIKKINAISET IMPLEMENTAATIOT:
 
@@ -16,33 +9,20 @@ TYPERAT ELAMAN VALINNAT:
 list_files_in_dir args!!
 long_format hommissa vois kayttaa writee, ainaki joskus
 
-ls -Rr ja ls -Rt ei ookaa niiku aattelin
-tutkitaas niita ruokiksen jalkee:
-
-ls -R -> ascii
-ls -Rr -> reverse, paitsi tasoittain
->> jos path('/'-paatteinen) on toisen substring,
-ala jarjesta
 
 
 
 eval form issues:
--t ei toimi noperm dirrejen / filejen kaa oikein
 
-./a.out -R ilman argeja segfaulttaa jos nopermeja mukana
-
-./a.out -R noperm segfaulttaa yha
-
+./a.out -Rrt ei viel toimi, -Rt ja -Rr kyllakin
 JOS -rt niin kansiot jarjestetaan:
 - ensin -t (mutta subdir)
 - josta reverse, mutta subdir
 
-./a.out -Rrt empty empt dirre dirre_nro2 zzz on joku pieni bugi viel
-
+total -l
 
 hangkalat:
 
 ls -l /dev/ monia asioita
+ls -l /dev/fd
 
--t ei toimi jos kyseessa on linkki, 
-menee jostain syysta kohteen eika linkin mukana

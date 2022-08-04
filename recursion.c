@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:29:18 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/03 13:06:26 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/04 15:48:57 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,17 @@ void	print_for_R(t_ls *b)
 
 void	R_start(t_ls *b)
 {
+	printf("sortc is %c\n\n", b->sortc);
 	char **dirs;
 	int i = 0;
 	dirs = (char **)malloc(sizeof (char *) * b->dir_count + 1);
 	//protect
 	if (b->file_count > 0 && b->dir_count > 0)
 		write(1, "\n", 1);
-	sort_list(b->dir_list, b->sortc);
+	if (b->r && b->t)
+		sort_list(b->dir_list, 't');
+	else
+		sort_list(b->dir_list, b->sortc);
 	while (b->dir_list[i])
 	{
 		dirs[i] = ft_strdup(b->dir_list[i]);

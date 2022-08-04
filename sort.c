@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/03 14:16:30 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/04 15:43:02 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ and then reversed (subdir sensitive)
 
 void	sort_rt(t_ls *b)
 {
+	//sort by time, level'd by subdirs
 	int		i;
 	char	*temp;
 	struct stat f_status;
@@ -119,11 +120,27 @@ void	sort_rt(t_ls *b)
 		if (i < 0)
 			i = 0;
 	}
+	//reverse the gotten order, level'd by subdirs
+	char **templist;
+	templist = (char **)malloc(sizeof(char *) * (b->dir_count + 1));
+	//protect
+	i = 0;
+	int c = b->dir_count - 1;
+	// while (i < c)
+	// {
+	// 	temp = b->dir_list[c];
+	// 	b->dir_list[c] = b->dir_list[i];
+	// 	b->dir_list[i] = temp;
+	// 	i++;
+	// 	c--;
+	// }
 }
 
 void	sort_R_dirlist(t_ls *b)
 {
-	if (b->r)
+	if (b->r && b->t)
+		sort_rt(b);
+	else if (b->r)
 	{
 	int		i;
 	char	*temp;
@@ -137,7 +154,7 @@ void	sort_R_dirlist(t_ls *b)
 			temp = b->dir_list[i];
 			b->dir_list[i] = b->dir_list[i + 1];
 			b->dir_list[i + 1] = temp;
-			i-=2;
+			i-=3;
 		}
 		i++;
 		if (i < 0)

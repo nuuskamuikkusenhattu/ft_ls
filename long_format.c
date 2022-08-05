@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/03 14:01:49 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/05 17:14:15 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ about the resulting file.
 
 static int	print_permissions(struct stat f_status)
 {
-	int	rights[] = {S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH, S_ISVTX};
+	int	rights[] = {S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH, S_ISVTX, S_ISUID, S_ISGID};
 	int i = 0;
 	int	ret = 0;
 
@@ -40,8 +40,15 @@ static int	print_permissions(struct stat f_status)
 			ft_printf("r");
 		else if ((f_status.st_mode & rights[i]) && i % 3 == 1)
 			ft_printf("w");
-		else if ((f_status.st_mode & rights[i]) && i % 3 == 2)
-			ft_printf("x");
+		else if (i % 3 == 2)
+		{
+			if ((f_status.st_mode & S_ISUID && i == 2) || (f_status.st_mode & S_ISGID && i == 5))
+				ft_printf("S");
+			else if (f_status.st_mode & rights[i])
+				ft_printf("x");
+			else
+				ft_printf("-");
+		}
 		else
 			ft_printf("-");
 		i++;

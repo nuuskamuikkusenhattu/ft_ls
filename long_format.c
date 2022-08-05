@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/05 17:14:15 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/05 17:18:39 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ static int	print_permissions(struct stat f_status)
 		ft_printf("l");
 		ret = 1;
 	}
+	else if (S_ISCHR(f_status.st_mode))
+		ft_printf("c");
+	else if (S_ISBLK(f_status.st_mode))
+		ft_printf("b");
 	else
 		ft_printf("-");
 	while (i < 8)

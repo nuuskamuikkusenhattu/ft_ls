@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/04 15:43:02 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/05 15:22:26 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,47 +93,34 @@ and then reversed (subdir sensitive)
 
 void	sort_rt(t_ls *b)
 {
-	//sort by time, level'd by subdirs
-	int		i;
-	char	*temp;
-	struct stat f_status;
-	long long	this_time;
-	long long	next_time;
-	sort_ascii(b->dir_list);
-
-	i = 0;
-	while (b->dir_list[i] && b->dir_list[i + 1])
+	sort_list(b->dir_list, 't');
+	//reverse the gotten list
+	int i = 0;
+	int c = b->dir_count - 1;
+	char *temp;
+	while (i < c)
 	{
-		stat(b->dir_list[i], &f_status);
-		this_time = f_status.st_mtime;
-		stat(b->dir_list[i + 1], &f_status);
-		next_time = f_status.st_mtime;
-		if (this_time < next_time && \
-		is_subdir_substr(b->dir_list[i], b->dir_list[i + 1], ft_strlen(b->dir_list[i])) == 0)
+		temp = b->dir_list[c];
+		b->dir_list[c] = b->dir_list[i];
+		b->dir_list[i] = temp;
+		i++;
+		c--;
+	}
+	int n = 1;
+	i = 0;
+	while (b->dir_list[i + 1])
+	{
+		if (is_subdir_substr(b->dir_list[i + 1], b->dir_list[i], ft_strlen(b->dir_list[i + 1])))
 		{
-			temp =b->dir_list[i];
+			temp = b->dir_list[i];
 			b->dir_list[i] = b->dir_list[i + 1];
 			b->dir_list[i + 1] = temp;
-			i-=2;
+			i-=3;
 		}
 		i++;
 		if (i < 0)
 			i = 0;
 	}
-	//reverse the gotten order, level'd by subdirs
-	char **templist;
-	templist = (char **)malloc(sizeof(char *) * (b->dir_count + 1));
-	//protect
-	i = 0;
-	int c = b->dir_count - 1;
-	// while (i < c)
-	// {
-	// 	temp = b->dir_list[c];
-	// 	b->dir_list[c] = b->dir_list[i];
-	// 	b->dir_list[i] = temp;
-	// 	i++;
-	// 	c--;
-	// }
 }
 
 void	sort_R_dirlist(t_ls *b)

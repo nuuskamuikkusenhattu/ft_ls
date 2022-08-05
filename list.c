@@ -60,7 +60,12 @@ void	list_files_in_dir(t_ls *b, char *path)
 		closedir(d);
 	}
 	else
-		ft_printf("ls: %s: Permission denied\n", path);
+	{
+		if (path[0] == '.' && path[1] == '/' && path[2])
+			ft_printf("ls: %s: Permission denied\n", path + 2);
+		else
+			ft_printf("ls: %s: Permission denied\n", path);
+	}
 }
 
 void	list_directories_only(t_ls *b)

@@ -26,3 +26,4 @@ hangkalat:
 ls -l /dev/ monia asioita
 ls -l /dev/fd
 
+ls -Rrt noperm tulostuu vaarin

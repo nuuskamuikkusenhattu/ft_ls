@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:29:18 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/04 15:48:57 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/05 15:18:00 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,25 @@ void	print_for_R(t_ls *b)
 	}
 }
 
+void	rrt(t_ls *b)
+{
+	sort_list(b->dir_list, 't');
+	int i = 0;
+	int c = b->dir_count - 1;
+	char *temp;
+	while (i < c)
+	{
+		temp = b->dir_list[c];
+		b->dir_list[c] = b->dir_list[i];
+		b->dir_list[i] = temp;
+		i++;
+		c--;
+	}
+	//list_sub_directories(b);
+}
+
 void	R_start(t_ls *b)
 {
-	printf("sortc is %c\n\n", b->sortc);
 	char **dirs;
 	int i = 0;
 	dirs = (char **)malloc(sizeof (char *) * b->dir_count + 1);
@@ -53,7 +69,7 @@ void	R_start(t_ls *b)
 	if (b->file_count > 0 && b->dir_count > 0)
 		write(1, "\n", 1);
 	if (b->r && b->t)
-		sort_list(b->dir_list, 't');
+		rrt(b);
 	else
 		sort_list(b->dir_list, b->sortc);
 	while (b->dir_list[i])
@@ -72,6 +88,7 @@ void	R_start(t_ls *b)
 		//protect
 		list_sub_directories(b);
 		sort_R_dirlist(b);
+		//test_print_list(b, 'd');
 		print_for_R(b);
 		i++;
 		if (dirs[i])

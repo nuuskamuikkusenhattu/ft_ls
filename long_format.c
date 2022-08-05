@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/05 17:18:39 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/05 17:52:35 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,15 @@ static int	print_permissions(struct stat f_status)
 		ret = 1;
 	}
 	else if (S_ISCHR(f_status.st_mode))
+	{
 		ft_printf("c");
+		ret = 2;
+	}
 	else if (S_ISBLK(f_status.st_mode))
+	{
 		ft_printf("b");
+		ret = 2;
+	}
 	else
 		ft_printf("-");
 	while (i < 8)
@@ -107,21 +113,25 @@ void	print_long_format(t_ls *b)
 	struct group *gp;
 	int		i = 0;
 	int exists = 0;
-	int islink = 0;
+	int ret = 0;
 	char *file_path;
 	while (b->file_list[i])
 	{
 		file_path = ft_strjoin(b->path, b->file_list[i]);
 		if (lstat(file_path, &f_status) > -1)
 		{
-			islink = print_permissions(f_status);
+			ret = print_permissions(f_status);
 			pw = getpwuid(f_status.st_uid);
 			gp = getgrgid(f_status.st_gid);
-			ft_printf("%d %s  %s %d ", f_status.st_nlink, pw->pw_name, \
-			gp->gr_name, f_status.st_size);
+			ft_printf("%d %s  %s ", f_status.st_nlink, pw->pw_name, \
+			gp->gr_name);
+			if (ret == 2)
+				ft_printf("%u,   %u ", major(f_status.st_rdev), minor(f_status.st_rdev)); //should print the weird size data for b and c
+			else
+				ft_printf("%d ", f_status.st_size);
 			parse_time(f_status, ctime(&f_status.st_mtime));
 			ft_printf("%s", b->file_list[i]);
-			if (islink == 1)
+			if (ret == 1)
 				print_link(b->file_list[i]);
 			write(1, "\n", 1);
 		}

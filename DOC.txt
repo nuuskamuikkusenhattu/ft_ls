@@ -61,3 +61,7 @@ managed to list the directories and subdirectories (i think)
 0308
 - added sort_rt (sort.c), doesnt QUITE work tho
 
+0508
+- quite dumb special case for -Rrt done, seems to work now
+- added setuid/setgid, block- and character-files 
+- added major / minor number for device files (/dev) (long_format.c)

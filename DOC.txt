@@ -65,3 +65,6 @@ managed to list the directories and subdirectories (i think)
 - quite dumb special case for -Rrt done, seems to work now
 - added setuid/setgid, block- and character-files 
 - added major / minor number for device files (/dev) (long_format.c)
+
+0808
+- fixed total-counter for -l 

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/08 14:02:43 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/08 17:51:42 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,14 @@ void	print_non_existings(t_ls *b)
 {
 	int		i;
 
+	sort_ascii(b->non_exists);
 	i = 0;
 	while (b->non_exists[i])
 	{
-		ft_printf("ls: %s: No such file or directory\n", b->non_exists[i]);
+		if (ft_strlen(b->non_exists[i]) > 255)
+			ft_printf("ls: %s: File name too long\n", b->non_exists[i]);
+		else
+			ft_printf("ls: %s: No such file or directory\n", b->non_exists[i]);
 		i++;
 	}
 }

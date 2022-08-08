@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/08 14:05:56 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/08 17:56:49 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,15 @@ static int	print_permissions(struct stat f_status)
 
 static void	print_link(char *name)
 {
-	char buf[MAX_PATH];
+	char buf[MAX_PATH + 1];
 	ssize_t len;
 
-	len = readlink(name, buf, MAX_PATH);
+	ft_bzero(buf, MAX_PATH + 1);
+	len = readlink(name, buf, MAX_PATH + 1);
 	if (len != -1)
 		ft_printf(" -> %s", buf);
+	else
+		printf("%s", strerror(len));
 }
 
 /*
@@ -100,7 +103,7 @@ static void	parse_time(struct stat f_status, char *str)
 	this_time = ft_strsplit(str, ' ');
 	parsed = ft_strnew(5);
 	ft_strncpy(parsed, this_time[3], 5);
-	if (time(&now) - f_status.st_mtime < 15724800)
+	if (time(&now) - f_status.st_mtime < 15724800 && time(&now) - f_status.st_mtime > 0)
 		ft_printf("%s %s %s ", this_time[1], this_time[2], parsed);
 	else
 		ft_printf("%s %s %s ", this_time[1], this_time[2], ft_strtrim(this_time[4]));
@@ -155,7 +158,7 @@ void	print_long_format(t_ls *b)
 			parse_time(f_status, ctime(&f_status.st_mtime));
 			ft_printf("%s", b->file_list[i]);
 			if (ret == 1)
-				print_link(b->file_list[i]);
+				print_link(file_path);
 			write(1, "\n", 1);
 		}
 		i++;

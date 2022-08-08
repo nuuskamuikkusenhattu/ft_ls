@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/03 12:13:40 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/08 14:57:08 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 #include <time.h>
 
 #define FLAGS "lRrat"
-#define MAX_PATH 1024
+#define MAX_PATH 256
 
 typedef struct s_ls
 {

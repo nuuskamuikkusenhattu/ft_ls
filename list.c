@@ -33,7 +33,9 @@ void	list_files_in_dir(t_ls *b, char *path)
 {
 	DIR *d;
 	struct dirent *dir;
+	int	total;
 
+	total = 0;
 	d = opendir(path);
 	if (d)
 	{

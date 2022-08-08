@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/05 17:52:35 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/08 14:05:56 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,27 @@ static void	parse_time(struct stat f_status, char *str)
 		ft_printf("%s %s %s ", this_time[1], this_time[2], ft_strtrim(this_time[4]));
 }
 
+static void	get_total(t_ls *b)
+{
+	int i;
+	int total;
+	struct stat f_status;
+	char *current;
+
+	i = 0;
+	total = 0;
+	while (b->file_list[i])
+	{
+		current = ft_strjoin(b->path, b->file_list[i]);
+		//printf("path is %s\n", b->path);
+		lstat(current, &f_status);
+		total += f_status.st_blocks;
+		//printf("%s : %lld\n", b->file_list[i], f_status.st_blocks);
+		i++;
+	}
+	ft_printf("total %d\n", total);
+}
+
 void	print_long_format(t_ls *b)
 {
 	struct stat	f_status;
@@ -115,6 +136,8 @@ void	print_long_format(t_ls *b)
 	int exists = 0;
 	int ret = 0;
 	char *file_path;
+	
+	get_total(b); //some unknown condition
 	while (b->file_list[i])
 	{
 		file_path = ft_strjoin(b->path, b->file_list[i]);

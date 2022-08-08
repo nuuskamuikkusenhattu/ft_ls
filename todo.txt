@@ -14,16 +14,27 @@ long_format hommissa vois kayttaa writee, ainaki joskus
 
 eval form issues:
 
-./a.out -Rrt ei viel toimi, -Rt ja -Rr kyllakin
-JOS -rt niin kansiot jarjestetaan:
-- ensin -t (mutta subdir)
-- josta reverse, mutta subdir
-
-total -l
-
 hangkalat:
 
-ls -l /dev/ monia asioita
 ls -l /dev/fd
 
-ls -Rrt noperm tulostuu vaarin
+- linkki kansioon
+- linkki kansioon johon ei oo oikeuksia
+- linkki kansioon jonka oot poistanu
+- linkki kansioon, mut linkilla ei oo oikeuksia (ja kansioihin tavaraa sisalle ni paljo hauskempaa tietty)
+- linkki filuun
+- linkki filuun johon ei oo oikeuksia
+- linkki filuun jonka oot poistanu
+- linkki filuun, mut linkilla ei oo oikeuksia
+ ja tee osa linkeista saman kansion sisalla ja osa sit jonneki kauemmas!!
+- filu/kansio jonka nimi on nii pitka ku saa olla
+- mitas sit jos filu/kansion nimi on nii pitka ku saa olla, mut sit pathin kaa siita tulee vitusti liia pitka 🙂 🙂 🙂
+- ls -l /dev/ siel on stderr stdout ja stdin yms fd-jutut, tsekkaa ne 
+
+
+noperm tuloste pitaa tulostaa pelkka nimi, ei pathia (nykyinen ehto './' ei toimi jos 
+tuloste onkin vaikka alikansiosta)
+
+total -l ei toimi aina, ja se tulis tulostaa vain jos argumenteissa tai kokolistalla on kansioita (joilla permission)
+
+leaks, leaks everywhere

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/03 12:17:28 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/08 14:02:43 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,10 @@ void	print_all_lists(t_ls *b)
 		sort_list(b->dir_list, b->sortc);
 	while (b->dir_list[i])
 	{
-		b->path = ft_strjoin_three("",b->dir_list[i], "/");
+		if (b->dir_list[i][ft_strlen(b->dir_list[i]) - 1] == '/')
+			b->path = b->dir_list[i];
+		else
+			b->path = ft_strjoin_three("",b->dir_list[i], "/");
 		if (!b->path)
 			exit(1);
 		if (b->dirfileargc > 1)

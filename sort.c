@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/05 15:22:26 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:23:21 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,10 @@ and then reversed (subdir sensitive)
 
 void	sort_rt(t_ls *b)
 {
-	sort_list(b->dir_list, 't');
+	sort_list(b->dir_list, 't', b->r);
 	//reverse the gotten list
-	int i = 0;
 	int c = b->dir_count - 1;
+	int i = 0;
 	char *temp;
 	while (i < c)
 	{
@@ -121,6 +121,7 @@ void	sort_rt(t_ls *b)
 		if (i < 0)
 			i = 0;
 	}
+	test_print_list(b, 'd');
 }
 
 void	sort_R_dirlist(t_ls *b)
@@ -183,12 +184,34 @@ void	sort_R_dirlist(t_ls *b)
 // sorts a given list with given conversion/flag
 // t == time (-t), r == reverse (-r)
 
-void	sort_list(char **list, char c)
+void	reverse_list(char **list)
+{
+	int i = 0;
+	char *temp;
+	int size;
+	
+	while (list[i])
+	{
+		i++;
+	}
+	size = i;
+	i = 0;
+	while (i < size)
+	{
+		temp = list[size - 1];
+		list[size - 1] = list[i];
+		list[i] = temp;
+		i++;
+		size--;
+	}
+}
+
+void	sort_list(char **list, char c, int r)
 {
 	if (c == 't')
 		sort_time(list);
-	else if (c == 'r')
-		reverse_sort(list);
 	else
 		sort_ascii(list);
+	if (r == 1)
+		reverse_list(list);
 }

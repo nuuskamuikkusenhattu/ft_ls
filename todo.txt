@@ -27,3 +27,10 @@ tuloste onkin vaikka alikansiosta)
 total -l ei toimi aina, ja se tulis tulostaa vain jos argumenteissa tai kokolistalla on kansioita (joilla permission)
 
 leaks, leaks everywhere
+
+permission denied viestit sisaltaa pathin vaikka ei pitais
+
+-Rrt on aiva vitullaa
+-rt sorttaus on vitullaa 
+
+-rt on ehka -t ja sit reverse

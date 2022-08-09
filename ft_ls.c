@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/01 16:07:51 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/09 14:41:34 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static void set_build(t_ls *build, int ac)
 	build->t = 0;
 	build->r = 0;
 	build->R = 0;
+	build->i = 0;
 	build->flagsParsed = 0;
 	build->flag_args = 0;
 	build->dirfileargc = 0;

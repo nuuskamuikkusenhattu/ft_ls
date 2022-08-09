@@ -52,7 +52,7 @@ void	list_files_in_dir(t_ls *b, char *path)
 				}
 				if (!b->file_list[b->file_count])
 				{
-					printf("exiting, bye\n");
+					printf("exiting, bye\n"); //debug
 					exit(1);
 				}
 				b->file_count++;

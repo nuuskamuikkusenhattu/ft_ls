@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/08 17:51:42 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:30:41 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	print_dirlist(t_ls *b)
 	{
 		b->path = ft_strdup(b->dir_list[i]);
 		list_files_in_dir(b, b->path);
-		sort_list(b->file_list, b->sortc);
+		sort_list(b->file_list, b->sortc, b->file_count);
 		ft_printf("%s:\n", b->dir_list[i]);
 		print_files_only(b);
 		if (i < b->dir_count - 1)
@@ -120,7 +120,7 @@ void	print_R(t_ls *b)
 		initialize_list(b, 'f');
 		//list_sub_directories(b);
 		if (b->argc - b->flag_args == 1) //why this condition
-			sort_list(b->dir_list, b->sortc);
+			sort_list(b->dir_list, b->sortc, b->dir_count);
 	while (b->dir_list[i])
 	{
 		temp[i] = ft_strdup(b->dir_list[i]);
@@ -141,7 +141,7 @@ void	print_R(t_ls *b)
 		list_sub_directories(b);
 		// if (!(i == 0 && b->argc - b->flag_args == 2)) //joku ehto tassa taytyy olla kylla
 		// 	ft_printf("%s:\n", b->dir_list[i]);
-		sort_list(b->dir_list, b->sortc);
+		sort_list(b->dir_list, b->sortc, b->dir_count);
 		print_dirlist(b);
 		i++;
 		if (i != c)
@@ -161,7 +161,7 @@ void	print_all_lists(t_ls *b)
 	if (b->r && b->t)
 		sort_rt(b);
 	else
-		sort_list(b->dir_list, b->sortc);
+		sort_list(b->dir_list, b->sortc, b->dir_count);
 	while (b->dir_list[i])
 	{
 		if (b->dir_list[i][ft_strlen(b->dir_list[i]) - 1] == '/')
@@ -181,13 +181,82 @@ void	print_all_lists(t_ls *b)
 	}
 }
 
+char **recursion_dir_list(char *path)
+{
+	DIR *d;
+	struct dirent *dir;
+	char **ret;
+	int i = 0;
+
+	d = opendir(path);
+	ret = (char **)malloc(sizeof(char *) * 1000); //optimize
+	//protect
+	if (d)
+	{
+	while ((dir = readdir(d)) != NULL)
+	{
+		if (dir->d_type == 4 && dir->d_name[0] != '.')
+		{
+			ret[i] = ft_strjoin(path, dir->d_name);
+			if (!ret[i])
+				exit(1);
+			i++;
+		}
+	}
+	closedir(d);
+	}
+	// else
+	// 	ft_printf("opendir failed in print.c recursion_dir_list\n");
+	ret[i] = NULL;
+	return (ret);
+}
+
+void	recursion(t_ls *b, char *path)
+{
+	char *current;
+	char **d;
+	int i = 0;
+	//test_print_list(b, 'd');
+	//ft_printf("dirs contains: ");
+	// while(dirs[n])
+	// {
+	// 	ft_printf("%s, ", dirs[n]);
+	// 	n++;
+	// }
+	d = recursion_dir_list(path);
+	sort_list(d, b->sortc, b->r);
+	while (d[i])
+	{
+		current = ft_strjoin(d[i], "/");
+		ft_printf("path is %s\n", current);
+		recursion(b, ft_strdup(current));
+		i++;
+	}
+	free(current);
+	// list_sub_directories(b);
+	// test_print_list(b, 'd');
+	
+	// tassa vaiheessa alkup. kansion kansiot on listattu ja jarjestetty.
+	// nyt pitaa kutsua jokaiselle funktiota list directories only, ja kutsua sita uudelleen niin kauan, kun se palauttaa >0
+}
+
 void	print(t_ls *b)
 {
 	if (b->R)
 	{
 		print_non_existings(b);
 		print_files_only(b);
-		R_start(b);
+		int i = 0;
+		char *path;
+		while (b->dir_list[i])
+		{
+			path = ft_strjoin_three("./", b->dir_list[i], "/");
+			if (b->dir_count >1)
+				ft_printf("%s\n", path);
+			recursion(b, path);
+			i++;	
+			free(path);
+		}
 	}
 	else
 	{

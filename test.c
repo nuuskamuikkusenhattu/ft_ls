@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 17:28:49 by spuustin          #+#    #+#             */
-/*   Updated: 2022/07/12 17:53:58 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/08 20:39:37 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void test_print_list(t_ls *b, char c)
 			printf("%s\n", b->dir_list[i]);
 			i++;
 		}
+		printf("<----LOB\n");
 	}
 	if (c == 'n')
 	{

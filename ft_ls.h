@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/08 14:57:08 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/09 17:24:08 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_ls
 	int flagsParsed;
 	int flag_args;
 	char *path;
-	int	R_done;
+	int	i;
 	int argc;
 	int	dirfileargc;
 }	t_ls;
@@ -74,10 +74,11 @@ void	list_directories_only(t_ls *b);
 void	list_sub_directories(t_ls *b);
 
 //sort
-void	sort_list(char **list, char c);
+void	sort_list(char **list, char c, int r);
 void	sort_ascii(char **list);
 void	sort_time(char **list);
 void	reverse_sort(char **list);
+void	reverse_list(char **list);
 void	sort_rt(t_ls *b);
 
 //print

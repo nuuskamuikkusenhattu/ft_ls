@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:34:08 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/01 15:54:52 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/08 21:00:49 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,7 @@ void	parser(int argc, char **argv, t_ls *build)
 		}
 		a++;
 	}
-	if (build->r)
-		build->sortc = 'r';
-	if (build->t && !build->r)
+	if (build->t)
 		build->sortc = 't';
 	build->dirfileargc = argc - 1 - build->flag_args;
 }

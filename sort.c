@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/09 17:23:21 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/09 20:35:01 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void	sort_time(char **list)
 {
 	int		i;
 	char	*temp;
+	int x;
+	int y;
 	struct stat f_status;
 	long long	this_time;
 	long long	next_time;
@@ -69,10 +71,11 @@ void	sort_time(char **list)
 	i = 0;
 	while (list[i] && list[i + 1])
 	{
-		lstat(list[i], &f_status);
+		x = lstat(list[i], &f_status);
 		this_time = f_status.st_mtime;
-		lstat(list[i + 1], &f_status);
+		y = lstat(list[i + 1], &f_status);
 		next_time = f_status.st_mtime;
+		//ft_printf("time of %s is  %lld, time of %s is  %lld, %d%d\n", list[i], this_time, list[i + 1], next_time, x, y); //debug
 		if (this_time < next_time)
 		{
 			temp = list[i];
@@ -189,21 +192,26 @@ void	reverse_list(char **list)
 	int i = 0;
 	char *temp;
 	int size;
-	
 	while (list[i])
 	{
 		i++;
 	}
+	//ft_printf("list contains %d many things\n", i);
 	size = i;
+	// ft_printf("first before reverse: %s\n", list[0]);
+	// ft_printf("last before reverse: %s\n", list[size-1]);
 	i = 0;
 	while (i < size)
 	{
+		//ft_printf("swapping %d and %d\n", i, size-1);
 		temp = list[size - 1];
 		list[size - 1] = list[i];
 		list[i] = temp;
 		i++;
 		size--;
 	}
+	// ft_printf("first after reverse: %s\n", list[0]);
+	// ft_printf("last after reverse: %s\n", list[size-1]);
 }
 
 void	sort_list(char **list, char c, int r)

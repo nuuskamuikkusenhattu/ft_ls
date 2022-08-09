@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/09 17:30:41 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/09 19:21:13 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,13 @@ prints all files in a file-list. if -r is activated, the print is reversed.
 void	print_files_only(t_ls *b)
 {
 	int		i;
-
-	if (b->t == 1)
+	
+	if (b->t)
 		sort_time(b->file_list);
 	else
 		sort_ascii(b->file_list);
+	//if (b->r)
+		//reverse_list(b->file_list);
 	if (b->l)
 		print_long_format(b);
 	else
@@ -216,28 +218,30 @@ void	recursion(t_ls *b, char *path)
 	char *current;
 	char **d;
 	int i = 0;
-	//test_print_list(b, 'd');
-	//ft_printf("dirs contains: ");
-	// while(dirs[n])
-	// {
-	// 	ft_printf("%s, ", dirs[n]);
-	// 	n++;
-	// }
+
 	d = recursion_dir_list(path);
 	sort_list(d, b->sortc, b->r);
 	while (d[i])
 	{
+		write(1, "\n", 1);
+		ft_printf("%s:\n", d[i]);
 		current = ft_strjoin(d[i], "/");
-		ft_printf("path is %s\n", current);
+		initialize_list(b, 'f');
+		list_files_in_dir(b, current);
+		print_files_only(b);
 		recursion(b, ft_strdup(current));
 		i++;
 	}
-	free(current);
-	// list_sub_directories(b);
-	// test_print_list(b, 'd');
-	
-	// tassa vaiheessa alkup. kansion kansiot on listattu ja jarjestetty.
-	// nyt pitaa kutsua jokaiselle funktiota list directories only, ja kutsua sita uudelleen niin kauan, kun se palauttaa >0
+	//free(current);
+}
+
+
+// adds '/' to end of a string, if needed.
+
+char	*path_builder(char *str)
+{
+	str = ft_strjoin(str, "/");
+	return (str);
 }
 
 void	print(t_ls *b)
@@ -250,11 +254,13 @@ void	print(t_ls *b)
 		char *path;
 		while (b->dir_list[i])
 		{
-			path = ft_strjoin_three("./", b->dir_list[i], "/");
-			if (b->dir_count >1)
-				ft_printf("%s\n", path);
+			path = ft_strjoin(b->dir_list[i], "/");
+			ft_printf("%s:\n", path);
+			initialize_list(b, 'f');
+			list_files_in_dir(b, path);
+			print_files_only(b);
 			recursion(b, path);
-			i++;	
+			i++;
 			free(path);
 		}
 	}

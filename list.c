@@ -44,7 +44,7 @@ void	list_files_in_dir(t_ls *b, char *path)
 			if (b->a == 1 || (b->a == 0 && dir->d_name[0] != '.'))
 			{
 				b->file_list[b->file_count] = ft_strdup(dir->d_name);
-				if (b->R && dir->d_type == 4 && b->ne_count != -1)
+				if (b->R && dir->d_type == 4 && b->ne_count != -1 && b->R == 0)
 				{
 					b->dir_list[b->dir_count] = ft_strjoin("./", dir->d_name);
 					//protect
@@ -90,6 +90,8 @@ void	list_directories_only(t_ls *b)
 	}
 	closedir(d);
 	}
+	else
+		ft_printf("opendir failed in list.c\n");
 	b->dir_list[b->dir_count] = NULL;
 }
 

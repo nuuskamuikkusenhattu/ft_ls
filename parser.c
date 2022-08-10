@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:34:08 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/08 21:00:49 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/10 18:30:26 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,9 @@ void	parser(int argc, char **argv, t_ls *build)
 		ret = validate_flags(argv[a], build);
 		if (ret == -1)
 		{
-			ft_printf("ls: illegal option -- %c\n", argv[a][err_option(argv[a])]);
-			ft_printf("usage: ls [-altrR] [file ...]\n");
+			ft_printf("ft_ls: illegal option -- %c\n", argv[a][err_option(argv[a])]);
+			ft_printf("usage: ft_ls [-altrR] [file ...]\n");
+			exit(1);
 		}
 		a++;
 	}

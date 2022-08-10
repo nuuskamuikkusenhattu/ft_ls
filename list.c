@@ -104,7 +104,7 @@ void	list_from_argv(char **argv, t_ls *b)
 	i = 1 + b->flag_args;
 	while(argv[i])
 	{
-		exists = stat(argv[i], &path);
+		exists = lstat(argv[i], &path);
 		if (exists == -1)
 		{
 			b->non_exists[b->ne_count] = ft_strdup(argv[i]);
@@ -112,7 +112,47 @@ void	list_from_argv(char **argv, t_ls *b)
 				exit(1);
 			b->ne_count++;
 		}
-		if (S_ISREG(path.st_mode) == 1 && exists != -1)
+		if (S_ISLNK(path.st_mode) == 1)
+		{
+			char buf[MAX_PATH + 1];
+			ssize_t len;
+			int x;
+
+			ft_bzero(buf, MAX_PATH + 1);
+			len = readlink(argv[i], buf, MAX_PATH + 1);
+			if (len != -1)
+			{
+				struct stat temp;
+				x = lstat(buf, &temp);
+				if (S_ISDIR(temp.st_mode) == 1 && b->l == 0)
+				{
+					if (temp.st_mode & S_IRUSR || x == -1)
+					{
+						b->file_list[b->file_count] = ft_strdup(argv[i]);
+						if (!b->file_list[b->file_count])
+							exit(1);
+						b->file_count++;
+					}
+					else
+					{
+						b->dir_list[b->dir_count] = ft_strdup(argv[i]);
+						if (!b->dir_list[b->dir_count])
+							exit(1);
+						b->dir_count++;
+					}
+				}
+				else
+				{
+					b->file_list[b->file_count] = ft_strdup(argv[i]);
+					if (!b->file_list[b->file_count])
+						exit(1);
+					b->file_count++;
+				}
+			}
+			//jos kohde on kansio JA siihen ei ole oikeuksia, ala laita listaan
+			// vaan laita kohdekansio kansiolistaan
+		}
+		if (S_ISREG(path.st_mode) == 1 && S_ISLNK(path.st_mode) == 0)
 		{
 			b->file_list[b->file_count] = ft_strdup(argv[i]);
 			if (!b->file_list[b->file_count])
@@ -131,6 +171,7 @@ void	list_from_argv(char **argv, t_ls *b)
 	b->non_exists[b->ne_count] = NULL;
 	b->file_list[b->file_count] = NULL;
 	b->dir_list[b->dir_count] = NULL;
+	//ft_printf("dircount %d, fcount %d, necount %d\n", b->dir_count, b->file_count, b->ne_count); //debug
 	sort_ascii(b->dir_list);
 }
 

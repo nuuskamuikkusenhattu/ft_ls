@@ -21,3 +21,8 @@ permission denied viestit sisaltaa pathin vaikka ei pitais
 total stblock count argseilla 
 > tulostetaan vain jos arg jonka tietoja tulostetaan on kansio
 -> tulosta tieto joko kansioitten kohdalla
+
+
+TOTEST:
+ls -l link_argein, ilman argeja, ilman optioneita
+linkki kansioon johon ei oikeuksia

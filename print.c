@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/10 17:22:51 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/10 19:07:41 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ char **recursion_dir_list(char *path)
 	char **ret;
 	int i = 0;
 
-	d = opendir(path);
+	d = opendir(path); //protect
 	ret = (char **)malloc(sizeof(char *) * 1000); //optimize
 	//protect
 	if (d)

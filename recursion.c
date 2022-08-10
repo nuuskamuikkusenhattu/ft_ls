@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 13:29:18 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/08 20:51:53 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:03:52 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	print_for_R(t_ls *b)
 
 void	rrt(t_ls *b)
 {
-	sort_list(b->dir_list, 't', b->dir_count);
+	sort_list(b->dir_list, b->sortc, b->r, b->path);
 	int i = 0;
 	int c = b->dir_count - 1;
 	char *temp;
@@ -71,7 +71,7 @@ void	R_start(t_ls *b)
 	if (b->r && b->t)
 		rrt(b);
 	else
-		sort_list(b->dir_list, b->sortc, b->dir_count);
+		sort_list(b->dir_list, b->sortc, b->r, b->path);
 	while (b->dir_list[i])
 	{
 		dirs[i] = ft_strdup(b->dir_list[i]);

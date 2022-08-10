@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/10 14:23:03 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:24:51 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	list_directories_only(t_ls *b);
 void	list_sub_directories(t_ls *b);
 
 //sort
-void	sort_list(char **list, char c, int r);
+void	sort_list(char **list, char c, int r, char *path);
 void	sort_ascii(char **list);
 void	sort_time(char **list);
 void	sort_by_time(char **list, char *path);
@@ -88,7 +88,7 @@ void	print_all_lists(t_ls *build);
 void	print_files_only(t_ls *b);
 void	print_dir_content(t_ls *b);
 void	print_non_existings(t_ls *b);
-void	print_R(t_ls *b);
+//void	print_R(t_ls *b);
 
 //testing
 void	test_print_list(t_ls *b, char c);
@@ -96,12 +96,12 @@ void	test_show_params(t_ls *b);
 
 //long format
 void	print_long_format(t_ls *b);
+void 	test_print_this_list(char **list);
 
 
 //being playful
 void	R_start(t_ls *b);
 int		is_subdir_substr(char *str1, char *str2, int len1);
 void	sort_R_dirlist(t_ls *b);
-
 #endif
 

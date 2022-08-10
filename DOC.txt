@@ -77,3 +77,4 @@ managed to list the directories and subdirectories (i think)
 
 1008
 - created sort_by_time that takes path as param
+- fixed print_files_only (and functions that call it) to work with correct path

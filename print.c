@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/10 14:37:16 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:09:22 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,38 +39,18 @@ prints all files in a file-list. if -r is activated, the print is reversed.
 void	print_files_only(t_ls *b)
 {
 	int		i;
-	
-	if (b->t)
-	{
-		//ft_printf("path in print_files_only is %s\n", b->path);
-		sort_by_time(b->file_list, b->path);
-	}
-		//sort_time(b->file_list);
-	else
-		sort_ascii(b->file_list);
-	//if (b->r)
-		//reverse_list(b->file_list);
+
+	i = 0;
+	//ft_printf(":D print_files_only, path is %s\n", b->path); //debug
+	sort_list(b->file_list, b->sortc, b->r, b->path);
 	if (b->l)
 		print_long_format(b);
 	else
 	{
-		i = 0;
-		if (b->r == 0)
+		while (b->file_list[i])
 		{
-			while (b->file_list[i])
-			{
-				ft_printf("%s\n", b->file_list[i]);
-				i++;
-			}
-		}
-		else
-		{
-			i = b->file_count;
-			while(i > 0)
-			{
-				ft_printf("%s\n", b->file_list[i - 1]);
-				i--;
-			}
+			ft_printf("%s\n", b->file_list[i]);
+			i++;
 		}
 	}
 }
@@ -96,7 +76,7 @@ void	print_dirlist(t_ls *b)
 	{
 		b->path = ft_strdup(b->dir_list[i]);
 		list_files_in_dir(b, b->path);
-		sort_list(b->file_list, b->sortc, b->file_count);
+		sort_list(b->file_list, b->sortc, b->r, b->path);
 		ft_printf("%s:\n", b->dir_list[i]);
 		print_files_only(b);
 		if (i < b->dir_count - 1)
@@ -106,54 +86,54 @@ void	print_dirlist(t_ls *b)
 	}
 }
 
-void	print_R(t_ls *b)
-{
-	int		i;
-	int c = 0;
-	char **temp;
+// void	print_R(t_ls *b)
+// {
+// 	int		i;
+// 	int c = 0;
+// 	char **temp;
 
-	temp = (char **)malloc(sizeof(char *) * b->dir_count);
-	if (!temp)
-		exit(1);
-	i = 0;
-	if (b->argc - b->flag_args == 1)
-			list_files_in_dir(b, ".");
-		if (b->file_count > 0)
-		{
-			print_files_only(b);
-			write(1, "\n", 1);
-		}
-		initialize_list(b, 'f');
-		//list_sub_directories(b);
-		if (b->argc - b->flag_args == 1) //why this condition
-			sort_list(b->dir_list, b->sortc, b->dir_count);
-	while (b->dir_list[i])
-	{
-		temp[i] = ft_strdup(b->dir_list[i]);
-		if(!temp[i])
-			exit(1);
-		i++;
-	}
-	temp[i] = NULL;
-	c = b->dir_count;
-	i = 0;
-	while (i < c)
-	{
-		initialize_list(b, 'd');
-		b->dir_list[0] = ft_strdup(temp[i]);
-		b->dir_count = 1;
-		//protect
-		//printf("first on the list is %s\n", b->dir_list[0]); //debug
-		list_sub_directories(b);
-		// if (!(i == 0 && b->argc - b->flag_args == 2)) //joku ehto tassa taytyy olla kylla
-		// 	ft_printf("%s:\n", b->dir_list[i]);
-		sort_list(b->dir_list, b->sortc, b->dir_count);
-		print_dirlist(b);
-		i++;
-		if (i != c)
-			write(1, "\n", 1);
-	}
-}
+// 	temp = (char **)malloc(sizeof(char *) * b->dir_count);
+// 	if (!temp)
+// 		exit(1);
+// 	i = 0;
+// 	if (b->argc - b->flag_args == 1)
+// 			list_files_in_dir(b, ".");
+// 		if (b->file_count > 0)
+// 		{
+// 			print_files_only(b);
+// 			write(1, "\n", 1);
+// 		}
+// 		initialize_list(b, 'f');
+// 		//list_sub_directories(b);
+// 		if (b->argc - b->flag_args == 1) //why this condition
+// 			sort_list(b->dir_list, b->sortc, b->r, b->path);
+// 	while (b->dir_list[i])
+// 	{
+// 		temp[i] = ft_strdup(b->dir_list[i]);
+// 		if(!temp[i])
+// 			exit(1);
+// 		i++;
+// 	}
+// 	temp[i] = NULL;
+// 	c = b->dir_count;
+// 	i = 0;
+// 	while (i < c)
+// 	{
+// 		initialize_list(b, 'd');
+// 		b->dir_list[0] = ft_strdup(temp[i]);
+// 		b->dir_count = 1;
+// 		//protect
+// 		//printf("first on the list is %s\n", b->dir_list[0]); //debug
+// 		list_sub_directories(b);
+// 		// if (!(i == 0 && b->argc - b->flag_args == 2)) //joku ehto tassa taytyy olla kylla
+// 		// 	ft_printf("%s:\n", b->dir_list[i]);
+// 		sort_list(b->dir_list, b->sortc, b->r, b->path);
+// 		print_dirlist(b);
+// 		i++;
+// 		if (i != c)
+// 			write(1, "\n", 1);
+// 	}
+// }
 
 void	print_all_lists(t_ls *b)
 {
@@ -164,10 +144,7 @@ void	print_all_lists(t_ls *b)
 		print_files_only(b);
 	if (b->file_count > 0 && b->dir_list[i])
 		write(1, "\n", 1);
-	if (b->r && b->t)
-		sort_rt(b);
-	else
-		sort_list(b->dir_list, b->sortc, b->dir_count);
+	sort_list(b->dir_list, b->sortc, b->r, b->path);
 	while (b->dir_list[i])
 	{
 		if (b->dir_list[i][ft_strlen(b->dir_list[i]) - 1] == '/')
@@ -224,12 +201,13 @@ void	recursion(t_ls *b, char *path)
 	int i = 0;
 
 	d = recursion_dir_list(path);
-	sort_list(d, b->sortc, b->r);
+	sort_list(d, b->sortc, b->r, "");
 	while (d[i])
 	{
 		write(1, "\n", 1);
 		ft_printf("%s:\n", d[i]);
 		current = ft_strjoin(d[i], "/");
+		b->path = ft_strdup(current);
 		initialize_list(b, 'f');
 		list_files_in_dir(b, current);
 		print_files_only(b);
@@ -258,14 +236,15 @@ void	print(t_ls *b)
 		char *path;
 		while (b->dir_list[i])
 		{
-			path = ft_strjoin(b->dir_list[i], "/");
-			ft_printf("%s:\n", path);
+			//b->path = ft_strjoin_three("./", b->dir_list[i], "/");
+			b->path = ft_strjoin(b->dir_list[i], "/");
+			ft_printf(":DEBUG print (print.c), path is: %s\n", b->path);
 			initialize_list(b, 'f');
-			list_files_in_dir(b, path);
+			list_files_in_dir(b, b->path);
 			print_files_only(b);
-			recursion(b, path);
+			recursion(b, b->path);
 			i++;
-			free(path);
+			free(b->path);
 		}
 	}
 	else

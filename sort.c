@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/10 15:53:33 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:06:19 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ and then reversed (subdir sensitive)
 
 void	sort_rt(t_ls *b)
 {
-	sort_list(b->dir_list, 't', b->r);
+	sort_list(b->dir_list, 't', b->r, b->path);
 	//reverse the gotten list
 	int c = b->dir_count - 1;
 	int i = 0;
@@ -160,7 +160,7 @@ void	sort_rt(t_ls *b)
 		if (i < 0)
 			i = 0;
 	}
-	test_print_list(b, 'd');
+	//test_print_list(b, 'd');
 }
 
 void	sort_R_dirlist(t_ls *b)
@@ -250,10 +250,11 @@ void	reverse_list(char **list)
 	// ft_printf("last after reverse: %s\n", list[size-1]);
 }
 
-void	sort_list(char **list, char c, int r)
+void	sort_list(char **list, char c, int r, char *path)
 {
+	//ft_printf("sortc is %c, r is on %d\n", c, r); //debug
 	if (c == 't')
-		sort_time(list);
+		sort_by_time(list, path);
 	else
 		sort_ascii(list);
 	if (r == 1)

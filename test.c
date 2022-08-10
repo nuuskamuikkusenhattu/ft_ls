@@ -6,13 +6,30 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 17:28:49 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/09 18:10:18 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/10 16:18:11 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 // prints a list with given char param (f,d,n)
+
+void test_print_this_list(char **list)
+{
+		int i = 0;
+	if (list[i] == NULL)
+		ft_printf("test.c: this list is empty!\n");
+	else
+	{
+		ft_printf("test.c: this list contains : \n");
+		while (list[i])
+		{
+			ft_printf("%s\n", list[i]);
+			i++;
+		}
+	}
+}
+
 void test_print_list(t_ls *b, char c)
 {
 	int i = 0;

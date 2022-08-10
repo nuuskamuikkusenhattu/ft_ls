@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/09 19:21:13 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/10 14:37:16 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,11 @@ void	print_files_only(t_ls *b)
 	int		i;
 	
 	if (b->t)
-		sort_time(b->file_list);
+	{
+		//ft_printf("path in print_files_only is %s\n", b->path);
+		sort_by_time(b->file_list, b->path);
+	}
+		//sort_time(b->file_list);
 	else
 		sort_ascii(b->file_list);
 	//if (b->r)

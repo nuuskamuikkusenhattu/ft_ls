@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/09 20:35:01 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/10 15:53:33 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	sort_ascii(char **list)
 	}
 }
 
-void	reverse_sort(char **list)
+void	reverse_ascii(char **list)
 {
 	int		i;
 	char	*temp;
@@ -54,6 +54,44 @@ void	reverse_sort(char **list)
 	}
 }
 
+void	sort_by_time(char **list, char *path)
+{
+	int		i;
+	char	*temp;
+	struct stat f_status;
+	long long	this_time;
+	long long	next_time;
+	char *current;
+
+	sort_ascii(list);
+	i = 0;
+	//ft_printf("path is %s\n", path);
+	while (list[i] && list[i + 1])
+	{
+		current = ft_strjoin(path, list[i]);
+		lstat(current, &f_status);
+		//ft_printf("current_path is %s\n", current);
+		this_time = f_status.st_mtime;
+		free(current);
+		current = ft_strjoin(path, list[i + 1]);
+		lstat(current, &f_status);
+		//ft_printf("current_path is %s\n", current);
+		free(current);
+		next_time = f_status.st_mtime;
+		//ft_printf("time of %s is  %lld, time of %s is  %lld\n", list[i], this_time, list[i + 1], next_time); //debug
+		if (this_time < next_time)
+		{
+			temp = list[i];
+			list[i] = list[i + 1];
+			list[i + 1] = temp;
+			i-=3;
+		}
+		i++;
+		if (i < 0)
+			i = 0;
+	}
+}
+
 /*
 	orders files by modification time
 */
@@ -61,8 +99,6 @@ void	sort_time(char **list)
 {
 	int		i;
 	char	*temp;
-	int x;
-	int y;
 	struct stat f_status;
 	long long	this_time;
 	long long	next_time;
@@ -71,9 +107,9 @@ void	sort_time(char **list)
 	i = 0;
 	while (list[i] && list[i + 1])
 	{
-		x = lstat(list[i], &f_status);
+		lstat(list[i], &f_status);
 		this_time = f_status.st_mtime;
-		y = lstat(list[i + 1], &f_status);
+		lstat(list[i + 1], &f_status);
 		next_time = f_status.st_mtime;
 		//ft_printf("time of %s is  %lld, time of %s is  %lld, %d%d\n", list[i], this_time, list[i + 1], next_time, x, y); //debug
 		if (this_time < next_time)

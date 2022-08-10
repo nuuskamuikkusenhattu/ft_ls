@@ -12,25 +12,9 @@ long_format hommissa vois kayttaa writee, ainaki joskus
 
 
 
-eval form issues:
 
-hangkalat:
-
-ja tee osa linkeista saman kansion sisalla ja osa sit jonneki kauemmas!!
-- filu/kansio jonka nimi on nii pitka ku saa olla
-- mitas sit jos filu/kansion nimi on nii pitka ku saa olla, mut sit pathin kaa siita tulee vitusti liia pitka 🙂 🙂 🙂
-
-
-noperm tuloste pitaa tulostaa pelkka nimi, ei pathia (nykyinen ehto './' ei toimi jos 
-tuloste onkin vaikka alikansiosta)
-
-total -l ei toimi aina, ja se tulis tulostaa vain jos argumenteissa tai kokolistalla on kansioita (joilla permission)
-
-leaks, leaks everywhere
 
 permission denied viestit sisaltaa pathin vaikka ei pitais
 
--Rrt on aiva vitullaa
--rt sorttaus on vitullaa 
-
--rt on ehka -t ja sit reverse
+print_all_lists (print.c)
+invalid options 

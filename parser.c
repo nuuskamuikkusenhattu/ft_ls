@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:34:08 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/11 22:22:27 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/11 22:55:01 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static void	set_flag(t_ls *build, char c)
 		build->f = 1;
 	if (c == 'i')
 		build->option_i = 1;
+	if (c == 'o')
+		build->o = 1;
 }
 
 static int	err_option(char *str)
@@ -109,5 +111,7 @@ void	parser(int argc, char **argv, t_ls *build)
 		build->a = 1;
 		build->sortc = 'f';
 	}
+	if (build->o)
+		build->l = 1;
 	build->dirfileargc = argc - 1 - build->flag_args;
 }

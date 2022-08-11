@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/11 22:36:01 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/11 22:54:18 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,8 +154,9 @@ void	print_long_format(t_ls *b)
 			ret = print_permissions(f_status);
 			pw = getpwuid(f_status.st_uid);
 			gp = getgrgid(f_status.st_gid);
-			ft_printf("%d %s  %s ", f_status.st_nlink, pw->pw_name, \
-			gp->gr_name);
+			ft_printf("%d %s   ", f_status.st_nlink, pw->pw_name);
+			if (!b->o)
+				ft_printf("%s  ", gp->gr_name);
 			if (ret == 2)
 				ft_printf("%u,   %u ", major(f_status.st_rdev), minor(f_status.st_rdev)); //should print the weird size data for b and c
 			else

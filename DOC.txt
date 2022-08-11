@@ -86,3 +86,5 @@ managed to list the directories and subdirectories (i think)
 - fixed -Ss and -Tt differences for long_format.c 
 - added BONUS -d, that lists plain dir-names
 - added BONUS -f, that doesnt sort the list, and turns -a option on
+- added BONUS -i, that prints the file serial number
+- added BONUS option -o, that prints long_format without group_id

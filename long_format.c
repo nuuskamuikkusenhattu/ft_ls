@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/11 20:13:24 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/11 20:46:49 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ static int	print_permissions(struct stat f_status)
 			ft_printf("w");
 		else if (i % 3 == 2)
 		{
-			if ((f_status.st_mode & S_ISUID && i == 2) || (f_status.st_mode & S_ISGID && i == 5))
+			if (((f_status.st_mode & S_ISUID && f_status.st_mode & S_IXUSR) && i == 2) ||( (f_status.st_mode & S_ISGID && f_status.st_mode & S_IXGRP) && i == 5))
+				ft_printf("s");
+			else if ((f_status.st_mode & S_ISUID && i == 2) || (f_status.st_mode & S_ISGID && i == 5))
 				ft_printf("S"); //need to handle s, too
 			else if (f_status.st_mode & rights[i])
 				ft_printf("x");
@@ -62,8 +64,10 @@ static int	print_permissions(struct stat f_status)
 			ft_printf("-");
 		i++;
 	}
-	if (f_status.st_mode & rights[9])
+	if (f_status.st_mode & rights[9] && f_status.st_mode & S_IXOTH)
 		ft_printf("t"); //need to handle T, too (i think)
+	else if (f_status.st_mode & rights[9])
+		ft_printf("T");
 	else if (f_status.st_mode & rights[8])
 		ft_printf("x");
 	else

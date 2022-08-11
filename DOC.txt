@@ -88,3 +88,4 @@ managed to list the directories and subdirectories (i think)
 - added BONUS -f, that doesnt sort the list, and turns -a option on
 - added BONUS -i, that prints the file serial number
 - added BONUS option -o, that prints long_format without group_id
+- added BONUS option -T, that prints the full date with long_format (without day of the week)

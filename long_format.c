@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/11 22:54:18 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/11 23:37:48 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,10 @@ void	print_long_format(t_ls *b)
 				ft_printf("%u,   %u ", major(f_status.st_rdev), minor(f_status.st_rdev)); //should print the weird size data for b and c
 			else
 				ft_printf("%d ", f_status.st_size);
-			parse_time(f_status, ctime(&f_status.st_mtime));
+			if (!b->option_T)
+				parse_time(f_status, ctime(&f_status.st_mtime));
+			else
+				ft_printf("%s ", ft_strtrim(ctime(&f_status.st_mtime)) + 4);
 			ft_printf("%s", b->file_list[i]);
 			if (ret == 1)
 				print_link(file_path);

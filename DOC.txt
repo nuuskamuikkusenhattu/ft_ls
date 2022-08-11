@@ -83,3 +83,5 @@ managed to list the directories and subdirectories (i think)
 1108
 - fixed total stblock to only be printed when listing dir content
 - fixed permission-detail with invalid paths
+- fixed -Ss and -Tt differences for long_format.c 
+- added BONUS -d, that lists plain dir-names

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:34:08 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/10 20:23:28 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/11 21:41:41 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void	set_flag(t_ls *build, char c)
 		build->r = 1;
 	if (c == 'R')
 		build->R = 1;
+	if (c == 'd')
+		build->d = 1;
 }
 
 static int	err_option(char *str)
@@ -91,7 +93,7 @@ void	parser(int argc, char **argv, t_ls *build)
 		if (ret == -1)
 		{
 			ft_printf("ft_ls: illegal option -- %c\n", argv[a][err_option(argv[a])]);
-			ft_printf("usage: ft_ls [-altrR] [file ...]\n");
+			ft_printf("usage: ft_ls [-altrRd] [file ...]\n");
 			exit(1); //may need to free here
 		}
 		a++;

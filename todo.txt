@@ -13,17 +13,12 @@ long_format hommissa vois kayttaa writee, ainaki joskus
 CLEANUP:
 turhat funktiot
 turhat muuttujat structista
+vaiha ft_printf -> write (backup)
 free kaikki exitin sijaan jos leakkeja esiintyy
 normitus
 
 file/dir/ne-laskuri mallocia varten (ehdot! loytyvat listista) (joka kerta pitaa olla valmis
 vaihtamaan listan kokoa, joten initialize_list ei toimi)
-
-
-permission denied viestit sisaltaa pathin vaikka ei pitais
-
--s ja -S seka -t ja -T on asioita, riippuvat executable-oikeuksista
-https://unix.stackexchange.com/questions/28363/whats-the-difference-between-s-and-s-in-ls-la
 
 
 TOTEST:

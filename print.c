@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/11 20:17:58 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/11 21:54:41 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,9 +230,27 @@ char	*path_builder(char *str)
 	return (str);
 }
 
+void	print_dir_names_only(t_ls *b)
+{
+	int i;
+
+	sort_list(b->dir_list, b->sortc, b->r, b->path);
+	if (b->dir_count == 0)
+		write(1, ".\n", 2);
+	else
+	{
+		i = 0;
+		while(b->dir_list[i])
+		{
+			ft_printf("%s\n", b->dir_list[i]);
+			i++;
+		}
+	}
+}
+
 void	print(t_ls *b)
 {
-	if (b->R)
+	if (b->R && b->d == 0)
 	{
 		print_non_existings(b);
 		print_files_only(b);
@@ -256,6 +274,8 @@ void	print(t_ls *b)
 				write(1, "\n", 1);
 		}
 	}
+	else if (b->d)
+		print_dir_names_only(b);
 	else
 		print_all_lists(b);
 }

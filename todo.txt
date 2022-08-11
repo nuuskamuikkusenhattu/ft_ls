@@ -22,21 +22,21 @@ vaihtamaan listan kokoa, joten initialize_list ei toimi)
 
 permission denied viestit sisaltaa pathin vaikka ei pitais
 
-total stblock count argseilla 
-> tulostetaan vain jos arg jonka tietoja tulostetaan on kansio
--> tulosta tieto ennen ku meet long_format-tulosteisiin
-
 -s ja -S seka -t ja -T on asioita, riippuvat executable-oikeuksista
 https://unix.stackexchange.com/questions/28363/whats-the-difference-between-s-and-s-in-ls-la
 
 
 TOTEST:
+ls -l TOTAL osalta (argein, ilman, filein ilman dirreja, dirrein ilman fileja, molemmin)
+
 ls -l link_argein, ilman argeja, ilman optioneita
 
 ls <linkki kansioon vailla oikeuksia>
 ls -l <linkki kansioon vailla oikeuksia>
 
 ls --, ls -j, ls ---
+
+noperm-folder ilman seuraavia /, niiden kanssa (/// myos), ilman edeltavaa ./, sen kanssa
 
 setuid/setgid (s/S, t/T)
 non-existing file of length > 256

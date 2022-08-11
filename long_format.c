@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/11 20:46:49 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/11 22:36:01 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ void	print_long_format(t_ls *b)
 		file_path = ft_strjoin(b->path, b->file_list[i]);
 		if (lstat(file_path, &f_status) > -1)
 		{
+			if (b->option_i)
+				ft_printf("%d ", f_status.st_ino);
 			ret = print_permissions(f_status);
 			pw = getpwuid(f_status.st_uid);
 			gp = getgrgid(f_status.st_gid);

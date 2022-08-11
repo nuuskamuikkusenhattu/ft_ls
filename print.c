@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/11 21:54:41 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/11 22:35:05 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,21 @@ void	print_non_existings(t_ls *b)
 		i++;
 	}
 }
+
+void	print_with_serial_nro(t_ls *b)
+{
+	struct stat info;
+	int i = 0;
+	char *file_path;
+	
+	while(b->file_list[i])
+	{
+		file_path = ft_strjoin(b->path, b->file_list[i]);
+		lstat(file_path, &info);
+		ft_printf("%d %s\n", info.st_ino, b->file_list[i]);
+		i++;
+	}
+}
 /*
 prints all files in a file-list. if -r is activated, the print is reversed.
 */
@@ -45,6 +60,8 @@ void	print_files_only(t_ls *b)
 	sort_list(b->file_list, b->sortc, b->r, b->path);
 	if (b->l)
 		print_long_format(b);
+	else if (b->option_i)
+		print_with_serial_nro(b);//print the serial numbers of files
 	else
 	{
 		while (b->file_list[i])

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/11 22:09:11 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/11 22:22:03 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 //for ctime
 #include "libft/libft.h"
 
-#define FLAGS "lRratdf"
+#define FLAGS "lRratdfi"
 #define MAX_PATH 256
 
 typedef struct s_ls
@@ -47,6 +47,7 @@ typedef struct s_ls
 	int t;
 	int d;
 	int f;
+	int	option_i;
 	char sortc;
 	char **file_list;
 	int	file_count;

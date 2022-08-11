@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/10 17:25:02 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/11 20:13:54 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ void	test_show_params(t_ls *b);
 //long format
 void	print_long_format(t_ls *b);
 void 	test_print_this_list(char **list);
-
+void	get_total(t_ls *b);
 
 //being playful
 void	R_start(t_ls *b);

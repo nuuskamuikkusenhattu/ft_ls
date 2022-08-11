@@ -10,19 +10,33 @@ list_files_in_dir args!!
 long_format hommissa vois kayttaa writee, ainaki joskus
 
 
+CLEANUP:
+turhat funktiot
+turhat muuttujat structista
+free kaikki exitin sijaan jos leakkeja esiintyy
+normitus
 
-
+file/dir/ne-laskuri mallocia varten (ehdot! loytyvat listista) (joka kerta pitaa olla valmis
+vaihtamaan listan kokoa, joten initialize_list ei toimi)
 
 
 permission denied viestit sisaltaa pathin vaikka ei pitais
 
-./a.out -l link_to_ella link_to_folder link_to_noperm_folder link_with_noperm my_link.txt np_tobfile to_npfile tofile uus_link
-
 total stblock count argseilla 
 > tulostetaan vain jos arg jonka tietoja tulostetaan on kansio
--> tulosta tieto joko kansioitten kohdalla
+-> tulosta tieto ennen ku meet long_format-tulosteisiin
+
+-s ja -S seka -t ja -T on asioita, riippuvat executable-oikeuksista
+https://unix.stackexchange.com/questions/28363/whats-the-difference-between-s-and-s-in-ls-la
 
 
 TOTEST:
 ls -l link_argein, ilman argeja, ilman optioneita
-linkki kansioon johon ei oikeuksia
+
+ls <linkki kansioon vailla oikeuksia>
+ls -l <linkki kansioon vailla oikeuksia>
+
+ls --, ls -j, ls ---
+
+setuid/setgid (s/S, t/T)
+non-existing file of length > 256

@@ -6,17 +6,16 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/08 17:56:49 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/11 20:13:24 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
 /*
-The stat() function gets status information about a specified file and places 
-it in the area of memory pointed to by the buf argument. If the named file is 
-a symbolic link, stat() resolves the symbolic link. It also returns information
-about the resulting file.
+The lstat() function gets status information about a specified file and places 
+it in the area of memory pointed to by the buf argument. It also
+returns information about the resulting file.
 */
 
 static int	print_permissions(struct stat f_status)
@@ -53,7 +52,7 @@ static int	print_permissions(struct stat f_status)
 		else if (i % 3 == 2)
 		{
 			if ((f_status.st_mode & S_ISUID && i == 2) || (f_status.st_mode & S_ISGID && i == 5))
-				ft_printf("S");
+				ft_printf("S"); //need to handle s, too
 			else if (f_status.st_mode & rights[i])
 				ft_printf("x");
 			else
@@ -64,7 +63,7 @@ static int	print_permissions(struct stat f_status)
 		i++;
 	}
 	if (f_status.st_mode & rights[9])
-		ft_printf("t");
+		ft_printf("t"); //need to handle T, too (i think)
 	else if (f_status.st_mode & rights[8])
 		ft_printf("x");
 	else
@@ -101,7 +100,7 @@ static void	parse_time(struct stat f_status, char *str)
 	time_t	now;
 
 	this_time = ft_strsplit(str, ' ');
-	parsed = ft_strnew(5);
+	parsed = ft_strnew(5); //protect
 	ft_strncpy(parsed, this_time[3], 5);
 	if (time(&now) - f_status.st_mtime < 15724800 && time(&now) - f_status.st_mtime > 0)
 		ft_printf("%s %s %s ", this_time[1], this_time[2], parsed);
@@ -109,7 +108,7 @@ static void	parse_time(struct stat f_status, char *str)
 		ft_printf("%s %s %s ", this_time[1], this_time[2], ft_strtrim(this_time[4]));
 }
 
-static void	get_total(t_ls *b)
+void	get_total(t_ls *b)
 {
 	int i;
 	int total;
@@ -140,7 +139,7 @@ void	print_long_format(t_ls *b)
 	int ret = 0;
 	char *file_path;
 	
-	get_total(b); //some unknown condition
+	//get_total(b); //some unknown condition
 	while (b->file_list[i])
 	{
 		file_path = ft_strjoin(b->path, b->file_list[i]);

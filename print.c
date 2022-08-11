@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/10 19:07:41 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/11 20:17:58 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,8 @@ void	print_all_lists(t_ls *b)
 	int	i = 0;
 
 	print_non_existings(b);
+	if (b->dirfileargc == 0 && b->l)
+		get_total(b);
 	if (b->file_count > 0)
 		print_files_only(b);
 	if (b->file_count > 0 && b->dir_list[i])
@@ -157,6 +159,8 @@ void	print_all_lists(t_ls *b)
 			ft_printf("%s:\n", b->dir_list[i]);
 		initialize_list(b, 'f');
 		list_files_in_dir(b, b->dir_list[i]);
+		if (b->l)
+			get_total(b);
 		print_files_only(b);
 		if (i != b->dir_count - 1)
 			write(1, "\n", 1);
@@ -180,7 +184,7 @@ char **recursion_dir_list(char *path)
 	{
 		if (dir->d_type == 4 && dir->d_name[0] != '.')
 		{
-			ret[i] = ft_strjoin(path, dir->d_name);
+			ret[i] = ft_strjoin(path, dir->d_name); //protect
 			if (!ret[i])
 				exit(1);
 			i++;
@@ -242,6 +246,8 @@ void	print(t_ls *b)
 				ft_printf("%s:\n", b->path);
 			initialize_list(b, 'f');
 			list_files_in_dir(b, b->path);
+			if (b->l)
+				get_total(b);
 			print_files_only(b);
 			recursion(b, b->path);
 			i++;

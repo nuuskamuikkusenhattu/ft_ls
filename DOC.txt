@@ -85,3 +85,4 @@ managed to list the directories and subdirectories (i think)
 - fixed permission-detail with invalid paths
 - fixed -Ss and -Tt differences for long_format.c 
 - added BONUS -d, that lists plain dir-names
+- added BONUS -f, that doesnt sort the list, and turns -a option on

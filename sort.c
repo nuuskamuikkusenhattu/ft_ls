@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/10 17:06:19 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/11 22:08:48 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,8 @@ void	sort_list(char **list, char c, int r, char *path)
 	if (c == 't')
 		sort_by_time(list, path);
 	else
+		if (c != 'f')
 		sort_ascii(list);
-	if (r == 1)
+	if (r == 1 && c != 'f')
 		reverse_list(list);
 }

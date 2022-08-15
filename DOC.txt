@@ -72,7 +72,7 @@ managed to list the directories and subdirectories (i think)
 - support for files with a future timestamp
 
 0908
-- changed -R to be recursive, with help of Atte
+- changed -R to be recursive, with help of Atte<3
 - fixed -r to always do either sort_ascii or sort_time first, and complete reverse after
 
 1008

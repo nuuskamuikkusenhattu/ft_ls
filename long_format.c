@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/11 23:37:48 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:40:08 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ it in the area of memory pointed to by the buf argument. It also
 returns information about the resulting file.
 */
 
-static int	print_permissions(struct stat f_status)
+static int	print_permissions(struct stat f_status, char *path)
 {
 	int	rights[] = {S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH, S_ISVTX, S_ISUID, S_ISGID};
 	int i = 0;
@@ -72,6 +72,7 @@ static int	print_permissions(struct stat f_status)
 		ft_printf("x");
 	else
 		ft_printf("-");
+	get_acl_data(path);
 	ft_printf("  ");
 	return (ret);
 }
@@ -138,20 +139,21 @@ void	print_long_format(t_ls *b)
 	struct stat	f_status;
 	struct passwd *pw;
 	struct group *gp;
+	acl_t acl;
 	int		i = 0;
-	int exists = 0;
+	int exists = 0; //not needed i think
 	int ret = 0;
 	char *file_path;
-	
-	//get_total(b); //some unknown condition
+
 	while (b->file_list[i])
 	{
 		file_path = ft_strjoin(b->path, b->file_list[i]);
+		acl = acl_get_file(file_path, ACL_TYPE_EXTENDED);
 		if (lstat(file_path, &f_status) > -1)
 		{
 			if (b->option_i)
 				ft_printf("%d ", f_status.st_ino);
-			ret = print_permissions(f_status);
+			ret = print_permissions(f_status, file_path);
 			pw = getpwuid(f_status.st_uid);
 			gp = getgrgid(f_status.st_gid);
 			ft_printf("%d %s   ", f_status.st_nlink, pw->pw_name);

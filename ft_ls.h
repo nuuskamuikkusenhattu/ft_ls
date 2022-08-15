@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/11 23:25:46 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/15 15:38:55 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 //for listxattr/getxattr
 #include <time.h>
 //for ctime
+#include <sys/acl.h>
+// for acl bonus
 #include "libft/libft.h"
 
 #define FLAGS "lRratdfioT"
@@ -103,6 +105,7 @@ void	test_show_params(t_ls *b);
 void	print_long_format(t_ls *b);
 void 	test_print_this_list(char **list);
 void	get_total(t_ls *b);
+void	get_acl_data(char *path);
 
 //being playful
 void	R_start(t_ls *b);

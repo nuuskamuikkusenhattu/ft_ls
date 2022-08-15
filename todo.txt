@@ -16,9 +16,16 @@ turhat muuttujat structista
 vaiha ft_printf -> write (backup)
 free kaikki exitin sijaan jos leakkeja esiintyy
 normitus
+muuta executablen nimeksi ./ft_ls
 
 file/dir/ne-laskuri mallocia varten (ehdot! loytyvat listista) (joka kerta pitaa olla valmis
 vaihtamaan listan kokoa, joten initialize_list ei toimi)
+
+BONUS:
+-h vaikuttaa tehtavalta
+
+
+PELKKA ls ~ hajottaa , ~/ toimii
 
 
 TOTEST:

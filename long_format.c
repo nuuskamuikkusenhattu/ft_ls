@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/15 16:26:50 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/15 20:50:32 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void	get_total(t_ls *b)
 			exit(1);
 		lstat(current, &f_status);
 		total += f_status.st_blocks;
-		//printf("%s : %lld\n", b->file_list[i], f_status.st_blocks);
+		free(current);
 		i++;
 	}
 	ft_printf("total %d\n", total);

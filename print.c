@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/15 19:34:14 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/15 20:50:19 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,7 @@ void	print_dirlist(t_ls *b)
 void	print_all_lists(t_ls *b)
 {
 	int	i = 0;
+	char *current;
 
 	print_non_existings(b);
 	if (b->dirfileargc == 0 && b->l)
@@ -190,9 +191,13 @@ void	print_all_lists(t_ls *b)
 	while (b->dir_list[i])
 	{
 		if (b->dir_list[i][ft_strlen(b->dir_list[i]) - 1] == '/')
-			b->path = b->dir_list[i];
+			b->path = ft_strdup(b->dir_list[i]);
 		else
-			b->path = ft_strjoin_three("",b->dir_list[i], "/");
+		{
+			current = ft_strjoin(b->dir_list[i], "/");
+			b->path = ft_strdup(current);
+			free(current);
+		}
 		if (!b->path)
 			exit(1);
 		if (b->dirfileargc > 1)
@@ -205,6 +210,7 @@ void	print_all_lists(t_ls *b)
 		if (i != b->dir_count - 1)
 			write(1, "\n", 1);
 		i++;
+		free(b->path);
 	}
 }
 

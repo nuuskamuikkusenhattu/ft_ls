@@ -55,6 +55,8 @@ void	list_files_in_dir(t_ls *b, char *path)
 					exit(1);
 				}
 				b->file_count++;
+				if (dir->d_namlen > b->longest_name)
+					b->longest_name = dir->d_namlen;
 			}
 		}
 		b->file_list[b->file_count] = NULL;
@@ -91,8 +93,6 @@ void	list_directories_only(t_ls *b)
 	}
 	closedir(d);
 	}
-	else
-		ft_printf("opendir failed in list.c\n");
 	b->dir_list[b->dir_count] = NULL;
 }
 
@@ -101,10 +101,12 @@ void	list_from_argv(char **argv, t_ls *b)
 	int		i;
 	int		exists;
 	struct stat path;
+	int nameLen = 0;
 
 	i = 1 + b->flag_args;
 	while(argv[i])
 	{
+		nameLen = ft_strlen(argv[i]);
 		exists = lstat(argv[i], &path);
 		if (exists == -1)
 		{
@@ -112,6 +114,11 @@ void	list_from_argv(char **argv, t_ls *b)
 			if (!b->non_exists[b->ne_count])
 				exit(1);
 			b->ne_count++;
+		}
+		else
+		{
+			if (nameLen > b->longest_name)
+				b->longest_name = nameLen;
 		}
 		if (S_ISLNK(path.st_mode) == 1)
 		{
@@ -172,7 +179,6 @@ void	list_from_argv(char **argv, t_ls *b)
 	b->non_exists[b->ne_count] = NULL;
 	b->file_list[b->file_count] = NULL;
 	b->dir_list[b->dir_count] = NULL;
-	//ft_printf("dircount %d, fcount %d, necount %d\n", b->dir_count, b->file_count, b->ne_count); //debug
 	sort_ascii(b->dir_list);
 }
 

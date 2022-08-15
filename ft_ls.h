@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/15 15:38:55 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/15 17:52:35 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 //for ctime
 #include <sys/acl.h>
 // for acl bonus
+#include <sys/ioctl.h>
+// for column-bonus
 #include "libft/libft.h"
 
 #define FLAGS "lRratdfioT"
@@ -65,6 +67,7 @@ typedef struct s_ls
 	int	i;
 	int argc;
 	int	dirfileargc;
+	int longest_name;
 }	t_ls;
 
 //build

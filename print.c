@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/11 22:35:05 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/15 19:34:14 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,20 @@ prints all files in a file-list. if -r is activated, the print is reversed.
 void	print_files_only(t_ls *b)
 {
 	int		i;
-
+	int		j;
+	struct winsize window;
+	int columns;
+	int rows;
+	int total = 0;
+	ioctl(0, TIOCGWINSZ, &window);
+	columns = window.ws_col / (b->longest_name + 1);
+	//ft_printf("columns: %d, width: %d, longest+1: %d\n", columns, window.ws_col, b->longest_name +1);
+	rows = b->file_count / columns;
+	if (columns * rows != b->file_count)
+		rows++;
+	//ft_printf("%d files on %d columns and %d rows\n", b->file_count, columns, rows);
 	i = 0;
-	//ft_printf(":D print_files_only, path is %s\n", b->path); //debug
+	j = 0;
 	sort_list(b->file_list, b->sortc, b->r, b->path);
 	if (b->l)
 		print_long_format(b);
@@ -64,12 +75,24 @@ void	print_files_only(t_ls *b)
 		print_with_serial_nro(b);//print the serial numbers of files
 	else
 	{
-		while (b->file_list[i])
+		while (total < b->file_count)
 		{
-			ft_printf("%s\n", b->file_list[i]);
-			i++;
+			if (b->file_list[i + j])
+			{
+				ft_printf("%-*s", b->longest_name + 1, b->file_list[i + j]);
+				total++;	
+			}
+			j += rows;
+			if ((j >= (rows * columns)) || total == b->file_count)
+			{
+				j = 0;
+				i++;
+				write(1, "\n", 1);
+			}
 		}
 	}
+	//ft_printf("printed %d out of %d\n", total, b->file_count);
+	b->longest_name = 0;
 }
 
 void	print_dir_content(t_ls *b)

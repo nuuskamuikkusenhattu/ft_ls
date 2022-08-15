@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/11 23:25:15 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/15 17:45:52 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static void set_build(t_ls *build, int ac)
 	build->R = 0;
 	build->d = 0;
 	build->f = 0;
+	build->longest_name = 0;
 	build->option_i = 0;
 	build->o = 0;
 	build->option_T = 0;

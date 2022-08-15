@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/15 15:40:08 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/15 16:26:50 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,11 @@ static void	parse_time(struct stat f_status, char *str)
 	time_t	now;
 
 	this_time = ft_strsplit(str, ' ');
+	if (!this_time)
+		exit(1);
 	parsed = ft_strnew(5); //protect
+	if (!parsed)
+		exit(1);
 	ft_strncpy(parsed, this_time[3], 5);
 	if (time(&now) - f_status.st_mtime < 15724800 && time(&now) - f_status.st_mtime > 0)
 		ft_printf("%s %s %s ", this_time[1], this_time[2], parsed);
@@ -125,7 +129,8 @@ void	get_total(t_ls *b)
 	while (b->file_list[i])
 	{
 		current = ft_strjoin(b->path, b->file_list[i]);
-		//printf("path is %s\n", b->path);
+		if (!current)
+			exit(1);
 		lstat(current, &f_status);
 		total += f_status.st_blocks;
 		//printf("%s : %lld\n", b->file_list[i], f_status.st_blocks);
@@ -148,6 +153,8 @@ void	print_long_format(t_ls *b)
 	while (b->file_list[i])
 	{
 		file_path = ft_strjoin(b->path, b->file_list[i]);
+		if (!file_path)
+			exit(1);
 		acl = acl_get_file(file_path, ACL_TYPE_EXTENDED);
 		if (lstat(file_path, &f_status) > -1)
 		{

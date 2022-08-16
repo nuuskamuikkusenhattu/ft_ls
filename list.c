@@ -61,7 +61,7 @@ void	list_files_in_dir(t_ls *b, char *path)
 	}
 	else
 	{
-		if (path[ft_strlen(path) - 1] == '/')
+		if (path[ft_strlen(path) - 1] == '/') //this needs a condition
 			ft_printf("ft_ls: : Permission denied\n");
 		else if (path[0] == '.' && path[1] == '/' && path[2])
 			ft_printf("ft_ls: %s: Permission denied\n", path + 2); //this aint right

@@ -37,6 +37,8 @@ ls -l link_argein, ilman argeja, ilman optioneita
 ls <linkki kansioon vailla oikeuksia>
 ls -l <linkki kansioon vailla oikeuksia>
 
+ls -lt / (nanosekunti-sortti)
+
 ls --, ls -j, ls ---
 
 noperm-folder ilman seuraavia /, niiden kanssa (/// myos), ilman edeltavaa ./, sen kanssa

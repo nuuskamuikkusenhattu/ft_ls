@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/11 22:08:48 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:32:35 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	sort_by_time(char **list, char *path)
 	int		i;
 	char	*temp;
 	struct stat f_status;
-	long long	this_time;
-	long long	next_time;
+	long long	this_time[2];
+	long long	next_time[2];
 	char *current;
 
 	sort_ascii(list);
@@ -71,15 +71,17 @@ void	sort_by_time(char **list, char *path)
 		current = ft_strjoin(path, list[i]);
 		lstat(current, &f_status);
 		//ft_printf("current_path is %s\n", current);
-		this_time = f_status.st_mtime;
+		this_time[0] = f_status.st_mtime;
+		this_time[1] = f_status.st_mtimespec.tv_nsec;
 		free(current);
 		current = ft_strjoin(path, list[i + 1]);
 		lstat(current, &f_status);
 		//ft_printf("current_path is %s\n", current);
 		free(current);
-		next_time = f_status.st_mtime;
+		next_time[0] = f_status.st_mtime;
+		next_time[1] = f_status.st_mtimespec.tv_nsec;
 		//ft_printf("time of %s is  %lld, time of %s is  %lld\n", list[i], this_time, list[i + 1], next_time); //debug
-		if (this_time < next_time)
+		if (this_time[0] < next_time[0] || (this_time[0] == next_time[0] && this_time[1] < next_time[1]))
 		{
 			temp = list[i];
 			list[i] = list[i + 1];

@@ -12,13 +12,16 @@ long_format hommissa vois kayttaa writee, ainaki joskus
 
 strjointhree taitaa olla rikki
 
+
+joko -h tai -d (vaatis enemman hommaa)
+
 CLEANUP:
 turhat funktiot
 turhat muuttujat structista
 vaiha ft_printf -> write (backup)
 free kaikki exitin sijaan jos leakkeja esiintyy
 normitus
-muuta executablen nimeksi ./ft_ls
+reverse_list voi olla typeraa
 
 file/dir/ne-laskuri mallocia varten (ehdot! loytyvat listista) (joka kerta pitaa olla valmis
 vaihtamaan listan kokoa, joten initialize_list ei toimi)

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/15 17:45:52 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/16 20:53:49 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ static void set_build(t_ls *build, int ac)
 	build->t = 0;
 	build->r = 0;
 	build->R = 0;
-	build->d = 0;
 	build->f = 0;
 	build->longest_name = 0;
 	build->option_i = 0;
@@ -102,6 +101,7 @@ static void set_build(t_ls *build, int ac)
 	frees list from its content, but doesnt touch the outer array.
 	'f' == file_list
 */
+//this probably unneeded after mallocing fixed
 void	initialize_list(t_ls *b, char c)
 {
 	if (c == 'f')
@@ -123,15 +123,6 @@ void	initialize_list(t_ls *b, char c)
 		}
 	}
 }
-
-/*
-i want the main to be such as:
-- set build
-- parse
-- create lists (-a, -R)
-- sort (-t, -r)
-- print (print_long_format)
-*/
 
 int main(int argc, char **argv)
 {

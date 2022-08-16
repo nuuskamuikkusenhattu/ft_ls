@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:36:39 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/16 18:31:57 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/16 21:07:24 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ a + is written after permissions
 if file/directory has extended attributes, a '@' is written
 */
 
-void get_acl_data(char *path)
+void	get_acl_data(char *path)
 {
-	acl_t acl;
-	int a;
-	
+	acl_t	acl;
+	int		a;
+
 	acl = acl_get_file(path, ACL_TYPE_EXTENDED);
 	if (acl)
 		write(1, "+", 1);

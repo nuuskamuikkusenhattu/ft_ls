@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:34:08 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/11 23:26:03 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/16 21:15:02 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ static void	set_flag(t_ls *build, char c)
 	if (c == 'a')
 		build->a = 1;
 	if (c == 't')
+	{
 		build->t = 1;
+		build->sortc = 't';
+	}
 	if (c == 'r')
 		build->r = 1;
 	if (c == 'R')
 		build->R = 1;
-	if (c == 'd')
-		build->d = 1;
 	if (c == 'f')
 		build->f = 1;
 	if (c == 'i')
@@ -39,7 +40,7 @@ static void	set_flag(t_ls *build, char c)
 static int	err_option(char *str)
 {
 	int		i;
-	
+
 	i = 1;
 	while (str[i])
 	{
@@ -55,9 +56,10 @@ checks that a arguments-string contains only one dash (-),
 and only wanted chars
 returns 1 if all good, 0 if invalid argument
 */
+
 static int	validate_flags(char *str, t_ls *build)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	if ((str[i] != '-' || !str[i + 1]) && build->flagsParsed == 0)
@@ -84,13 +86,9 @@ static int	validate_flags(char *str, t_ls *build)
 	return (1);
 }
 
-
-/*
-
-*/
 void	parser(int argc, char **argv, t_ls *build)
 {
-	int 	a;
+	int		a;
 	int		ret;
 
 	a = 1;
@@ -100,14 +98,13 @@ void	parser(int argc, char **argv, t_ls *build)
 		ret = validate_flags(argv[a], build);
 		if (ret == -1)
 		{
-			ft_printf("ft_ls: illegal option -- %c\n", argv[a][err_option(argv[a])]);
-			ft_printf("usage: ft_ls [-altrRdfioT] [file ...]\n");
-			exit(1); //may need to free here
+			ft_printf("ft_ls: illegal option -- %c\n", \
+			argv[a][err_option(argv[a])]);
+			ft_printf("usage: ft_ls [-altrRfioT] [file ...]\n");
+			exit(0);
 		}
 		a++;
 	}
-	if (build->t)
-		build->sortc = 't';
 	if (build->f)
 	{
 		build->a = 1;

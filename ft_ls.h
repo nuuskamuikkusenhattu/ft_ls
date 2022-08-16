@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/15 17:52:35 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/16 20:41:34 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 // for column-bonus
 #include "libft/libft.h"
 
-#define FLAGS "lRratdfioT"
+#define FLAGS "lRratfioT"
 #define MAX_PATH 256
 
 typedef struct s_ls
@@ -49,7 +49,6 @@ typedef struct s_ls
 	int R;
 	int a;
 	int t;
-	int d;
 	int f;
 	int	option_i;
 	int o;
@@ -80,23 +79,23 @@ void	parser(int argc, char **argv, t_ls *build);
 void	create_lists(char **argv, int argc, t_ls *b);
 void	list_files_in_dir(t_ls *b, char *path);
 void	list_files_only(t_ls *b);
-void	list_directories_only(t_ls *b);
-void	list_sub_directories(t_ls *b);
+//void	list_directories_only(t_ls *b);
+//void	list_sub_directories(t_ls *b);
 
 //sort
 void	sort_list(char **list, char c, int r, char *path);
 void	sort_ascii(char **list);
-void	sort_time(char **list);
+//void	sort_time(char **list);
 void	sort_by_time(char **list, char *path);
-void	reverse_ascii(char **list);
+//void	reverse_ascii(char **list);
 void	reverse_list(char **list);
-void	sort_rt(t_ls *b);
+//void	sort_rt(t_ls *b);
 
 //print
 void	print(t_ls *b);
 void	print_all_lists(t_ls *build);
 void	print_files_only(t_ls *b);
-void	print_dir_content(t_ls *b);
+//void	print_dir_content(t_ls *b);
 void	print_non_existings(t_ls *b);
 //void	print_R(t_ls *b);
 
@@ -111,8 +110,8 @@ void	get_total(t_ls *b);
 void	get_acl_data(char *path);
 
 //being playful
-void	R_start(t_ls *b);
-int		is_subdir_substr(char *str1, char *str2, int len1);
-void	sort_R_dirlist(t_ls *b);
+//void	R_start(t_ls *b);
+//int		is_subdir_substr(char *str1, char *str2, int len1);
+//void	sort_R_dirlist(t_ls *b);
 #endif
 

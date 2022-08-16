@@ -98,3 +98,4 @@ managed to list the directories and subdirectories (i think)
 - fixed -R to stop listing dirs at given point 
 - fixed floating point error (division with 0) for column division 
 - fixed path-creation to stop adding unwanted '/'s
+- added permission_denied_error -function (list.c) to support edgecases

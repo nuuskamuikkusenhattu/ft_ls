@@ -12,23 +12,6 @@
 
 #include "ft_ls.h"
 
-/*
-lists all files in a directory with a given path
-*/
-
-void	list_sub_directories(t_ls *b)
-{
-	int i = 0;
-	while(i < b->dir_count)
-	{
-		b->path = ft_strjoin(b->dir_list[i], "/"); //this may need a condition
-		//printf("current path is %s\n", b->path);
-		list_directories_only(b);
-		i++;
-	}
-	b->dir_list[b->dir_count] = NULL;
-}
-
 void	permission_denied_error(char *str)
 {
 	int i;
@@ -90,41 +73,7 @@ void	list_files_in_dir(t_ls *b, char *path)
 		closedir(d);
 	}
 	else
-	{
 		permission_denied_error(path);
-		//irrota tiedoston nimi pathista
-		//tulosta pelkka se
-		//jos pathissa on kaks perattaista //, tulosta pelkka vali
-		// if (path[ft_strlen(path) - 1] == '/') //this needs a condition
-		// 	ft_printf("ft_ls: : Permission denied\n");
-		// else if (path[0] == '.' && path[1] == '/' && path[2])
-		// 	ft_printf("ft_ls: %s: Permission denied\n", path + 2); //this aint right
-		// else
-		// 	ft_printf("ft_ls: %s: Permission denied\n", path);
-	}
-}
-
-void	list_directories_only(t_ls *b)
-{
-	DIR *d;
-	struct dirent *dir;
-
-	d = opendir(b->path);
-	if (d)
-	{
-	while ((dir = readdir(d)) != NULL)
-	{
-		if (dir->d_type == 4 && dir->d_name[0] != '.')
-		{
-			b->dir_list[b->dir_count] = ft_strjoin(b->path, dir->d_name);
-			if (!b->dir_list[b->dir_count])
-				exit(1);
-			b->dir_count++;
-		}
-	}
-	closedir(d);
-	}
-	b->dir_list[b->dir_count] = NULL;
 }
 
 void	list_from_argv(char **argv, t_ls *b)
@@ -188,8 +137,6 @@ void	list_from_argv(char **argv, t_ls *b)
 					b->file_count++;
 				}
 			}
-			//jos kohde on kansio JA siihen ei ole oikeuksia, ala laita listaan
-			// vaan laita kohdekansio kansiolistaan
 		}
 		if (S_ISREG(path.st_mode) == 1 && S_ISLNK(path.st_mode) == 0)
 		{
@@ -210,7 +157,7 @@ void	list_from_argv(char **argv, t_ls *b)
 	b->non_exists[b->ne_count] = NULL;
 	b->file_list[b->file_count] = NULL;
 	b->dir_list[b->dir_count] = NULL;
-	sort_ascii(b->dir_list);
+	sort_ascii(b->dir_list); //maybe unneeded functioncall
 }
 
 void	create_lists(char **argv, int argc, t_ls *b)

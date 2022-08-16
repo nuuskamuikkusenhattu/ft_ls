@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/16 18:35:08 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/16 21:39:34 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,70 +18,93 @@ it in the area of memory pointed to by the buf argument. It also
 returns information about the resulting file.
 */
 
-static int	print_permissions(struct stat f_status, char *path)
+static int	print_file_mode(struct stat f_status)
 {
-	int	rights[] = {S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH, S_ISVTX, S_ISUID, S_ISGID};
-	int i = 0;
-	int	ret = 0;
+	int		ret;
 
+	ret = 0;
 	if (S_ISDIR(f_status.st_mode))
-		ft_printf("d");
+		write(1, "d", 1);
 	else if (S_ISLNK(f_status.st_mode))
 	{
-		ft_printf("l");
+		write(1, "l", 1);
 		ret = 1;
 	}
 	else if (S_ISCHR(f_status.st_mode))
 	{
-		ft_printf("c");
+		write(1, "c", 1);
 		ret = 2;
 	}
 	else if (S_ISBLK(f_status.st_mode))
 	{
-		ft_printf("b");
+		write(1, "b", 1);
 		ret = 2;
 	}
 	else
-		ft_printf("-");
+		write(1, "-", 1);
+	return (ret);
+}
+
+static void	print_stickybit(struct stat f_status, int *rights)
+{
+	if (f_status.st_mode & rights[9] && f_status.st_mode & S_IXOTH)
+		write(1, "t", 1);
+	else if (f_status.st_mode & rights[9])
+		write(1, "T", 1);
+	else if (f_status.st_mode & rights[8])
+		write(1, "x", 1);
+	else
+		write(1, "-", 1);
+}
+
+static void	help_print_permissions(struct stat f, int *rights, int i)
+{
 	while (i < 8)
 	{
-		if ((f_status.st_mode & rights[i]) && i % 3 == 0)
-			ft_printf("r");
-		else if ((f_status.st_mode & rights[i]) && i % 3 == 1)
-			ft_printf("w");
+		if ((f.st_mode & rights[i]) && i % 3 == 0)
+			write(1, "r", 1);
+		else if ((f.st_mode & rights[i]) && i % 3 == 1)
+			write(1, "w", 1);
 		else if (i % 3 == 2)
 		{
-			if (((f_status.st_mode & S_ISUID && f_status.st_mode & S_IXUSR) && i == 2) ||( (f_status.st_mode & S_ISGID && f_status.st_mode & S_IXGRP) && i == 5))
-				ft_printf("s");
-			else if ((f_status.st_mode & S_ISUID && i == 2) || (f_status.st_mode & S_ISGID && i == 5))
-				ft_printf("S"); //need to handle s, too
-			else if (f_status.st_mode & rights[i])
-				ft_printf("x");
+			if (((f.st_mode & S_ISUID && f.st_mode & S_IXUSR) && i == 2) || \
+			((f.st_mode & S_ISGID && f.st_mode & S_IXGRP) && i == 5))
+				write(1, "s", 1);
+			else if ((f.st_mode & S_ISUID && i == 2) || \
+			(f.st_mode & S_ISGID && i == 5))
+				write(1, "S", 1);
+			else if (f.st_mode & rights[i])
+				write(1, "x", 1);
 			else
-				ft_printf("-");
+				write(1, "-", 1);
 		}
 		else
-			ft_printf("-");
+			write(1, "-", 1);
 		i++;
 	}
-	if (f_status.st_mode & rights[9] && f_status.st_mode & S_IXOTH)
-		ft_printf("t"); //need to handle T, too (i think)
-	else if (f_status.st_mode & rights[9])
-		ft_printf("T");
-	else if (f_status.st_mode & rights[8])
-		ft_printf("x");
-	else
-		ft_printf("-");
+}
+
+static int	print_permissions(struct stat f_status, char *path)
+{
+	static int	rights[] = {S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, \
+	S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH, S_ISVTX, S_ISUID, S_ISGID};
+	int			i;
+	int			ret;
+
+	i = 0;
+	ret = print_file_mode(f_status);
+	help_print_permissions(f_status, rights, i);
+	print_stickybit(f_status, rights);
 	get_acl_data(path);
-	ft_printf("  ");
+	write(1, "  ", 2);
 	return (ret);
 }
 // prints path of link
 
 static void	print_link(char *name)
 {
-	char buf[MAX_PATH + 1];
-	ssize_t len;
+	char	buf[MAX_PATH + 1];
+	ssize_t	len;
 
 	ft_bzero(buf, MAX_PATH + 1);
 	len = readlink(name, buf, MAX_PATH + 1);
@@ -108,11 +131,12 @@ static void	parse_time(struct stat f_status, char *str)
 	this_time = ft_strsplit(str, ' ');
 	if (!this_time)
 		exit(1);
-	parsed = ft_strnew(5); //protect
+	parsed = ft_strnew(5);
 	if (!parsed)
 		exit(1);
 	ft_strncpy(parsed, this_time[3], 5);
-	if (time(&now) - f_status.st_mtime < 15724800 && time(&now) - f_status.st_mtime > 0)
+	if (time(&now) - f_status.st_mtime < 15724800 && \
+	time(&now) - f_status.st_mtime > 0)
 		ft_printf("%s %s %s ", this_time[1], this_time[2], parsed);
 	else
 	{
@@ -126,10 +150,10 @@ static void	parse_time(struct stat f_status, char *str)
 
 void	get_total(t_ls *b)
 {
-	int i;
-	int total;
-	struct stat f_status;
-	char *current;
+	int			i;
+	int			total;
+	struct stat	f_status;
+	char		*current;
 
 	i = 0;
 	total = 0;
@@ -148,15 +172,16 @@ void	get_total(t_ls *b)
 
 void	print_long_format(t_ls *b)
 {
-	struct stat	f_status;
-	struct passwd *pw;
-	struct group *gp;
-	acl_t acl;
-	int		i = 0;
-	int exists = 0; //not needed i think
-	int ret = 0;
-	char *file_path;
+	struct stat		f_status;
+	struct passwd	*pw;
+	struct group	*gp;
+	acl_t			acl;
+	int				i;
+	int				ret;
+	char			*file_path;
 
+	i = 0; //voi ehka kayttaa b.i
+	ret = 0;
 	while (b->file_list[i])
 	{
 		file_path = ft_strjoin(b->path, b->file_list[i]);
@@ -174,7 +199,7 @@ void	print_long_format(t_ls *b)
 			if (!b->o)
 				ft_printf("%s  ", gp->gr_name);
 			if (ret == 2)
-				ft_printf("%u,   %u ", major(f_status.st_rdev), minor(f_status.st_rdev)); //should print the weird size data for b and c
+				ft_printf("%u,   %u ", major(f_status.st_rdev), minor(f_status.st_rdev));
 			else
 				ft_printf("%d ", f_status.st_size);
 			if (!b->option_T)
@@ -192,7 +217,7 @@ void	print_long_format(t_ls *b)
 				print_link(file_path);
 			write(1, "\n", 1);
 		}
-		free(file_path); //added after functional product
+		free(file_path);
 		free(acl);
 		i++;
 	}

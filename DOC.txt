@@ -92,3 +92,9 @@ managed to list the directories and subdirectories (i think)
 
 1508
 - added ACL bonuses
+
+1608
+- added nanosecond comparison for -t
+- fixed -R to stop listing dirs at given point 
+- fixed floating point error (division with 0) for column division 
+- fixed path-creation to stop adding unwanted '/'s

@@ -29,6 +29,36 @@ void	list_sub_directories(t_ls *b)
 	b->dir_list[b->dir_count] = NULL;
 }
 
+void	permission_denied_error(char *str)
+{
+	int i;
+	int errno = 0;
+	int ends_with_slash = 0;
+	i = ft_strlen(str) -1;
+	if (str[i] == '/')
+		ends_with_slash = 1;
+	if (errno == 0)
+	{
+		while (str[i] == '/')
+		{
+			str[i] = '\0';
+			i--;
+		}
+		while(i > 0)
+		{
+			if (str[i] == '/')
+				break;
+			i--;
+		}
+		if (i != 0)
+			ft_printf("ft_ls: %s: Permission denied\n", str + i + 1);
+		else if (i == 0 && ends_with_slash == 1)
+			ft_printf("ft_ls: : Permission denied\n");
+		else
+			ft_printf("ft_ls: %s: Permission denied\n", str + i);
+	}
+}
+
 void	list_files_in_dir(t_ls *b, char *path)
 {
 	DIR *d;
@@ -61,12 +91,16 @@ void	list_files_in_dir(t_ls *b, char *path)
 	}
 	else
 	{
-		if (path[ft_strlen(path) - 1] == '/') //this needs a condition
-			ft_printf("ft_ls: : Permission denied\n");
-		else if (path[0] == '.' && path[1] == '/' && path[2])
-			ft_printf("ft_ls: %s: Permission denied\n", path + 2); //this aint right
-		else
-			ft_printf("ft_ls: %s: Permission denied\n", path);
+		permission_denied_error(path);
+		//irrota tiedoston nimi pathista
+		//tulosta pelkka se
+		//jos pathissa on kaks perattaista //, tulosta pelkka vali
+		// if (path[ft_strlen(path) - 1] == '/') //this needs a condition
+		// 	ft_printf("ft_ls: : Permission denied\n");
+		// else if (path[0] == '.' && path[1] == '/' && path[2])
+		// 	ft_printf("ft_ls: %s: Permission denied\n", path + 2); //this aint right
+		// else
+		// 	ft_printf("ft_ls: %s: Permission denied\n", path);
 	}
 }
 

@@ -26,9 +26,6 @@ vaihtamaan listan kokoa, joten initialize_list ei toimi)
 kato etta 42fc menee lapi
 
 
-PELKKA ls ~ hajottaa , ~/ toimii
-
-
 TOTEST:
 ls -l TOTAL osalta (argein, ilman, filein ilman dirreja, dirrein ilman fileja, molemmin)
 
@@ -40,6 +37,9 @@ ls -l <linkki kansioon vailla oikeuksia>
 ls -lt / (nanosekunti-sortti)
 
 ls --, ls -j, ls ---
+
+./ft_ls noperm link_to_noperm_folder
+./ft_ls noperm/ link_to_noperm_folder/
 
 noperm-folder ilman seuraavia /, niiden kanssa (/// myos), ilman edeltavaa ./, sen kanssa
 

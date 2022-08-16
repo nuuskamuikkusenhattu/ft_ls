@@ -44,16 +44,13 @@ void	list_files_in_dir(t_ls *b, char *path)
 			if (b->a == 1 || (b->a == 0 && dir->d_name[0] != '.'))
 			{
 				b->file_list[b->file_count] = ft_strdup(dir->d_name);
-				if (b->R && dir->d_type == 4 && b->ne_count != -1 && b->R == 0)
+				if (b->R == 1 && dir->d_type == 4 && b->ne_count != -1)
 				{
 					b->dir_list[b->dir_count] = ft_strjoin("./", dir->d_name);
-					//protect
 					b->dir_count++;
 				}
 				if (!b->file_list[b->file_count])
-				{
 					exit(1);
-				}
 				b->file_count++;
 				if (dir->d_namlen > b->longest_name)
 					b->longest_name = dir->d_namlen;

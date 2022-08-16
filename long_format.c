@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/15 20:50:32 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/16 13:46:46 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ static void	parse_time(struct stat f_status, char *str)
 {
 	char	**this_time;
 	char	*parsed;
+	char	*trim;
 	time_t	now;
 
 	this_time = ft_strsplit(str, ' ');
@@ -114,7 +115,13 @@ static void	parse_time(struct stat f_status, char *str)
 	if (time(&now) - f_status.st_mtime < 15724800 && time(&now) - f_status.st_mtime > 0)
 		ft_printf("%s %s %s ", this_time[1], this_time[2], parsed);
 	else
-		ft_printf("%s %s %s ", this_time[1], this_time[2], ft_strtrim(this_time[4]));
+	{
+		trim = ft_strtrim(this_time[4]);
+		ft_printf("%s %s %s ", this_time[1], this_time[2], trim);
+		free(trim);
+	}
+	ft_free_array(this_time);
+	free(parsed);
 }
 
 void	get_total(t_ls *b)
@@ -173,12 +180,19 @@ void	print_long_format(t_ls *b)
 			if (!b->option_T)
 				parse_time(f_status, ctime(&f_status.st_mtime));
 			else
-				ft_printf("%s ", ft_strtrim(ctime(&f_status.st_mtime)) + 4);
+			{
+				char *time = ft_strtrim(ctime(&f_status.st_mtime));
+				if (!time)
+					exit(1);
+				ft_printf("%s ",time + 4);
+				free(time);
+			}
 			ft_printf("%s", b->file_list[i]);
 			if (ret == 1)
 				print_link(file_path);
 			write(1, "\n", 1);
 		}
+		free(file_path); //added after functional product
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/15 20:50:19 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:54:58 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,7 @@ void	recursion(t_ls *b, char *path)
 	char **d;
 	int i = 0;
 
+	b->ne_count = -1;
 	d = recursion_dir_list(path);
 	sort_list(d, b->sortc, b->r, "");
 	while (d[i])
@@ -299,6 +300,7 @@ void	print(t_ls *b)
 	if (b->R && b->d == 0)
 	{
 		print_non_existings(b);
+		b->ne_count = -1;
 		print_files_only(b);
 		if (b->dir_count > 0 && b->file_count > 0)
 			write(1, "\n", 1);

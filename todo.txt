@@ -10,6 +10,7 @@ list_files_in_dir args!!
 long_format hommissa vois kayttaa writee, ainaki joskus
 -r voi ehka korvata suorittamalla lopusta alkuun listan kaannon sijaan
 
+strjointhree taitaa olla rikki
 
 CLEANUP:
 turhat funktiot

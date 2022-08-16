@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/16 16:25:27 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/16 18:35:08 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,7 @@ void	print_long_format(t_ls *b)
 			write(1, "\n", 1);
 		}
 		free(file_path); //added after functional product
+		free(acl);
 		i++;
 	}
 }

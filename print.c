@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/16 16:09:15 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/16 18:24:59 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,8 @@ char **recursion_dir_list(char *path)
 
 	d = opendir(path); //protect
 	ret = (char **)malloc(sizeof(char *) * 1000); //optimize
+	if (!ret)
+		exit (1);
 	//protect
 	if (d)
 	{
@@ -232,7 +234,7 @@ char **recursion_dir_list(char *path)
 	{
 		if (dir->d_type == 4 && dir->d_name[0] != '.')
 		{
-			ret[i] = ft_strjoin(path, dir->d_name); //protect
+			ret[i] = ft_strjoin(path, dir->d_name); 
 			if (!ret[i])
 				exit(1);
 			i++;
@@ -260,14 +262,14 @@ void	recursion(t_ls *b, char *path)
 		write(1, "\n", 1);
 		ft_printf("%s:\n", d[i]);
 		current = ft_strjoin(d[i], "/");
-		b->path = ft_strdup(current);
 		initialize_list(b, 'f');
 		list_files_in_dir(b, current);
 		print_files_only(b);
-		recursion(b, ft_strdup(current));
+		recursion(b, current);
+		free(current);
 		i++;
 	}
-	//free(current);
+	ft_free_array(d);
 }
 
 
@@ -309,10 +311,10 @@ void	print(t_ls *b)
 		int i = 0;
 		while (b->dir_list[i])
 		{
-			if (b->dir_list[i][ft_strlen(b->dir_list[i]) - 1] != '/')
+			//if (b->dir_list[i][ft_strlen(b->dir_list[i]) - 1] != '/')
 				b->path = ft_strjoin(b->dir_list[i], "/");
-			else
-				b->path = ft_strdup(b->dir_list[i]);
+			//else
+			//	b->path = ft_strdup(b->dir_list[i]);
 			if (i != 0 || (i == 0 && b->file_count > 0) || b->dir_count > 1)
 				ft_printf("%s:\n", b->path);
 			initialize_list(b, 'f');

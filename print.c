@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/16 15:54:58 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:09:15 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ void	print_files_only(t_ls *b)
 	ioctl(0, TIOCGWINSZ, &window);
 	columns = window.ws_col / (b->longest_name + 1);
 	//ft_printf("columns: %d, width: %d, longest+1: %d\n", columns, window.ws_col, b->longest_name +1);
+	if (columns < 1)
+		columns = 1;
 	rows = b->file_count / columns;
 	if (columns * rows != b->file_count)
 		rows++;
@@ -307,7 +309,10 @@ void	print(t_ls *b)
 		int i = 0;
 		while (b->dir_list[i])
 		{
-			b->path = ft_strjoin(b->dir_list[i], "/");
+			if (b->dir_list[i][ft_strlen(b->dir_list[i]) - 1] != '/')
+				b->path = ft_strjoin(b->dir_list[i], "/");
+			else
+				b->path = ft_strdup(b->dir_list[i]);
 			if (i != 0 || (i == 0 && b->file_count > 0) || b->dir_count > 1)
 				ft_printf("%s:\n", b->path);
 			initialize_list(b, 'f');

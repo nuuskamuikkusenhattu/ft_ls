@@ -99,3 +99,7 @@ managed to list the directories and subdirectories (i think)
 - fixed floating point error (division with 0) for column division 
 - fixed path-creation to stop adding unwanted '/'s
 - added permission_denied_error -function (list.c) to support edgecases
+- started to fixed normi, split functions, removed unused functions 
+
+1708
+- changed some function declarations and created new ones in long_format.c (_helper.c) to pass norm

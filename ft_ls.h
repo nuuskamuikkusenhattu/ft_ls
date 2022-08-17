@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/16 20:41:34 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:38:32 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,14 +104,10 @@ void	test_print_list(t_ls *b, char c);
 void	test_show_params(t_ls *b);
 
 //long format
-void	print_long_format(t_ls *b);
-void 	test_print_this_list(char **list);
+void	print_long_format(t_ls *b, int i, int ret);
+int		print_permissions(struct stat f_status, char *path);
 void	get_total(t_ls *b);
 void	get_acl_data(char *path);
 
-//being playful
-//void	R_start(t_ls *b);
-//int		is_subdir_substr(char *str1, char *str2, int len1);
-//void	sort_R_dirlist(t_ls *b);
 #endif
 

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/16 21:06:03 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:38:06 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	print_files_only(t_ls *b)
 	j = 0;
 	sort_list(b->file_list, b->sortc, b->r, b->path);
 	if (b->l)
-		print_long_format(b);
+		print_long_format(b, 0, 0);
 	else if (b->option_i)
 		print_with_serial_nro(b);
 	else

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/16 21:39:34 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/17 14:37:51 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,88 +18,7 @@ it in the area of memory pointed to by the buf argument. It also
 returns information about the resulting file.
 */
 
-static int	print_file_mode(struct stat f_status)
-{
-	int		ret;
-
-	ret = 0;
-	if (S_ISDIR(f_status.st_mode))
-		write(1, "d", 1);
-	else if (S_ISLNK(f_status.st_mode))
-	{
-		write(1, "l", 1);
-		ret = 1;
-	}
-	else if (S_ISCHR(f_status.st_mode))
-	{
-		write(1, "c", 1);
-		ret = 2;
-	}
-	else if (S_ISBLK(f_status.st_mode))
-	{
-		write(1, "b", 1);
-		ret = 2;
-	}
-	else
-		write(1, "-", 1);
-	return (ret);
-}
-
-static void	print_stickybit(struct stat f_status, int *rights)
-{
-	if (f_status.st_mode & rights[9] && f_status.st_mode & S_IXOTH)
-		write(1, "t", 1);
-	else if (f_status.st_mode & rights[9])
-		write(1, "T", 1);
-	else if (f_status.st_mode & rights[8])
-		write(1, "x", 1);
-	else
-		write(1, "-", 1);
-}
-
-static void	help_print_permissions(struct stat f, int *rights, int i)
-{
-	while (i < 8)
-	{
-		if ((f.st_mode & rights[i]) && i % 3 == 0)
-			write(1, "r", 1);
-		else if ((f.st_mode & rights[i]) && i % 3 == 1)
-			write(1, "w", 1);
-		else if (i % 3 == 2)
-		{
-			if (((f.st_mode & S_ISUID && f.st_mode & S_IXUSR) && i == 2) || \
-			((f.st_mode & S_ISGID && f.st_mode & S_IXGRP) && i == 5))
-				write(1, "s", 1);
-			else if ((f.st_mode & S_ISUID && i == 2) || \
-			(f.st_mode & S_ISGID && i == 5))
-				write(1, "S", 1);
-			else if (f.st_mode & rights[i])
-				write(1, "x", 1);
-			else
-				write(1, "-", 1);
-		}
-		else
-			write(1, "-", 1);
-		i++;
-	}
-}
-
-static int	print_permissions(struct stat f_status, char *path)
-{
-	static int	rights[] = {S_IRUSR, S_IWUSR, S_IXUSR, S_IRGRP, S_IWGRP, \
-	S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH, S_ISVTX, S_ISUID, S_ISGID};
-	int			i;
-	int			ret;
-
-	i = 0;
-	ret = print_file_mode(f_status);
-	help_print_permissions(f_status, rights, i);
-	print_stickybit(f_status, rights);
-	get_acl_data(path);
-	write(1, "  ", 2);
-	return (ret);
-}
-// prints path of link
+// prints path of symbolic link
 
 static void	print_link(char *name)
 {
@@ -118,10 +37,8 @@ static void	print_link(char *name)
 splits time-str into array
 [0] = day (never needed), [1] = month, [2] = day, [3] = hh:mm:ss, [4] = year
 depending on how old the file is, either year or hhmmss is printed
-
-15778476
 */
-static void	parse_time(struct stat f_status, char *str)
+static void	parse_time(struct stat data, char *str)
 {
 	char	**this_time;
 	char	*parsed;
@@ -135,8 +52,8 @@ static void	parse_time(struct stat f_status, char *str)
 	if (!parsed)
 		exit(1);
 	ft_strncpy(parsed, this_time[3], 5);
-	if (time(&now) - f_status.st_mtime < 15724800 && \
-	time(&now) - f_status.st_mtime > 0)
+	if (time(&now) - data.st_mtime < 15778476 && \
+	time(&now) - data.st_mtime > 0)
 		ft_printf("%s %s %s ", this_time[1], this_time[2], parsed);
 	else
 	{
@@ -148,70 +65,50 @@ static void	parse_time(struct stat f_status, char *str)
 	free(parsed);
 }
 
-void	get_total(t_ls *b)
+static void	print_long_data(t_ls *b, struct stat data, char *time, int ret)
 {
-	int			i;
-	int			total;
-	struct stat	f_status;
-	char		*current;
-
-	i = 0;
-	total = 0;
-	while (b->file_list[i])
-	{
-		current = ft_strjoin(b->path, b->file_list[i]);
-		if (!current)
-			exit(1);
-		lstat(current, &f_status);
-		total += f_status.st_blocks;
-		free(current);
-		i++;
-	}
-	ft_printf("total %d\n", total);
-}
-
-void	print_long_format(t_ls *b)
-{
-	struct stat		f_status;
 	struct passwd	*pw;
 	struct group	*gp;
+
+	pw = getpwuid(data.st_uid);
+	gp = getgrgid(data.st_gid);
+	ft_printf("%d %s   ", data.st_nlink, pw->pw_name);
+	if (!b->o)
+		ft_printf("%s  ", gp->gr_name);
+	if (ret == 2)
+		ft_printf("%u,  %u ", major(data.st_rdev), minor(data.st_rdev));
+	else
+		ft_printf("%d ", data.st_size);
+	if (!b->option_T)
+		parse_time(data, ctime(&data.st_mtime));
+	else
+	{
+		time = ft_strtrim(ctime(&data.st_mtime));
+		if (!time)
+			exit(1);
+		ft_printf("%s ", time + 4);
+		free(time);
+	}
+}
+
+void	print_long_format(t_ls *b, int i, int ret)
+{
+	struct stat		data;
 	acl_t			acl;
-	int				i;
-	int				ret;
 	char			*file_path;
 
-	i = 0; //voi ehka kayttaa b.i
-	ret = 0;
 	while (b->file_list[i])
 	{
 		file_path = ft_strjoin(b->path, b->file_list[i]);
 		if (!file_path)
 			exit(1);
 		acl = acl_get_file(file_path, ACL_TYPE_EXTENDED);
-		if (lstat(file_path, &f_status) > -1)
+		if (lstat(file_path, &data) > -1)
 		{
 			if (b->option_i)
-				ft_printf("%d ", f_status.st_ino);
-			ret = print_permissions(f_status, file_path);
-			pw = getpwuid(f_status.st_uid);
-			gp = getgrgid(f_status.st_gid);
-			ft_printf("%d %s   ", f_status.st_nlink, pw->pw_name);
-			if (!b->o)
-				ft_printf("%s  ", gp->gr_name);
-			if (ret == 2)
-				ft_printf("%u,   %u ", major(f_status.st_rdev), minor(f_status.st_rdev));
-			else
-				ft_printf("%d ", f_status.st_size);
-			if (!b->option_T)
-				parse_time(f_status, ctime(&f_status.st_mtime));
-			else
-			{
-				char *time = ft_strtrim(ctime(&f_status.st_mtime));
-				if (!time)
-					exit(1);
-				ft_printf("%s ",time + 4);
-				free(time);
-			}
+				ft_printf("%d ", data.st_ino);
+			ret = print_permissions(data, file_path);
+			print_long_data(b, data, NULL, ret);
 			ft_printf("%s", b->file_list[i]);
 			if (ret == 1)
 				print_link(file_path);

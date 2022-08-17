@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/16 21:11:55 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:14:01 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,35 +56,40 @@ void	sort_ascii(char **list)
 // 	}
 // }
 
-void	sort_by_time(char **list, char *path)
-{
-	int			i;
-	char		*temp;
-	struct stat	f_status;
-	long long	this_time[2];
-	long long	next_time[2];
-	char		*current;
+/*
+int array times contains 4 values.
+first 2 are modific. time and nanosec for first file,
+and the next two are for the one.
+*/
 
-	sort_ascii(list);
-	i = 0;
+static void	string_swap(char **first, char **second, char **temp)
+{
+	*temp = *first;
+	*first = *second;
+	*second = *temp;
+}
+
+void	sort_by_time(char **list, char *path, int i, char *current)
+{
+	struct stat	f_status;
+	long long	times[4];
+
 	while (list[i] && list[i + 1])
 	{
 		current = ft_strjoin(path, list[i]);
 		lstat(current, &f_status);
-		this_time[0] = f_status.st_mtime;
-		this_time[1] = f_status.st_mtimespec.tv_nsec;
+		times[0] = f_status.st_mtime;
+		times[1] = f_status.st_mtimespec.tv_nsec;
 		free(current);
 		current = ft_strjoin(path, list[i + 1]);
 		lstat(current, &f_status);
 		free(current);
-		next_time[0] = f_status.st_mtime;
-		next_time[1] = f_status.st_mtimespec.tv_nsec;
-		if (this_time[0] < next_time[0] || (this_time[0] == next_time[0] \
-		&& this_time[1] < next_time[1]))
+		times[2] = f_status.st_mtime;
+		times[3] = f_status.st_mtimespec.tv_nsec;
+		if (times[0] < times[2] || (times[0] == times[2] \
+		&& times[1] < times[3]))
 		{
-			temp = list[i];
-			list[i] = list[i + 1];
-			list[i + 1] = temp;
+			string_swap(&list[i], &list[i + 1], &current);
 			i -= 3;
 		}
 		i++;
@@ -119,7 +124,10 @@ void	reverse_list(char **list)
 void	sort_list(char **list, char c, int r, char *path)
 {
 	if (c == 't')
-		sort_by_time(list, path);
+	{
+		sort_ascii(list);
+		sort_by_time(list, path, 0, NULL);
+	}
 	else
 		if (c != 'f')
 			sort_ascii(list);

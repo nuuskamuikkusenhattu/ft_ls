@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/17 14:38:06 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:22:28 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ void	recursion(t_ls *b, char *path)
 
 void	print(t_ls *b)
 {
-	if (b->R)
+	if (b->capital_r)
 	{
 		print_non_existings(b);
 		b->ne_count = -1;

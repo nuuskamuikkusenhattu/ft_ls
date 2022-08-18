@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:34:08 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/17 14:03:56 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/17 15:21:36 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	set_flag(t_ls *build, char c)
 	if (c == 'r')
 		build->r = 1;
 	if (c == 'R')
-		build->R = 1;
+		build->capital_r = 1;
 	if (c == 'f')
 		build->f = 1;
 	if (c == 'i')
@@ -34,7 +34,7 @@ static void	set_flag(t_ls *build, char c)
 	if (c == 'o')
 		build->o = 1;
 	if (c == 'T')
-		build->option_T = 1;
+		build->capitalt = 1;
 }
 
 static int	err_option(char *str)
@@ -62,14 +62,14 @@ static int	validate_flags(char *str, t_ls *build)
 	int		i;
 
 	i = 0;
-	if ((str[i] != '-' || !str[i + 1]) && build->flagsParsed == 0)
+	if ((str[i] != '-' || !str[i + 1]) && build->flags_parsed == 0)
 	{
-		build->flagsParsed = 1;
+		build->flags_parsed = 1;
 		return (0);
 	}
 	else if (str[i] == '-' && str[i + 1] == '-' && !str[i + 2])
 	{
-		build->flagsParsed = 1;
+		build->flags_parsed = 1;
 		build->flag_args++;
 		return (1);
 	}
@@ -93,7 +93,7 @@ void	parser(int argc, char **argv, t_ls *build)
 
 	a = 1;
 	ret = 1;
-	while (a < argc && ret == 1 && build->flagsParsed == 0)
+	while (a < argc && ret == 1 && build->flags_parsed == 0)
 	{
 		ret = validate_flags(argv[a], build);
 		if (ret == -1)

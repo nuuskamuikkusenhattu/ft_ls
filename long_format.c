@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/17 14:37:51 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/18 13:20:12 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ static void	print_long_data(t_ls *b, struct stat data, char *time, int ret)
 	if (ret == 2)
 		ft_printf("%u,  %u ", major(data.st_rdev), minor(data.st_rdev));
 	else
-		ft_printf("%d ", data.st_size);
-	if (!b->option_T)
+		ft_printf("%5d ", data.st_size);
+	if (!b->capitalt)
 		parse_time(data, ctime(&data.st_mtime));
 	else
 	{

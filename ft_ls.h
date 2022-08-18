@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/18 13:53:04 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/18 14:07:43 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ typedef struct s_ls
 	int		longest_name;
 	int		exists;
 	int 	nameLen;
+	int		columns;
+	int		rows;
 }	t_ls;
 
 //build

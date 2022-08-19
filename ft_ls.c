@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/17 15:21:41 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/19 20:40:27 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,35 @@ the operands by lexicographical order.
 	, thats why the non-existing -list is as it is
 */
 
+void	init_list(t_ls *build, char c, int count)
+{
+	if (c == 'n')
+	{
+		build->non_exists = (char **)malloc(sizeof(char *) * count);
+		if (!build->non_exists)
+			exit(1);
+		ft_bzero(build->non_exists, count);
+	}
+	if (c == 'd')
+	{
+		build->dir_list = (char **)malloc(sizeof(char *) * count);
+		if (!build->dir_list)
+			exit(1);
+		ft_bzero(build->dir_list, count);
+	}
+	if (c == 'f')
+	{
+		build->file_list = (char **)malloc(sizeof(char *) * count);
+		if (!build->file_list)
+			exit(1);
+		ft_bzero(build->file_list, count);
+	}
+}
+
 static void set_build(t_ls *build, int ac)
 {
-	build->file_list = (char **)malloc(sizeof(char *) * 30000);
-	if (!build->file_list)
-		exit(1);
-	ft_bzero(build->file_list, 30000);
-	build->file_count = 0;
-	build->dir_list = (char **)malloc(sizeof(char *) * 30000);
-	if (!build->dir_list)
-		exit(1);
-	ft_bzero(build->dir_list, 30000);
 	build->dir_count = 0;
-	build->non_exists = (char **)malloc(sizeof(char *) * 8192);
-	if (!build->non_exists)
-		exit(1);
+	build->file_count = 0;
 	build->ne_count = 0;
 	build->a = 0;
 	build->l = 0;
@@ -95,6 +109,8 @@ static void set_build(t_ls *build, int ac)
 	build->argc = ac;
 	build->path = "./";
 	build->sortc = '0';
+	build->columns = 0;
+	build->rows = 0;
 }
 
 /*
@@ -126,7 +142,7 @@ void	initialize_list(t_ls *b, char c)
 
 int main(int argc, char **argv)
 {
-	t_ls *build;
+	t_ls	*build;
 
 	build = (t_ls *)malloc(sizeof(t_ls));
 	if (!build)
@@ -134,6 +150,6 @@ int main(int argc, char **argv)
 	set_build(build, argc);
 	parser(argc, argv, build);
 	create_lists(argv, argc, build);
-	print(build);
+	print(build, 0);
 	exit(0);
 }

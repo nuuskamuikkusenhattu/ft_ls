@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 21:40:09 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/17 14:25:50 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/19 20:49:04 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,15 +101,19 @@ void	get_total(t_ls *b)
 
 	i = 0;
 	total = 0;
-	while (b->file_list[i])
-	{
-		current = ft_strjoin(b->path, b->file_list[i]);
-		if (!current)
-			exit(1);
-		lstat(current, &data);
-		total += data.st_blocks;
-		free(current);
-		i++;
-	}
-	ft_printf("total %d\n", total);
+	// while (i < b->file_count)
+	// {
+	// 	current = ft_strjoin(b->path, b->file_list[i]);
+	// 	if (!current)
+	// 		exit(1);
+	// 	lstat(current, &data);
+	// 	total += data.st_blocks;
+	// 	if (current)
+	// 	{
+	// 		free(current);
+	// 		current = NULL;
+	// 	}
+	// 	i++;
+	// }
+	// ft_printf("total %d\n", total);
 }

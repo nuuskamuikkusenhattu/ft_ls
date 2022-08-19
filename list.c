@@ -69,30 +69,6 @@ void	list_files_in_dir(t_ls *b, char *path)
 		permission_denied_error(path);
 }
 
-void	list_file(t_ls *b, struct stat path, char **argv, int i)
-{
-	if (b->exists == -1)
-	{
-		b->non_exists[b->ne_count] = ft_strdup(argv[i]);
-		b->ne_count++;
-	}
-	else
-		check_longest(b, b->nameLen);
-	if (S_ISLNK(path.st_mode) == 1 && b->exists != -1)
-		list_link(b, argv, i, 0);
-	if (S_ISREG(path.st_mode) == 1 && S_ISLNK(path.st_mode) == 0 \
-	&& b->exists != -1)
-	{
-		b->file_list[b->file_count] = ft_strdup(argv[i]);
-		b->file_count++;
-	}
-	if (S_ISDIR(path.st_mode) == 1 && b->exists != -1)
-	{
-		b->dir_list[b->dir_count] = ft_strdup(argv[i]);
-		b->dir_count++;
-	}
-}
-
 void	list_from_argv(char **argv, t_ls *b, int i, int exists)
 {
 	struct stat	path;
@@ -110,10 +86,54 @@ void	list_from_argv(char **argv, t_ls *b, int i, int exists)
 	b->dir_list[b->dir_count] = NULL;
 }
 
+void	count_all(t_ls *b, char *path)
+{
+	DIR				*d;
+	struct dirent	*dir;
+
+	d = opendir(path);
+	if (d)
+	{
+		while (1)
+		{
+			dir = readdir(d);
+			if (dir == NULL)
+				break ;
+			if (dir->d_type == 4)
+			{
+				b->file_count++;
+				b->dir_count++;
+			}
+			else
+			{
+				b->file_count++;
+			}
+		}
+		closedir(d);
+	}
+	else
+	{
+		b->dir_count++; //
+		b->file_count++; //jos tan ottaa pois niin segfault lahtee mut tulostus jaa pois
+	}
+}
+
 void	create_lists(char **argv, int argc, t_ls *b)
 {
 	if (b->dirfileargc == 0)
+	{
+		count_all(b, b->path);
+		init_list(b, 'd', b->dir_count + 1);
+		init_list(b, 'f', b->file_count + 1);
+		b->file_count = 0;
+		b->dir_count = 0;
 		list_files_in_dir(b, b->path);
+	}
 	else
+	{
+		init_list(b, 'n', b->dirfileargc + 1);
+		init_list(b, 'd', b->dirfileargc + 1);
+		init_list(b, 'f', b->dirfileargc + 1);
 		list_from_argv(argv, b, 0, 0);
+	}
 }

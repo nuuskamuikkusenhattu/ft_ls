@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:23:32 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/18 13:52:57 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/18 21:22:17 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,28 @@ void	list_link(t_ls *b, char **argv, int i, int x)
 	len = readlink(argv[i], buf, MAX_PATH + 1);
 	if (len != -1)
 		list_link_helper(b, argv, buf, i);
+}
+
+void	list_file(t_ls *b, struct stat path, char **argv, int i)
+{
+	if (b->exists == -1)
+	{
+		b->non_exists[b->ne_count] = ft_strdup(argv[i]);
+		b->ne_count++;
+	}
+	else
+		check_longest(b, b->nameLen);
+	if (S_ISLNK(path.st_mode) == 1 && b->exists != -1)
+		list_link(b, argv, i, 0);
+	if (S_ISREG(path.st_mode) == 1 && S_ISLNK(path.st_mode) == 0 \
+	&& b->exists != -1)
+	{
+		b->file_list[b->file_count] = ft_strdup(argv[i]);
+		b->file_count++;
+	}
+	if (S_ISDIR(path.st_mode) == 1 && b->exists != -1)
+	{
+		b->dir_list[b->dir_count] = ft_strdup(argv[i]);
+		b->dir_count++;
+	}
 }

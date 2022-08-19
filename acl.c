@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/15 15:36:39 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/16 21:07:24 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/19 18:24:11 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,9 @@ void	get_acl_data(char *path)
 	a = (int)listxattr(path, NULL, 0, XATTR_NOFOLLOW);
 	if (a > 0)
 		write(1, "@", 1);
-	free(acl);
+	if (acl)
+	{
+		free(acl);
+		acl = NULL;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/18 14:07:43 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:02:33 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 // for column-bonus
 # include "libft/libft.h"
 
-# define FLAGS "lRratfioT"
+# define FLAGS "lRratfioT1"
 # define MAX_PATH 256
 
 typedef struct s_ls
@@ -53,6 +53,7 @@ typedef struct s_ls
 	int		option_i;
 	int		o;
 	int		capitalt;
+	int		option_one;
 	char	sortc;
 	char	**file_list;
 	int		file_count;
@@ -68,13 +69,15 @@ typedef struct s_ls
 	int		dirfileargc;
 	int		longest_name;
 	int		exists;
-	int 	nameLen;
+	int 	name_len;
 	int		columns;
 	int		rows;
 }	t_ls;
 
 //build
 void	initialize_list(t_ls *b, char c);
+void	init_list(t_ls *build, char c, int count);
+void	count_all(t_ls *b, char *path);
 
 //parser
 void	parser(int argc, char **argv, t_ls *build);
@@ -87,6 +90,7 @@ void	list_link_helper(t_ls *b, char **argv, char *buf, int i);
 void	add_to_dirlist(t_ls *b, char *name);
 void	check_longest(t_ls *b, int len);
 void	list_link(t_ls *b, char **argv, int i, int x);
+void	list_file(t_ls *b, struct stat path, char **argv, int i);
 
 //sort
 void	sort_list(char **list, char c, int r, char *path);
@@ -95,15 +99,24 @@ void	sort_by_time(char **list, char *path, int i, char *temp);
 void	reverse_list(char **list);
 
 //print
-void	print(t_ls *b);
-void	print_all_lists(t_ls *build);
+void	print(t_ls *b, int i);
+void	print_all_lists(t_ls *build, int i);
 void	print_files_only(t_ls *b);
 void	print_non_existings(t_ls *b);
+void	print_column_format(t_ls *b, int total, int i, int j);
+void	calc_column_and_row(t_ls *b);
+void	print_with_serial_nro(t_ls *b);
+void	print_option_one(t_ls *b, int i);
 
 //long format
 void	print_long_format(t_ls *b, int i, int ret);
 int		print_permissions(struct stat f_status, char *path);
 void	get_total(t_ls *b);
 void	get_acl_data(char *path);
+
+//recursion
+void	print_all_dirs(t_ls *b, int i);
+void	recursion(t_ls *b, char *path);
+int		count_dirs(char *path);
 
 #endif

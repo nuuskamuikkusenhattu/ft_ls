@@ -103,3 +103,12 @@ managed to list the directories and subdirectories (i think)
 
 1708
 - changed some function declarations and created new ones in long_format.c (_helper.c) to pass norm
+
+1808
+- fixed mallocing
+- fixed leaks
+- fixed major bug with -l
+
+1908
+- added bonus option -1
+- fixed total-count condition for -l

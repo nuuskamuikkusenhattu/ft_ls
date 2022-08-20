@@ -11,7 +11,7 @@ long_format hommissa vois kayttaa writee, ainaki joskus
 -r voi ehka korvata suorittamalla lopusta alkuun listan kaannon sijaan
 
 strjointhree taitaa olla rikki
-
+./ft_ls xyz* hardfile* author LONG_FORMAT.txt 6monthsold.txt oldie link* (columnit pielessa)
 
 joko -h tai -d (vaatis enemman hommaa)
 
@@ -26,10 +26,14 @@ reverse_list voi olla typeraa
 file/dir/ne-laskuri mallocia varten (ehdot! loytyvat listista) (joka kerta pitaa olla valmis
 vaihtamaan listan kokoa, joten initialize_list ei toimi)
 
-kato etta 42fc menee lapi
+kato nanosekat vaan jos tarvii
+
+leaks johtuu
+void	print_all_helper(t_ls *b, int i, char *current) -funktion strdupista
 
 
 TOTEST:
+./ft_ls dirre TODO.txt --aaa.txt xyz* link*
 ls -l TOTAL osalta (argein, ilman, filein ilman dirreja, dirrein ilman fileja, molemmin)
 
 ls -l link_argein, ilman argeja, ilman optioneita

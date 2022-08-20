@@ -76,7 +76,7 @@ void	list_from_argv(char **argv, t_ls *b, int i, int exists)
 	i = 1 + b->flag_args;
 	while (argv[i])
 	{
-		b->nameLen = ft_strlen(argv[i]);
+		b->name_len = ft_strlen(argv[i]);
 		b->exists = lstat(argv[i], &path);
 		list_file(b, path, argv, i);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:04:32 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/19 22:39:49 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:59:30 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,11 @@ void	print_all_dirs(t_ls *b, int i)
 	init_list(b, 'f', b->file_count + 1);
 	b->file_count = 0;
 	list_files_in_dir(b, b->path);
-	if (b->l)
-		get_total(b);
+	// if (b->l && (b->file_count != 0 || b->dirfileargc == 0))
+	// {
+	// 	ft_printf("get_total kutsu tuli recursion.c:sta\n");
+	// 	get_total(b);
+	// }
 	print_files_only(b);
 	recursion(b, b->path);
 }

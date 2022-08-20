@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 14:14:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/19 17:44:57 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:05:32 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,30 +25,36 @@ void	calc_column_and_row(t_ls *b)
 		b->rows++;
 }
 
-void	print_column_format(t_ls *b, int total, int i, int j)
+void	print_option_one(t_ls *b, int i)
 {
 	while (i < b->file_count)
 	{
-		ft_printf("%s\n", b->file_list[i]);
+		ft_printf("%s", b->file_list[i]);
+		if (i + 1 < b->file_count)
+			write(1, "\n", 1);
 		i++;
 	}
-	// while (total < b->file_count)
-	// {
-	// 	if (i + j >= b->file_count - 1 && total < b->file_count)
-	// 		j--;
-	// 	if (b->file_list[i + j])
-	// 	{
-	// 		ft_printf("%-*s", b->longest_name + 1, b->file_list[i + j]);
-	// 		total++;
-	// 	}
-	// 	j += b->rows;
-	// 	if ((j >= (b->rows * b->columns)) || total == b->file_count)
-	// 	{
-	// 		j = 0;
-	// 		i++;
-	// 		write(1, "\n", 1);
-	// 	}
-	// }
+}
+
+void	print_column_format(t_ls *b, int total, int i, int j)
+{
+	while (total < b->file_count)
+	{
+		if (i + j >= b->file_count - 1 && total < b->file_count)
+			j--;
+		if (b->file_list[i + j])
+		{
+			ft_printf("%-*s", b->longest_name + 1, b->file_list[i + j]);
+			total++;
+		}
+		j += b->rows;
+		if ((j >= (b->rows * b->columns)) || total == b->file_count)
+		{
+			j = 0;
+			i++;
+			write(1, "\n", 1);
+		}
+	}
 }
 
 void	print_with_serial_nro(t_ls *b)

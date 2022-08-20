@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/19 21:07:47 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:03:48 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,14 @@ void	print_files_only(t_ls *b)
 	calc_column_and_row(b);
 	if (b->file_count > 1)
 		sort_list(b->file_list, b->sortc, b->r, b->path);
+	if (b->file_count > 0 && b->l)
+		get_total(b);
 	if (b->l)
 		print_long_format(b, 0, 0);
 	else if (b->option_i)
 		print_with_serial_nro(b);
+	else if (b->option_one == 1)
+		print_option_one(b, 0);
 	else
 		print_column_format(b, 0, 0, 0);
 	b->longest_name = 0;
@@ -80,7 +84,7 @@ void	print_all_helper(t_ls *b, int i, char *current)
 	init_list(b, 'f', b->file_count + 1);
 	b->file_count = 0;
 	list_files_in_dir(b, b->dir_list[i]);
-	if (b->l)
+	if (b->l && (b->dirfileargc == 0 || b->file_count != 0))
 		get_total(b);
 	print_files_only(b);
 	if (i != b->dir_count - 1)
@@ -94,7 +98,9 @@ void	print_all_lists(t_ls *b, int i)
 	if (b->non_exists > 0)
 		print_non_existings(b);
 	if (b->dirfileargc == 0 && b->l)
+	{
 		get_total(b);
+	}
 	if (b->file_count > 0)
 		print_files_only(b);
 	if (b->file_count > 0 && b->dir_list[i])

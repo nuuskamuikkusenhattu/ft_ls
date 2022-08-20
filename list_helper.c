@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:23:32 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/18 21:22:17 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/20 15:48:24 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	list_file(t_ls *b, struct stat path, char **argv, int i)
 		b->ne_count++;
 	}
 	else
-		check_longest(b, b->nameLen);
+		check_longest(b, b->name_len);
 	if (S_ISLNK(path.st_mode) == 1 && b->exists != -1)
 		list_link(b, argv, i, 0);
 	if (S_ISREG(path.st_mode) == 1 && S_ISLNK(path.st_mode) == 0 \

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 16:17:40 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:26:53 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void	print(t_ls *b, int i)
 		print_files_only(b);
 		if (b->dir_count > 0 && b->file_count > 0)
 			write(1, "\n", 1);
+		sort_list(b->dir_list, b->sortc, b->r, b->path);
 		while (b->dir_list[i])
 		{
 			print_all_dirs(b, i);

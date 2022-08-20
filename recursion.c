@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:04:32 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 17:25:51 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/20 20:33:14 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	count_dirs(t_ls *b, char *path)
 			dir = readdir(d);
 			if (dir == NULL)
 				break ;
-			if (dir->d_type == 4 && (b->a == 1 || (b->a == 0 && dir->d_name[0] != '.')))
+			if (dir->d_type == 4 && (b->a == 1 || (b->a == 0 && dir->d_name[0] \
+			!= '.')))
 				count++;
 		}
 		closedir(d);
@@ -35,73 +36,71 @@ int	count_dirs(t_ls *b, char *path)
 	return (count);
 }
 
-char	**recursion_dir_list(t_ls *b, char *path, int i, int count, char **ret)
+char	**fill_list(t_ls *b, struct dirent *dir, DIR *d, char *path)
 {
-	DIR				*d;
-	struct dirent	*dir;
+	int		i;
+	char	**ret;
+	int		count;
 
-	d = opendir(path);
+	i = 0;
 	count = count_dirs(b, path) + 1;
 	ret = (char **)malloc(sizeof(char *) * count);
 	if (!ret)
 		exit (1);
-	if (d)
+	while (1)
 	{
-		while (1)
+		dir = readdir(d);
+		if (dir == NULL)
+			break ;
+		if (dir->d_type == 4 && (b->a == 1 || (b->a == 0 && dir->d_name[0] \
+		!= '.')))
 		{
-			dir = readdir(d);
-			if (dir == NULL)
-				break ;
-			if (dir->d_type == 4 && (b->a == 1 || (b->a == 0 && dir->d_name[0] != '.')))
-			{
-				if (!(dir->d_name[1] == '.' ||( dir->d_name[0] == '.' && !dir->d_name[1])))
-				{
-					ret[i] = ft_strjoin(path, dir->d_name);
-					i++;			
-				}
-			}
+			if (!(dir->d_name[1] == '.' || (dir->d_name[0] == '.' && \
+			!dir->d_name[1])))
+				ret[i++] = ft_strjoin(path, dir->d_name);
 		}
-		closedir(d);
 	}
 	ret[i] = NULL;
 	return (ret);
 }
 
-void	recursion(t_ls *b, char *path)
+char	**recursion_dir_list(t_ls *b, char *path, char **ret)
+{
+	DIR				*d;
+	struct dirent	*dir;
+
+	dir = NULL;
+	d = opendir(path);
+	if (d)
+	{
+		ret = fill_list(b, dir, d, path);
+		closedir(d);
+	}
+	else
+	{
+		ret = (char **)malloc(sizeof(char *) * 1);
+		if (!ret)
+			exit(1);
+		ret[0] = NULL;
+	}
+	return (ret);
+}
+
+void	recursion(t_ls *b, char *path, int i, char **d)
 {
 	char	*current;
-	char	**d;
-	int		i;
 
-	i = 0;
 	b->ne_count = -1;
-	d = recursion_dir_list(b, path, 0, 0, NULL);
+	d = recursion_dir_list(b, path, NULL);
 	sort_list(d, b->sortc, b->r, "");
 	while (d[i])
 	{
 		write(1, "\n", 1);
 		ft_printf("%s:\n", d[i]);
 		current = ft_strjoin(d[i], "/");
-		//initialize_list(b, 'f');
-		if (b->file_count > 0)
-			ft_free_array(b->file_list);
-		else
-		{
-			free(b->file_list);
-			b->file_list = NULL;
-		}
-		count_all(b, current);
-		init_list(b, 'f', b->file_count + 1);
-		b->file_count = 0;
-		list_files_in_dir(b, current);
-		free(b->path);
-		b->path = ft_strdup(current);
-		// ft_printf("recursion.c/recursion: current is %s\n", current);
-		// ft_printf("recursion.c/recursion: path is %s\n", b->path);
-		print_files_only(b);
-		free(b->path);
-		b->path = NULL;	
-		recursion(b, current);
+		recursion_helper(b, current);
+		ft_memdel((void *)&b->path);
+		recursion(b, current, 0, NULL);
 		free(current);
 		i++;
 	}
@@ -116,21 +115,14 @@ void	print_all_dirs(t_ls *b, int i)
 	b->path = ft_strjoin(b->dir_list[i], "/");
 	if (i != 0 || (i == 0 && b->file_count > 0) || b->dir_count > 1)
 		ft_printf("%s:\n", b->dir_list[i]);
-	//initialize_list(b, 'f');
 	if (b->file_count > 0)
 		ft_free_array(b->file_list);
 	else
 		free(b->file_list);
-	//ft_printf("recursion.c: path on %s\n", b->path);
 	count_all(b, b->path);
 	init_list(b, 'f', b->file_count + 1);
 	b->file_count = 0;
 	list_files_in_dir(b, b->path);
-	// if (b->l && (b->file_count != 0 || b->dirfileargc == 0))
-	// {
-	// 	ft_printf("get_total kutsu tuli recursion.c:sta\n");
-	// 	get_total(b);
-	// }
 	print_files_only(b);
-	recursion(b, b->path);
+	recursion(b, b->path, 0, NULL);
 }

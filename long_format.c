@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/19 21:59:53 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/20 20:06:13 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,18 +95,14 @@ void	print_long_format(t_ls *b, int i, int ret)
 	acl_t			acl;
 	char			*file_path;
 
-	//ft_printf("fc long_formatin alussa on %d\n", b->file_count);
-	i = 0;
 	while (i < b->file_count)
 	{
 		file_path = ft_strjoin(b->path, b->file_list[i]);
 		if (!file_path)
 			exit(1);
-		//ft_printf("path long_formatissa on %s\n", file_path);
 		acl = acl_get_file(file_path, ACL_TYPE_EXTENDED);
 		if (lstat(file_path, &data) > -1)
 		{
-			//write(1, "a", 1);
 			if (b->option_i)
 				ft_printf("%d ", data.st_ino);
 			ret = print_permissions(data, file_path);

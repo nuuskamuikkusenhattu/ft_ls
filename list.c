@@ -12,34 +12,6 @@
 
 #include "ft_ls.h"
 
-void	permission_denied_error(char *str)
-{
-	int		i;
-	int		ends_with_slash;
-
-	ends_with_slash = 0;
-	i = ft_strlen(str) - 1;
-	if (str[i] == '/')
-		ends_with_slash = 1;
-	while (str[i] == '/')
-	{
-		str[i] = '\0';
-		i--;
-	}
-	while (i > 0)
-	{
-		if (str[i] == '/')
-			break ;
-		i--;
-	}
-	if (i != 0)
-		ft_printf("ft_ls: %s: Permission denied\n", str + i + 1);
-	else if (i == 0 && ends_with_slash == 1)
-		ft_printf("ft_ls: : Permission denied\n");
-	else
-		ft_printf("ft_ls: %s: Permission denied\n", str + i);
-}
-
 void	list_files_in_dir(t_ls *b, char *path)
 {
 	DIR				*d;
@@ -69,7 +41,7 @@ void	list_files_in_dir(t_ls *b, char *path)
 		permission_denied_error(path);
 }
 
-void	list_from_argv(char **argv, t_ls *b, int i, int exists)
+void	list_from_argv(char **argv, t_ls *b, int i)
 {
 	struct stat	path;
 
@@ -86,39 +58,46 @@ void	list_from_argv(char **argv, t_ls *b, int i, int exists)
 	b->dir_list[b->dir_count] = NULL;
 }
 
+void	count_helper(t_ls *b, DIR *d)
+{
+	struct dirent	*dir;
+
+	while (1)
+	{
+		dir = readdir(d);
+		if (dir == NULL)
+			break ;
+		if (dir->d_type == 4 && (b->a == 1 || (b->a == 0 && dir->d_name[0] \
+		!= '.')))
+		{
+			b->file_count++;
+			b->dir_count++;
+		}
+		else
+		{
+			b->file_count++;
+		}
+	}
+}
+
 void	count_all(t_ls *b, char *path)
 {
 	DIR				*d;
-	struct dirent	*dir;
 
 	d = opendir(path);
 	if (d)
 	{
-		while (1)
-		{
-			dir = readdir(d);
-			if (dir == NULL)
-				break ;
-			if (dir->d_type == 4 && (b->a == 1 || (b->a == 0 && dir->d_name[0] != '.')))
-			{
-				b->file_count++;
-				b->dir_count++;
-			}
-			else
-			{
-				b->file_count++;
-			}
-		}
+		count_helper(b, d);
 		closedir(d);
 	}
 	else
 	{
-		b->dir_count++; //
-		b->file_count++; //jos tan ottaa pois niin segfault lahtee mut tulostus jaa pois
+		b->dir_count++;
+		b->file_count++;
 	}
 }
 
-void	create_lists(char **argv, int argc, t_ls *b)
+void	create_lists(char **argv, t_ls *b)
 {
 	if (b->dirfileargc == 0)
 	{
@@ -134,6 +113,6 @@ void	create_lists(char **argv, int argc, t_ls *b)
 		init_list(b, 'n', b->dirfileargc + 1);
 		init_list(b, 'd', b->dirfileargc + 1);
 		init_list(b, 'f', b->dirfileargc + 1);
-		list_from_argv(argv, b, 0, 0);
+		list_from_argv(argv, b, 0);
 	}
 }

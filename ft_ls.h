@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 16:02:33 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/20 20:32:26 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,14 @@
 # include <stdlib.h>
 # include <dirent.h>
 //for directory operations (opendir)
-# include <stdio.h>
-//for system error message (perror)
-# include <string.h>
-//for system error message (strerror)
 # include <sys/stat.h>
 //for file status (stat, lstat)
-# include <sys/types.h>
 # include <pwd.h>
-//for database operations (getpwuid)
 # include <grp.h>
-# include <uuid/uuid.h>
+//for database operations
 //for database operations
 # include <sys/xattr.h>
-//for listxattr/getxattr
+//for extended attributes
 # include <time.h>
 //for ctime
 # include <sys/acl.h>
@@ -83,13 +77,13 @@ void	count_all(t_ls *b, char *path);
 void	parser(int argc, char **argv, t_ls *build);
 
 //list
-void	create_lists(char **argv, int argc, t_ls *b);
+void	create_lists(char **argv, t_ls *b);
 void	list_files_in_dir(t_ls *b, char *path);
 void	list_files_only(t_ls *b);
 void	list_link_helper(t_ls *b, char **argv, char *buf, int i);
 void	add_to_dirlist(t_ls *b, char *name);
 void	check_longest(t_ls *b, int len);
-void	list_link(t_ls *b, char **argv, int i, int x);
+void	list_link(t_ls *b, char **argv, int i);
 void	list_file(t_ls *b, struct stat path, char **argv, int i);
 
 //sort
@@ -116,7 +110,11 @@ void	get_acl_data(char *path);
 
 //recursion
 void	print_all_dirs(t_ls *b, int i);
-void	recursion(t_ls *b, char *path);
-int		count_dirs(char *path);
+void	recursion(t_ls *b, char *path, int i, char **d);
+int		count_dirs(t_ls *b, char *path);
+void	recursion_helper(t_ls *b, char *current);
+
+//error
+void	permission_denied_error(char *str);
 
 #endif

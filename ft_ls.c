@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 16:02:49 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/20 20:04:51 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,16 @@ opendir, readdir, closedir
 ◦ malloc, free
 ◦ perror, strerror ◦ exit
 
-For each operand that names a file of a type other than directory, ls displays its name as well as any
-     requested, associated information.  For each operand that names a file of type directory, ls displays the
-     names of files contained within that directory, as well as any requested, associated information.
+For each operand that names a file of a type other than directory,
+ls displays its name as well as any requested, associated information.
+For each operand that names a file of type directory, ls displays the
+names of files contained within that directory, as well as any requested,
+associated information.
 
-     If no operands are given, the contents of the current directory are displayed.  If more than one operand is
-     given, non-directory operands are displayed first; directory and non-directory operands are sorted sepa-
-     rately and in lexicographical order.
+If no operands are given, the contents of the current directory are displayed.
+If more than one operand is given, non-directory operands are displayed first; 
+directory and non-directory operands are sorted separately and in 
+lexicographical order.
 
 Amongst the numerous options available, we are asking you to create the
 following: -l, -R, -a, -r and -t.
@@ -37,8 +40,9 @@ option -R from the very beginning of your code...
 You do not have to deal with the multiple column format for the exit when
 the option -l isn’t in the arguments.
 ◦ You are not required to deal with ACL and extended attributes.
-◦ The overall display, depending on each option, must stay as identical as pos- sible to the system command. 
-We will be cordial when grading either the padding or the pagination, but no information can be missing.
+◦ The overall display, depending on each option, must stay as identical as 
+possible to the system command. We will be cordial when grading either the 
+padding or the pagination, but no information can be missing.
 
 -l = list in long-format. if the output is to a terminal, a total sum for all
 the file sizes is output on a line before the long listing.
@@ -61,6 +65,34 @@ the operands by lexicographical order.
 	maximum length of command line arg is 8192 (depends on OS, usually less)
 	, thats why the non-existing -list is as it is
 */
+
+void	permission_denied_error(char *str)
+{
+	int		i;
+	int		ends_with_slash;
+
+	ends_with_slash = 0;
+	i = ft_strlen(str) - 1;
+	if (str[i] == '/')
+		ends_with_slash = 1;
+	while (str[i] == '/')
+	{
+		str[i] = '\0';
+		i--;
+	}
+	while (i > 0)
+	{
+		if (str[i] == '/')
+			break ;
+		i--;
+	}
+	if (i != 0)
+		ft_printf("ft_ls: %s: Permission denied\n", str + i + 1);
+	else if (i == 0 && ends_with_slash == 1)
+		ft_printf("ft_ls: : Permission denied\n");
+	else
+		ft_printf("ft_ls: %s: Permission denied\n", str + i);
+}
 
 void	init_list(t_ls *build, char c, int count)
 {
@@ -87,7 +119,7 @@ void	init_list(t_ls *build, char c, int count)
 	}
 }
 
-static void set_build(t_ls *build, int ac)
+static void	set_build(t_ls *build, int ac)
 {
 	build->dir_count = 0;
 	build->file_count = 0;
@@ -114,34 +146,7 @@ static void set_build(t_ls *build, int ac)
 	build->rows = 0;
 }
 
-/*
-	frees list from its content, but doesnt touch the outer array.
-	'f' == file_list
-*/
-//this probably unneeded after mallocing fixed
-void	initialize_list(t_ls *b, char c)
-{
-	if (c == 'f')
-	{
-		while(b->file_count > 0)
-		{
-			free(b->file_list[b->file_count - 1]);
-			b->file_list[b->file_count - 1] = NULL;
-			b->file_count--;
-		}
-	}
-	if (c == 'd')
-	{
-		while(b->dir_count > 0)
-		{
-			free(b->dir_list[b->dir_count - 1]);
-			b->dir_list[b->dir_count - 1] = NULL;
-			b->dir_count--;
-		}
-	}
-}
-
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_ls	*build;
 
@@ -150,7 +155,7 @@ int main(int argc, char **argv)
 		exit(1);
 	set_build(build, argc);
 	parser(argc, argv, build);
-	create_lists(argv, argc, build);
+	create_lists(argv, build);
 	print(build, 0);
 	exit(0);
 }

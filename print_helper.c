@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 14:14:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 16:10:51 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/20 20:11:59 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	calc_column_and_row(t_ls *b)
 	struct winsize	window;
 
 	ioctl(0, TIOCGWINSZ, &window);
-	b->columns = (window.ws_col)/ (b->longest_name + 1);
+	b->columns = (window.ws_col) / (b->longest_name + 1);
 	if (b->columns < 1)
 		b->columns = 1;
 	b->rows = b->file_count / b->columns;
@@ -40,9 +40,7 @@ void	print_column_format(t_ls *b, int total, int i, int j)
 {
 	while (total < b->file_count)
 	{
-		if (i + j >= b->file_count - 1 && total < b->file_count)
-			j--;
-		if (b->file_list[i + j])
+		if (i + j <= b->file_count && b->file_list[i + j])
 		{
 			ft_printf("%-*s", b->longest_name + 1, b->file_list[i + j]);
 			total++;

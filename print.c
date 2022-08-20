@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 17:26:53 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/20 20:10:43 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,8 @@ void	print_non_existings(t_ls *b)
 
 void	print_files_only(t_ls *b)
 {
-	struct winsize	window;
-	int				total;
-
-	total = 0;
-	calc_column_and_row(b);
 	if (b->file_count > 1)
 		sort_list(b->file_list, b->sortc, b->r, b->path);
-	if (b->file_count > 0 && b->l)
-		get_total(b);
 	if (b->l)
 		print_long_format(b, 0, 0);
 	else if (b->option_i)
@@ -52,7 +45,10 @@ void	print_files_only(t_ls *b)
 	else if (b->option_one == 1)
 		print_option_one(b, 0);
 	else
+	{
+		calc_column_and_row(b);
 		print_column_format(b, 0, 0, 0);
+	}
 	b->longest_name = 0;
 }
 
@@ -64,15 +60,10 @@ void	print_all_helper(t_ls *b, int i, char *current)
 	{
 		current = ft_strjoin(b->dir_list[i], "/");
 		b->path = ft_strdup(current);
-		if (current)
-		{
-			free(current);
-			current = NULL;
-		}
+		ft_memdel((void *)&current);
 	}
 	if (b->dirfileargc > 1)
 		ft_printf("%s:\n", b->dir_list[i]);
-	//initialize_list(b, 'f');
 	if (b->file_count > 0)
 		ft_free_array(b->file_list);
 	else
@@ -91,8 +82,6 @@ void	print_all_helper(t_ls *b, int i, char *current)
 
 void	print_all_lists(t_ls *b, int i)
 {
-	char	*current;
-
 	if (b->non_exists > 0)
 		print_non_existings(b);
 	if (b->dirfileargc == 0 && b->l)
@@ -101,20 +90,19 @@ void	print_all_lists(t_ls *b, int i)
 	}
 	if (b->file_count > 0)
 		print_files_only(b);
-	if (b->file_count > 0 && b->dir_list[i])
+	if (b->file_count > 0 && b->dir_count != 0)
 		write(1, "\n", 1);
-	sort_list(b->dir_list, b->sortc, b->r, b->path);
-	while (b->dir_list[i])
+	if (b->dir_count > 0)
 	{
-		print_all_helper(b, i, current);
-		i++;
-		if (b->path)
+		sort_list(b->dir_list, b->sortc, b->r, b->path);
+		while (b->dir_list[i])
 		{
-			free(b->path);
-			b->path = NULL;
+			print_all_helper(b, i, NULL);
+			i++;
+			ft_memdel((void *)&b->path);
+			if (b->dir_list[i])
+				write(1, "\n", 1);
 		}
-		if (b->dir_list[i])
-			write(1, "\n", 1);
 	}
 }
 

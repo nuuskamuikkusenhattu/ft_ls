@@ -6,13 +6,13 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:04:32 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 15:59:30 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/20 17:01:42 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int	count_dirs(char *path)
+int	count_dirs(t_ls *b, char *path)
 {
 	DIR				*d;
 	struct dirent	*dir;
@@ -27,7 +27,7 @@ int	count_dirs(char *path)
 			dir = readdir(d);
 			if (dir == NULL)
 				break ;
-			if (dir->d_type == 4 && dir->d_name[0] != '.')
+			if (dir->d_type == 4 && (b->a == 1 || (b->a == 0 && dir->d_name[0] != '.')))
 				count++;
 		}
 		closedir(d);
@@ -35,13 +35,13 @@ int	count_dirs(char *path)
 	return (count);
 }
 
-char	**recursion_dir_list(char *path, int i, int count, char **ret)
+char	**recursion_dir_list(t_ls *b, char *path, int i, int count, char **ret)
 {
 	DIR				*d;
 	struct dirent	*dir;
 
 	d = opendir(path);
-	count = count_dirs(path) + 1;
+	count = count_dirs(b, path) + 1;
 	ret = (char **)malloc(sizeof(char *) * count);
 	if (!ret)
 		exit (1);
@@ -52,10 +52,13 @@ char	**recursion_dir_list(char *path, int i, int count, char **ret)
 			dir = readdir(d);
 			if (dir == NULL)
 				break ;
-			if (dir->d_type == 4 && dir->d_name[0] != '.')
+			if (dir->d_type == 4 && (b->a == 1 || (b->a == 0 && dir->d_name[0] != '.')))
 			{
-				ret[i] = ft_strjoin(path, dir->d_name);
-				i++;
+				if (!(dir->d_name[1] == '.' ||( dir->d_name[0] == '.' && !dir->d_name[1])))
+				{
+					ret[i] = ft_strjoin(path, dir->d_name);
+					i++;			
+				}
 			}
 		}
 		closedir(d);
@@ -72,7 +75,7 @@ void	recursion(t_ls *b, char *path)
 
 	i = 0;
 	b->ne_count = -1;
-	d = recursion_dir_list(path, 0, 0, NULL);
+	d = recursion_dir_list(b, path, 0, 0, NULL);
 	sort_list(d, b->sortc, b->r, "");
 	while (d[i])
 	{

@@ -99,7 +99,7 @@ void	count_all(t_ls *b, char *path)
 			dir = readdir(d);
 			if (dir == NULL)
 				break ;
-			if (dir->d_type == 4)
+			if (dir->d_type == 4 && (b->a == 1 || (b->a == 0 && dir->d_name[0] != '.')))
 			{
 				b->file_count++;
 				b->dir_count++;

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 14:14:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 16:05:32 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:10:51 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	print_option_one(t_ls *b, int i)
 	while (i < b->file_count)
 	{
 		ft_printf("%s", b->file_list[i]);
-		if (i + 1 < b->file_count)
+		if (i < b->file_count)
 			write(1, "\n", 1);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 16:03:48 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/20 16:17:40 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ void	print_all_helper(t_ls *b, int i, char *current)
 	if (b->l && (b->dirfileargc == 0 || b->file_count != 0))
 		get_total(b);
 	print_files_only(b);
-	if (i != b->dir_count - 1)
-		write(1, "\n", 1);
 }
 
 void	print_all_lists(t_ls *b, int i)
@@ -115,6 +113,8 @@ void	print_all_lists(t_ls *b, int i)
 			free(b->path);
 			b->path = NULL;
 		}
+		if (b->dir_list[i])
+			write(1, "\n", 1);
 	}
 }
 

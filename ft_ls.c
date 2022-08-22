@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/05 14:22:12 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 20:04:51 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/22 18:35:05 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ the operands by lexicographical order.
 	, thats why the non-existing -list is as it is
 */
 
-void	permission_denied_error(char *str)
+void	permission_denied_error(char *str, t_ls *b)
 {
 	int		i;
 	int		ends_with_slash;
@@ -92,6 +92,7 @@ void	permission_denied_error(char *str)
 		ft_printf("ft_ls: : Permission denied\n");
 	else
 		ft_printf("ft_ls: %s: Permission denied\n", str + i);
+	b->errno = 1;
 }
 
 void	init_list(t_ls *build, char c, int count)
@@ -144,6 +145,7 @@ static void	set_build(t_ls *build, int ac)
 	build->sortc = '0';
 	build->columns = 0;
 	build->rows = 0;
+	build->errno = 0;
 }
 
 int	main(int argc, char **argv)
@@ -157,5 +159,5 @@ int	main(int argc, char **argv)
 	parser(argc, argv, build);
 	create_lists(argv, build);
 	print(build, 0);
-	exit(0);
+	exit(build->errno);
 }

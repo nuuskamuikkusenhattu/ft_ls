@@ -112,3 +112,7 @@ managed to list the directories and subdirectories (i think)
 1908
 - added bonus option -1
 - fixed total-count condition for -l
+
+2208
+- fixed error with calling memdel
+- added return value handling for error-cases

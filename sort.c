@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/12 18:58:56 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 20:35:40 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/22 18:35:58 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,10 @@ void	sort_by_time(char **list, char *path, int i, char *current)
 		lstat(current, &f_status);
 		times[0] = f_status.st_mtime;
 		times[1] = f_status.st_mtimespec.tv_nsec;
-		ft_memdel((void *)current);
+		ft_memdel((void *)&current);
 		current = ft_strjoin(path, list[i + 1]);
 		lstat(current, &f_status);
-		ft_memdel((void *)current);
+		ft_memdel((void *)&current);
 		times[2] = f_status.st_mtime;
 		times[3] = f_status.st_mtimespec.tv_nsec;
 		if (times[0] < times[2] || (times[0] == times[2] \

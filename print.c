@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 20:10:43 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/22 18:33:42 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	print_non_existings(t_ls *b)
 			b->non_exists[i]);
 		i++;
 	}
+	b->errno = 1;
 }
 
 void	print_files_only(t_ls *b)

@@ -38,7 +38,7 @@ void	list_files_in_dir(t_ls *b, char *path)
 		closedir(d);
 	}
 	else
-		permission_denied_error(path);
+		permission_denied_error(path, b);
 }
 
 void	list_from_argv(char **argv, t_ls *b, int i)

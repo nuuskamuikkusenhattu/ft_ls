@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 20:32:26 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/22 18:37:37 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,10 @@ typedef struct s_ls
 	int		dirfileargc;
 	int		longest_name;
 	int		exists;
-	int 	name_len;
+	int		name_len;
 	int		columns;
 	int		rows;
+	int		errno;
 }	t_ls;
 
 //build
@@ -115,6 +116,6 @@ int		count_dirs(t_ls *b, char *path);
 void	recursion_helper(t_ls *b, char *current);
 
 //error
-void	permission_denied_error(char *str);
+void	permission_denied_error(char *str, t_ls *b);
 
 #endif

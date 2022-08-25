@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 20:06:13 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/24 20:38:50 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,22 @@ static void	parse_time(struct stat data, char *str)
 	free(parsed);
 }
 
+static void	pw_and_gp(struct stat d, struct passwd *p, struct group *g, t_ls *b)
+{
+	if (p)
+		ft_printf("%-4d %-10s   ", d.st_nlink, p->pw_name);
+	else
+		ft_printf("%-4d %-10lld   ", d.st_nlink, d.st_uid);
+	if (!b->o)
+	{
+		if (g)
+			ft_printf("%-6s  ", g->gr_name);
+		else
+			ft_printf("%-6lld  ", d.st_gid);
+		
+	}
+}
+
 static void	print_long_data(t_ls *b, struct stat data, char *time, int ret)
 {
 	struct passwd	*pw;
@@ -70,9 +86,7 @@ static void	print_long_data(t_ls *b, struct stat data, char *time, int ret)
 
 	pw = getpwuid(data.st_uid);
 	gp = getgrgid(data.st_gid);
-	ft_printf("%d %s   ", data.st_nlink, pw->pw_name);
-	if (!b->o)
-		ft_printf("%s  ", gp->gr_name);
+	pw_and_gp(data, pw, gp, b);
 	if (ret == 2)
 		ft_printf("%u,  %u ", major(data.st_rdev), minor(data.st_rdev));
 	else

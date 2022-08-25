@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/05 14:05:26 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/22 18:33:42 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/25 20:37:06 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	print_non_existings(t_ls *b)
 
 void	print_files_only(t_ls *b)
 {
+	int		win_width;
+
 	if (b->file_count > 1)
 		sort_list(b->file_list, b->sortc, b->r, b->path);
 	if (b->l)
@@ -47,8 +49,11 @@ void	print_files_only(t_ls *b)
 		print_option_one(b, 0);
 	else
 	{
-		calc_column_and_row(b);
-		print_column_format(b, 0, 0, 0);
+		win_width = calc_column_and_row(b);
+		if (b->longest_name >= win_width)
+			print_option_one(b, 0);
+		else
+			print_column_format(b, 0, 0, 0);
 	}
 	b->longest_name = 0;
 }

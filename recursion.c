@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:04:32 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 20:33:14 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/25 20:28:33 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,10 @@ void	recursion(t_ls *b, char *path, int i, char **d)
 
 void	print_all_dirs(t_ls *b, int i)
 {
-	b->path = ft_strjoin(b->dir_list[i], "/");
+	if (ft_strcmp(b->dir_list[i], "/") == 0)
+		b->path = ft_strdup("/");
+	else
+		b->path = ft_strjoin(b->dir_list[i], "/");
 	if (i != 0 || (i == 0 && b->file_count > 0) || b->dir_count > 1)
 		ft_printf("%s:\n", b->dir_list[i]);
 	if (b->file_count > 0)
@@ -123,6 +126,8 @@ void	print_all_dirs(t_ls *b, int i)
 	init_list(b, 'f', b->file_count + 1);
 	b->file_count = 0;
 	list_files_in_dir(b, b->path);
+	if (b->l && b->file_count > 0)
+		get_total(b);
 	print_files_only(b);
 	recursion(b, b->path, 0, NULL);
 }

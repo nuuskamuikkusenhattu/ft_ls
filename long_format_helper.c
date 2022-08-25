@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 21:40:09 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 15:49:40 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/24 20:44:04 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ static int	print_file_mode(struct stat f_status)
 		write(1, "b", 1);
 		ret = 2;
 	}
+	else if (S_ISSOCK(f_status.st_mode))
+		write(1, "s", 1);
+	else if (S_ISFIFO(f_status.st_mode))
+		write(1, "p", 1);
 	else
 		write(1, "-", 1);
 	return (ret);

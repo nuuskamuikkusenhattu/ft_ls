@@ -6,13 +6,13 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 14:14:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 20:11:59 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/22 18:50:37 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	calc_column_and_row(t_ls *b)
+int	calc_column_and_row(t_ls *b)
 {
 	struct winsize	window;
 
@@ -23,6 +23,7 @@ void	calc_column_and_row(t_ls *b)
 	b->rows = b->file_count / b->columns;
 	if (b->columns * b->rows != b->file_count)
 		b->rows++;
+	return (window.ws_col);
 }
 
 void	print_option_one(t_ls *b, int i)

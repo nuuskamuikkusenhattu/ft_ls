@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:23:32 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/20 19:06:03 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/25 20:16:39 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,12 @@ void	list_link_helper(t_ls *b, char **argv, char *buf, int i)
 
 void	add_to_dirlist(t_ls *b, char *name)
 {
-	b->dir_list[b->dir_count] = ft_strjoin("./", name);
-	b->dir_count++;
-	b->dir_list[b->dir_count] = NULL;
+	if (ft_strcmp(name, ".") != 0 && ft_strcmp(name, "..") != 0)
+	{	
+		b->dir_list[b->dir_count] = ft_strjoin("./", name);
+		b->dir_count++;
+		b->dir_list[b->dir_count] = NULL;
+	}
 }
 
 void	check_longest(t_ls *b, int len)

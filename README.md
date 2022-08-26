@@ -1,6 +1,6 @@
 HIVE HELSINKI project ft_ls
 
-In this project I reproduce behavior of command ls with args -latrR, and with bonus args -fioT1.
+In this project I reproduce behavior of command ls with options -latrR, and as a bonus options -fioT1.
 
 The project is written according to 42-Norme, which comes some restrictions (some of the code may look quite odd), such as:
 - max 25 lines per function

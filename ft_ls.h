@@ -6,7 +6,7 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/21 13:54:59 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/22 18:37:37 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/22 18:50:47 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	print_all_lists(t_ls *build, int i);
 void	print_files_only(t_ls *b);
 void	print_non_existings(t_ls *b);
 void	print_column_format(t_ls *b, int total, int i, int j);
-void	calc_column_and_row(t_ls *b);
+int		calc_column_and_row(t_ls *b);
 void	print_with_serial_nro(t_ls *b);
 void	print_option_one(t_ls *b, int i);
 

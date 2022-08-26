@@ -6,12 +6,11 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/20 14:40:33 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/24 20:38:50 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:15:17 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
 /*
 The lstat() function gets status information about a specified file and places 
 it in the area of memory pointed to by the buf argument. It also
@@ -75,7 +74,6 @@ static void	pw_and_gp(struct stat d, struct passwd *p, struct group *g, t_ls *b)
 			ft_printf("%-6s  ", g->gr_name);
 		else
 			ft_printf("%-6lld  ", d.st_gid);
-		
 	}
 }
 
@@ -88,7 +86,12 @@ static void	print_long_data(t_ls *b, struct stat data, char *time, int ret)
 	gp = getgrgid(data.st_gid);
 	pw_and_gp(data, pw, gp, b);
 	if (ret == 2)
-		ft_printf("%u,  %u ", major(data.st_rdev), minor(data.st_rdev));
+	{
+		if (minor(data.st_rdev) > 500)
+			ft_printf("%u,  %010p ", major(data.st_rdev), minor(data.st_rdev));
+		else
+			ft_printf("%u,  %u ", major(data.st_rdev), minor(data.st_rdev));
+	}
 	else
 		ft_printf("%5d ", data.st_size);
 	if (!b->capitalt)

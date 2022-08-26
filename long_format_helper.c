@@ -6,17 +6,14 @@
 /*   By: spuustin <spuustin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 21:40:09 by spuustin          #+#    #+#             */
-/*   Updated: 2022/08/24 20:44:04 by spuustin         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:16:34 by spuustin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int	print_file_mode(struct stat f_status)
+static int	print_file_mode(struct stat f_status, int ret)
 {
-	int		ret;
-
-	ret = 0;
 	if (S_ISDIR(f_status.st_mode))
 		write(1, "d", 1);
 	else if (S_ISLNK(f_status.st_mode))
@@ -88,7 +85,7 @@ int	print_permissions(struct stat f_status, char *path)
 	S_IXGRP, S_IROTH, S_IWOTH, S_IXOTH, S_ISVTX, S_ISUID, S_ISGID};
 	int			ret;
 
-	ret = print_file_mode(f_status);
+	ret = print_file_mode(f_status, 0);
 	help_print_permissions(f_status, rights, 0);
 	print_stickybit(f_status, rights);
 	get_acl_data(path);

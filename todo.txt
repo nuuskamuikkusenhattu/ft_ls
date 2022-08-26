@@ -58,3 +58,4 @@ non-existing file of length > 256
 eeeeiku ei pida paikkansa, -a rikkoo joo
 tulostuu ties miten paljon kaikkea skeidaa
 pitaa kysya ennen strjoin taas et onko . tai .. ja jos on niin jattaa tekematta paljon asioita, varmaanki 
+-Rra tuolla testikansiossa (joku ehto onko kansio . tai .., jos on, ala lisaa listaan jossain rekursion osassa, ehka)

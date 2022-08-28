@@ -1,4 +1,0 @@
-ls invalid.c heymom.txt (files that werent found)--> 
-"ls: heymom.txt: No such file or directory"
-"ls: invalid.c: No such file or directory"
-
